@@ -22,7 +22,7 @@ class AMSSEOHandler extends IdgObjectHandler
 
     private function readDb($setting_type)
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $sql = 'SELECT settingvalue FROM ' . $this->db->prefix('ams_setting') . " WHERE settingtype='" . $setting_type . "'";
 
         $result=$this->db->query($sql, 1, 0);
@@ -32,7 +32,7 @@ class AMSSEOHandler extends IdgObjectHandler
 
     private function updateDb($setting_type, $setting_value)
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $sql = 'UPDATE ' . $this->db->prefix('ams_setting') . " SET settingvalue='" . $setting_value . "' WHERE settingtype='" . $setting_type . "'";
         if (!$this->db->query($sql)) {
             return false;

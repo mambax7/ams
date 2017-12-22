@@ -42,7 +42,7 @@ switch ($op) {
         $output = "<div align='right'>
                         <a href='spotlight.php?op=add'><img src='../assets/images/new.png' />"._AMS_AM_SPOT_ADD . '</a>';
         if (is_object($spotlightBlock)) {
-            $output .= "<br />
+            $output .= "<br>
                         <a href='".XOOPS_URL . '/modules/system/admin.php?fct=blocksadmin&op=edit&bid='
                        . $spotlightBlock->getVar('bid') . "'><img src='../assets/images/edit.png' />" . _AMS_AM_SPOT_EDITBLOCK . '</a>';
         }

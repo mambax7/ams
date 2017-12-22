@@ -36,7 +36,7 @@
                 <input type="radio" name="op" value="delversions" /><{$smarty.const._AMS_NW_DELVERSIONS}>
                 <input type="radio" name="op" value="delallversions" /><{$smarty.const._AMS_NW_DELALLVERSIONS}>
                 
-                <input type="hidden" name="storyid" value="<{$story.id}>" /><br />
+                <input type="hidden" name="storyid" value="<{$story.id}>" /><br>
                 <input type="submit" name="submit" value="<{$smarty.const._AMS_NW_SUBMIT}>" accesskey="s" />
             </td>
         </tr>

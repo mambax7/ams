@@ -3,7 +3,7 @@ include __DIR__ . '/../../mainfile.php';
 include_once __DIR__ . '/class/class.sfiles.php';
 include_once __DIR__ . '/class/class.newsstory.php';
 
-$myts = MyTextSanitizer::getInstance(); // MyTextSanitizer object
+$myts = \MyTextSanitizer::getInstance(); // MyTextSanitizer object
 $fileid = isset($_GET['fileid']) ? (int)$_GET['fileid'] : 0;
 if (empty($fileid)) {
     redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _ERRORS);

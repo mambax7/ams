@@ -74,7 +74,7 @@ function newSubmissions()
                 . '<td align="right"><a href="articles.php?op=delete&amp;storyid=' . $newstory -> storyid() . '">' . _AMS_AM_DELETE . '</a></td></tr>';
         }
         echo '</td></tr></table>';
-        echo '<br />';
+        echo '<br>';
     }
 }
 
@@ -191,7 +191,7 @@ function lastStories()
                 . '</tr>';
         }
     }
-    echo '</table><br />';
+    echo '</table><br>';
     $totalPublished = AmsStory::countPublishedByTopic();
     if ($totalPublished > $xoopsModuleConfig['storycountadmin']) {
         include_once XOOPS_ROOT_PATH.'/class/pagenav.php';
@@ -259,7 +259,7 @@ function topicsmanager()
     if ($totaltopics > $xoopsModuleConfig['storycountadmin']) {
         $pagenav = new XoopsPageNav($totaltopics, $xoopsModuleConfig['storycountadmin'], $start, 'start', 'op=topicsmanager');
         echo "<div align='right'>";
-        echo $pagenav->renderNav().'</div><br />';
+        echo $pagenav->renderNav().'</div><br>';
     }
 
     $topic_id = isset($_GET['topic_id']) ? (int)$_GET['topic_id'] : 0;
@@ -303,7 +303,7 @@ function topicsmanager()
         $sform->addElement(new XoopsFormHidden('topic_pid', 0));
     }
     // ********** Picture
-    $imgtray = new XoopsFormElementTray(_AMS_AM_TOPICIMG, '<br />');
+    $imgtray = new XoopsFormElementTray(_AMS_AM_TOPICIMG, '<br>');
 
     $imgpath=sprintf(_AMS_AM_IMGNAEXLOC, 'modules/' . $xoopsModule-> dirname() . '/assets/images/topics/');
     $imageselect= new XoopsFormSelect($imgpath, 'topic_imgurl', $topicimage);
@@ -313,13 +313,13 @@ function topicsmanager()
     }
     $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"topic_imgurl\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
     $imgtray->addElement($imageselect, false);
-    $imgtray -> addElement(new XoopsFormLabel('', "<br /><img src='" . XOOPS_URL . '/'
+    $imgtray -> addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/'
                                                   . $uploadirectory . '/'
                                                   . $topicimage . "' name='image3' id='image3' alt='' />"));
 
 
     $uploadfolder=sprintf(_AMS_AM_UPLOAD_WARNING, XOOPS_URL . '/modules/' . $xoopsModule-> dirname() . '/assets/images/topics');
-    $fileseltray= new XoopsFormElementTray('', '<br />');
+    $fileseltray= new XoopsFormElementTray('', '<br>');
     $fileseltray->addElement(new XoopsFormFile(_AMS_AM_TOPIC_PICTURE, 'attachedfile', $xoopsModuleConfig['maxuploadsize']), false);
     $fileseltray->addElement(new XoopsFormLabel($uploadfolder), false);
     $imgtray->addElement($fileseltray);
@@ -522,7 +522,7 @@ function delTopic()
     if (!isset($_POST['ok'])) {
         echo '<h4>' . _AMS_AM_CONFIG . '</h4>';
         $xt = new XoopsTopic($xoopsDB -> prefix('ams_topics'), (int)$_GET['topic_id']);
-        xoops_confirm(array('op' => 'delTopic', 'topic_id' => (int)$_GET['topic_id'], 'ok' => 1 ), 'articles.php', _AMS_AM_WAYSYWTDTTAL . '<br />' . $xt->topic_title('S'));
+        xoops_confirm(array('op' => 'delTopic', 'topic_id' => (int)$_GET['topic_id'], 'ok' => 1 ), 'articles.php', _AMS_AM_WAYSYWTDTTAL . '<br>' . $xt->topic_title('S'));
     } else {
         $xt = new XoopsTopic($xoopsDB -> prefix('ams_topics'), (int)$_POST['topic_id']);
         // get all subtopics under the specified topic
@@ -763,7 +763,7 @@ switch ($op) {
         } else {
             $story = new AmsStory($storyid);
             echo '<h4>' . _AMS_AM_CONFIG . '</h4>';
-            xoops_confirm(array('op' => 'delete', 'storyid' => $storyid, 'ok' => 1), 'articles.php', _AMS_AM_RUSUREDEL . '<br />' . $story->title());
+            xoops_confirm(array('op' => 'delete', 'storyid' => $storyid, 'ok' => 1), 'articles.php', _AMS_AM_RUSUREDEL . '<br>' . $story->title());
         }
         break;
 
@@ -802,10 +802,10 @@ switch ($op) {
         }
         $storycount = $audienceHandler->getStoryCountByAudience($thisaudience);
         if ($storycount > 0) {
-            xoops_confirm(array('op' => 'delaudienceok', 'audienceid' => $_GET['audienceid'], 'newaudience' => $newaudiences), 'articles.php', $thisaudience->getVar('audience') . '<br />'
+            xoops_confirm(array('op' => 'delaudienceok', 'audienceid' => $_GET['audienceid'], 'newaudience' => $newaudiences), 'articles.php', $thisaudience->getVar('audience') . '<br>'
                                                                                                                                                . sprintf(_AMS_AM_AUDIENCEHASSTORIES, $storycount));
         } else {
-            xoops_confirm(array('op' => 'delaudienceok', 'audienceid' => $_GET['audienceid'], 'newaudience' => 1), 'articles.php', $thisaudience->getVar('audience') . '<br />'
+            xoops_confirm(array('op' => 'delaudienceok', 'audienceid' => $_GET['audienceid'], 'newaudience' => 1), 'articles.php', $thisaudience->getVar('audience') . '<br>'
                                                                                                                                    . _AMS_AM_RUSUREDELAUDIENCE);
         }
         break;

@@ -124,7 +124,7 @@ define('_INSTALL_L107', 'Please check the database server and its configuration.
 define('_INSTALL_L108', 'Connection to database server is OK.');
 define('_INSTALL_L109', 'Database %s does not exists.');
 define('_INSTALL_L110', 'Database %s exists and connectable.');
-define('_INSTALL_L111', 'Database connection is OK.<br />Press the button below to create database tables.');
+define('_INSTALL_L111', 'Database connection is OK.<br>Press the button below to create database tables.');
 define('_INSTALL_L112', 'admin user setting');
 define('_INSTALL_L113', 'Table %s deleted.');
 define('_INSTALL_L114', 'Failed creating database tables.');
@@ -147,7 +147,7 @@ define('_INSTALL_L126', 'Could not write to file %s.');
 
 define(
     '_INSTALL_L130',
-       'The installer has detected tables for XOOPS 1.3.x in your database.<br />The installer will now attempt to upgrade your database to XOOPS2.'
+       'The installer has detected tables for XOOPS 1.3.x in your database.<br>The installer will now attempt to upgrade your database to XOOPS2.'
 );
 define('_INSTALL_L131', 'Tables for XOOPS2 already exist in your database.');
 define('_INSTALL_L132', 'update tables');
@@ -161,7 +161,7 @@ define('_INSTALL_L139', 'update avatars');
 define('_INSTALL_L140', 'update smilies');
 define(
     '_INSTALL_L141',
-       'The installer will now update each module to work with XOOPS2.<br />Make sure that you have uploaded all files in XOOPS2 package to your server.<br />This may take a while to complete.'
+       'The installer will now update each module to work with XOOPS2.<br>Make sure that you have uploaded all files in XOOPS2 package to your server.<br>This may take a while to complete.'
 );
 define('_INSTALL_L142', 'Updating modules..');
 define('_INSTALL_L143', 'The installer will now update configuration data of XOOPS 1.3.x to be used with XOOPS2.');
@@ -170,12 +170,12 @@ define('_INSTALL_L145', 'Comment (ID: %s) inserted to the database.');
 define('_INSTALL_L146', 'Could not insert comment (ID: %s) to the database.');
 define('_INSTALL_L147', 'Updating comments..');
 define('_INSTALL_L148', 'Update complete.');
-define('_INSTALL_L149', 'The installer will now update comment posts in XOOPS 1.3.x to be used in XOOPS2.<br />This may take a while to complete.');
+define('_INSTALL_L149', 'The installer will now update comment posts in XOOPS 1.3.x to be used in XOOPS2.<br>This may take a while to complete.');
 define(
     '_INSTALL_L150',
-       'The installer will now update the smiley and user rank images to be used with XOOPS2.<br />This may take a while to complete.'
+       'The installer will now update the smiley and user rank images to be used with XOOPS2.<br>This may take a while to complete.'
 );
-define('_INSTALL_L151', 'The installer will now update the user avatar images to be used in XOOPS2.<br />This may take a while to complete.');
+define('_INSTALL_L151', 'The installer will now update the user avatar images to be used in XOOPS2.<br>This may take a while to complete.');
 define('_INSTALL_L155', 'Updating smiley/rank images..');
 define('_INSTALL_L156', 'Updating user avatar images..');
 define('_INSTALL_L157', 'Select the default user group for each group type');

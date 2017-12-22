@@ -102,7 +102,7 @@ class AmsStory extends AmsXoopsStory
 
     public function hometext($format= 'Show')
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $html = 1;
         $smiley = 1;
         $xcodes = 1;
@@ -134,7 +134,7 @@ class AmsStory extends AmsXoopsStory
 
     public function bodytext($format= 'Show')
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $html = 1;
         $smiley = 1;
         $xcodes = 1;
@@ -174,10 +174,10 @@ class AmsStory extends AmsXoopsStory
         $asobject = true,
         $order = 'published',
         $ids = false,
-        $orderdir = 'DESC')
-    {
+        $orderdir = 'DESC'
+    ) {
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $ret = array();
         $sql = 'SELECT * FROM '
                . $db->prefix('ams_article') . ' n, '
@@ -236,7 +236,7 @@ class AmsStory extends AmsXoopsStory
     public static function getAllSubmitted($limit=0, $asobject=true, $checkRight = false)
     {
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $ret = array();
         $criteria = new CriteriaCompo(new Criteria('published', 0));
         if ($checkRight) {
@@ -482,7 +482,7 @@ class AmsStory extends AmsXoopsStory
 
     public function store($approved = false)
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $title =$myts->censorString($this->title);
         $title = $myts->addSlashes($title);
         if (!isset($this->nohtml) || 1 != $this->nohtml) {
@@ -602,7 +602,7 @@ class AmsStory extends AmsXoopsStory
 
     public function updateVersion()
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $hometext = $myts->censorString($this->hometext);
         $bodytext = $myts->censorString($this->bodytext);
         $hometext = addslashes($hometext);
@@ -879,7 +879,7 @@ class AmsStory extends AmsXoopsStory
                     $xoopsTpl->assign('pagenav', $pagenav->renderNav());
                     $story['bodytext'] = $articletext[$storypage];
                 } elseif ($story_pages > 1) {
-                    $story['bodytext'] = implode('<br /><b>'._AMS_MA_PAGEBREAK . '</b><br />', $articletext);
+                    $story['bodytext'] = implode('<br><b>'._AMS_MA_PAGEBREAK . '</b><br>', $articletext);
                 } else {
                     $story['bodytext'] = $bodytext;
                 }
@@ -887,7 +887,7 @@ class AmsStory extends AmsXoopsStory
                 $articletext = explode('[pagebreak]', $bodytext);
                 $story_pages = count($articletext);
                 if ($story_pages > 1 && $storypage == -1) {
-                    $story['bodytext'] = implode('<br /><b>'._AMS_MA_PAGEBREAK . '</b><br />', $articletext);
+                    $story['bodytext'] = implode('<br><b>'._AMS_MA_PAGEBREAK . '</b><br>', $articletext);
                 } else {
                     $story['bodytext'] = $bodytext;
                 }

@@ -13,9 +13,9 @@ if (isset($_POST['submit'])) {
         $error = 0;
         foreach ($topics as $topic) {
             if ($topic->upgrade()) {
-                echo $topic->topic_title . ' Inserted successfully<br />';
+                echo $topic->topic_title . ' Inserted successfully<br>';
             } else {
-                echo $topic->topic_title . ' NOT Inserted <br />';
+                echo $topic->topic_title . ' NOT Inserted <br>';
                 $error = 1;
             }
         }
@@ -23,9 +23,9 @@ if (isset($_POST['submit'])) {
             $stories = OldNewsStory::getAll();
             foreach ($stories as $story) {
                 if (!$story->upgrade()) {
-                    echo $story->title . ' Inserted successfully<br />';
+                    echo $story->title . ' Inserted successfully<br>';
                 } else {
-                    echo $story->title . ' NOT inserted <br />';
+                    echo $story->title . ' NOT inserted <br>';
                     $error = 1;
                 }
             }
@@ -36,10 +36,10 @@ if (isset($_POST['submit'])) {
             $newsModule = $moduleHandler->getByDirname('news');
             if (is_object($newsModule) && $newsModule->getVar('version') > 110) {
                 if (!OldNewsStory::importFiles()) {
-                    echo 'Error: Attachments NOT imported <br />';
+                    echo 'Error: Attachments NOT imported <br>';
                     $error = 1;
                 } else {
-                    echo 'Attachments Imported <br />';
+                    echo 'Attachments Imported <br>';
                 }
             }
         }
@@ -47,9 +47,9 @@ if (isset($_POST['submit'])) {
 
         case 'Comments':
         if (OldNewsStory::moveComments()) {
-            echo 'Comments Moved From News to AMS <br />';
+            echo 'Comments Moved From News to AMS <br>';
         } else {
-            echo 'Error: Comments NOT moved <br />';
+            echo 'Error: Comments NOT moved <br>';
         }
         break;
 
@@ -58,9 +58,9 @@ if (isset($_POST['submit'])) {
         $newsModule = $moduleHandler->getByDirname('news');
         if ($newsModule->getVar('version') > 110) {
             if (OldNewsTopic::copyPermissions($newsModule->getVar('mid'))) {
-                echo 'Permissions Copied <br />';
+                echo 'Permissions Copied <br>';
             } else {
-                echo 'Error: Permissions NOT copied <br />';
+                echo 'Error: Permissions NOT copied <br>';
             }
         }
         break;
@@ -77,7 +77,7 @@ if (isset($_POST['submit'])) {
         $dbm->queryFromFile(XOOPS_ROOT_PATH.'/modules/AMS/sql/upgrade.sql');
         $feedback = $dbm->report();
         echo $feedback;
-        echo "<br /><br /><a href='".XOOPS_URL."/modules/system/admin.php?fct=modulesadmin&op=update&module=AMS'>Proceed</a>";
+        echo "<br><br><a href='".XOOPS_URL."/modules/system/admin.php?fct=modulesadmin&op=update&module=AMS'>Proceed</a>";
         xoops_cp_footer();
         exit();
     }

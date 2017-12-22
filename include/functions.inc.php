@@ -179,7 +179,7 @@ function AMS_SEO_title($title = '', $op = 0, $id = 0, $pg = 0)
      * if XOOPS ML is present, let's sanitize the title with the current language
      */
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
     if (method_exists($myts, 'formatForML')) {
         $title = $myts->formatForML($title);
     }

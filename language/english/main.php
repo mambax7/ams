@@ -78,7 +78,7 @@ define('_AMS_NW_VERSIONSEXIST', '%s Version(s) with higher versions exist and <s
 define('_AMS_NW_AREYOUSUREOVERRIDE', 'Are you sure you want to replace these versions');
 define(
     '_AMS_NW_CONFLICTWHAT2DO',
-       'An article with the calculated version number exists<br />What do You want to do?<br />Override: This version is saved with the calculated version number and all higher versions in the same version group (xx.xx.xx) will be deleted<br />Find Version: Let the system find the next available version in the same version group'
+       'An article with the calculated version number exists<br>What do You want to do?<br>Override: This version is saved with the calculated version number and all higher versions in the same version group (xx.xx.xx) will be deleted<br>Find Version: Let the system find the next available version in the same version group'
 );
 define('_AMS_NW_VERSIONCONFLICT', 'Version Conflict');
 define('_AMS_NW_TRYINGTOSAVE', 'Attempting to save ');

@@ -58,7 +58,7 @@ $pgtitle='';
 if (0 != $fromyear && 0 != $frommonth) {
     $pgtitle=sprintf(' - %d - %d', $fromyear, $frommonth);
 }
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 $xoopsTpl->assign('xoops_pagetitle', $myts->htmlSpecialChars($xoopsModule->name()) . ' - ' . $myts->htmlSpecialChars(_AMS_NW_NEWSARCHIVES) . $pgtitle);
 
 $useroffset = '';

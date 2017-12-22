@@ -34,7 +34,7 @@ class OldNewsTopic
 
     public function upgrade()
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $sql = 'INSERT INTO '
                . $this->db->prefix('ams_topics') . '
                 (topic_id, topic_pid, topic_imgurl, topic_title)

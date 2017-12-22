@@ -51,7 +51,7 @@ class OldNewsStory extends XoopsStory
 
     public function upgrade()
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $error = false;
         $sql = 'INSERT INTO ' . $this->db->prefix('ams_article') . '
 	            VALUES (' . $this->storyid . ", '" . $this->title . "', " . $this->created . ', ' . $this->published . ',

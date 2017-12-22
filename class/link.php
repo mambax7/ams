@@ -87,7 +87,7 @@ class AMSLinkHandler extends IdgObjectHandler
         $ret = array();
         $moduleHandler = xoops_getHandler('module');
         $link = 'article.php?storyid=' . (int)$storyid;
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
 
         if ('AMS' !== $xoopsModule->getVar('dirname')) {
             $newsmodule = $moduleHandler->getByDirname('AMS');

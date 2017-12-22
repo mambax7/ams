@@ -79,7 +79,7 @@ class AmsTopic extends AmsXoopsTopic
 
     public function store()
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $title = '';
         $imgurl = '';
         $insert=false;

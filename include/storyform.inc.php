@@ -153,7 +153,7 @@ if ($approveprivilege) {
     $sform->addElement($audience_select);
 }
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 /*
 if(file_exists(XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/".$xoopsConfig['language'].".php"))
 include_once __DIR__ . '/'.XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/".$xoopsConfig['language'].".php";
@@ -180,13 +180,25 @@ $editor_configs['height'] = '400px'; // default value = 400px
 if (1 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormEditor($editor_configs['caption'], $editor, $editor_configs, $story->nohtml(), null));
 } elseif (2 == $wysiwyg_is_exist) {
-    $sform->addElement(new XoopsFormWysiwygTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'],
-                                                    $editor_configs['width'], $editor_configs['height'], 'hiddenHometext'));
+    $sform->addElement(new XoopsFormWysiwygTextArea(
+        $editor_configs['caption'],
+        $editor_configs['name'],
+        $editor_configs['value'],
+                                                    $editor_configs['width'],
+        $editor_configs['height'],
+        'hiddenHometext'
+    ));
 } elseif (3 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormWysiwygTextArea($editor_configs, 'hiddenHometext'));
 } else {
-    $sform->addElement(new XoopsFormDhtmlTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'],
-                                                  $editor_configs['rows'], $editor_configs['cols'], 'hiddenHometext'));
+    $sform->addElement(new XoopsFormDhtmlTextArea(
+        $editor_configs['caption'],
+        $editor_configs['name'],
+        $editor_configs['value'],
+                                                  $editor_configs['rows'],
+        $editor_configs['cols'],
+        'hiddenHometext'
+    ));
 }
 
 $sform->addElement(new XoopsFormLabel('', '* ' . _MULTIPLE_PAGE_GUIDE), false);
@@ -205,13 +217,25 @@ $editor_configs['height'] = '400px'; // default value = 400px
 if (1 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormEditor($editor_configs['caption'], $editor, $editor_configs, $story->nohtml(), null));
 } elseif (2 == $wysiwyg_is_exist) {
-    $sform->addElement(new XoopsFormWysiwygTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'],
-                                                    $editor_configs['width'], $editor_configs['height'], 'hiddenHometext'));
+    $sform->addElement(new XoopsFormWysiwygTextArea(
+        $editor_configs['caption'],
+        $editor_configs['name'],
+        $editor_configs['value'],
+                                                    $editor_configs['width'],
+        $editor_configs['height'],
+        'hiddenHometext'
+    ));
 } elseif (3 == $wysiwyg_is_exist) {
     $sform->addElement(new XoopsFormWysiwygTextArea($editor_configs, 'hiddenBodytext'));
 } else {
-    $sform->addElement(new XoopsFormDhtmlTextArea($editor_configs['caption'], $editor_configs['name'], $editor_configs['value'],
-                                                  $editor_configs['rows'], $editor_configs['cols'], 'hiddenBodytext'));
+    $sform->addElement(new XoopsFormDhtmlTextArea(
+        $editor_configs['caption'],
+        $editor_configs['name'],
+        $editor_configs['value'],
+                                                  $editor_configs['rows'],
+        $editor_configs['cols'],
+        'hiddenBodytext'
+    ));
 }
 
 $sform->addElement(new XoopsFormLabel('', '* ' . _MULTIPLE_PAGE_GUIDE), false);
@@ -251,7 +275,7 @@ if ($allowupload) {
         $filesarr=array();
         $filesarr=$sfiles->getAllbyStory($story->storyid());
         if (count($filesarr)>0) {
-            $upl_tray = new XoopsFormElementTray(_AMS_AM_UPLOAD_ATTACHFILE, '<br />');
+            $upl_tray = new XoopsFormElementTray(_AMS_AM_UPLOAD_ATTACHFILE, '<br>');
             $upl_checkbox=new XoopsFormCheckBox('', 'delupload[]');
 
             foreach ($filesarr as $onefile) {
@@ -268,7 +292,7 @@ if ($allowupload) {
 }
 
 
-$option_tray = new XoopsFormElementTray(_OPTIONS, '<br />');
+$option_tray = new XoopsFormElementTray(_OPTIONS, '<br>');
 //Set date of publish/expiration
 if ($approveprivilege) {
     $approve_checkbox = new XoopsFormCheckBox('', 'approve', $story->approved);

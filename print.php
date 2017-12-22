@@ -34,7 +34,7 @@ include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->dirname().'/class/class.n
 function PrintPage($storyid)
 {
     global $xoopsConfig, $xoopsModule, $xoopsUser;
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
     $story = new AmsStory($storyid);
     $datetime = formatTimestamp($story->published());
     $gpermHandler = xoops_getHandler('groupperm');
@@ -63,20 +63,20 @@ function PrintPage($storyid)
         <table border="0"><tr><td align="center">
         <table border="0" width="640" cellpadding="0" cellspacing="1" bgcolor="#000000"><tr><td>
         <table border="0" width="640" cellpadding="20" cellspacing="1" bgcolor="#ffffff"><tr><td align="center">
-        <img src="'.XOOPS_URL.'/assets/images/logo.gif" border="0" alt="" /><br /><br />
+        <img src="'.XOOPS_URL.'/assets/images/logo.gif" border="0" alt="" /><br><br>
         <h3>'.$story->title().'</h3>
-        <small><b>'._AMS_NW_DATE.'</b>&nbsp;'.$datetime.' | <b>'._AMS_NW_TOPICC.'</b>&nbsp;'.$story->topic_title().'</small><br /><br /></td></tr>';
-    echo '<tr valign="top" style="font:12px;"><td>'.$story->hometext().'<br />';
+        <small><b>'._AMS_NW_DATE.'</b>&nbsp;'.$datetime.' | <b>'._AMS_NW_TOPICC.'</b>&nbsp;'.$story->topic_title().'</small><br><br></td></tr>';
+    echo '<tr valign="top" style="font:12px;"><td>'.$story->hometext().'<br>';
     $bodytext = $story->bodytext();
     $bodytext = str_replace('[pagebreak]', '<br style="page-break-after:always;">', $bodytext);
     if ('' != $bodytext) {
-        echo $bodytext.'<br /><br />';
+        echo $bodytext.'<br><br>';
     }
     echo '</td></tr></table></td></tr></table>
-    <br /><br />';
+    <br><br>';
     printf(_AMS_NW_THISCOMESFROM, $xoopsConfig['sitename']);
-    echo '<br /><a href="'.XOOPS_URL.'/">'.XOOPS_URL.'</a><br /><br />
-        '._AMS_NW_URLFORSTORY.' <!-- Tag below can be used to display Permalink image --><!--img src="'.XOOPS_URL.'/modules/'.$xoopsModule->dirname().'/assets/images/x.gif" /--><br />
+    echo '<br><a href="'.XOOPS_URL.'/">'.XOOPS_URL.'</a><br><br>
+        '._AMS_NW_URLFORSTORY.' <!-- Tag below can be used to display Permalink image --><!--img src="'.XOOPS_URL.'/modules/'.$xoopsModule->dirname().'/assets/images/x.gif" /--><br>
         <a href="'.XOOPS_URL.'/modules/'.$xoopsModule->dirname().'/article.php?storyid='.$story->storyid().'">'.XOOPS_URL.'/modules/'.$xoopsModule->dirname().'/article.php?storyid='.$story->storyid().'</a>
         </td></tr></table>
         </body>

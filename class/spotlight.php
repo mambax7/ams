@@ -121,7 +121,7 @@ class AmsSpotlight extends XoopsObject
 
     public function getImage($article)
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         if (4 == $this->getVar('mode')) {
             if ('' == $this->getVar('image')) {
                 return '';
@@ -157,7 +157,7 @@ class AmsSpotlightHandler extends IdgObjectHandler
 
     public function getSpotlightBlock($display_only = true)
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
         $block = array();
 

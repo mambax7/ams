@@ -43,7 +43,7 @@ if (empty($storyid)) {
     exit();
 }
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 // set comment mode if not set
 
 

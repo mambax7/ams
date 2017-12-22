@@ -30,7 +30,7 @@ include __DIR__ . '/../../mainfile.php';
 
 include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
 
-$moduleHelper = Helper::getHelper(basename(__DIR__));
+$helper = Helper::getHelper(basename(__DIR__));
 
 if (isset($_GET['storytopic'])) {
     $xoopsOption['storytopic'] = (int)$_GET['storytopic'];
@@ -59,7 +59,7 @@ if (empty($xoopsModuleConfig['newsdisplay']) || 'Classic' === $xoopsModuleConfig
     $showclassic = 0;
 }
 
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 $pagetitle = $myts->htmlSpecialChars($xoopsModule->name());
 $column_count = $xoopsModuleConfig['columnmode'];
 if ($showclassic) {
@@ -102,8 +102,8 @@ if (1 == $xoopsModuleConfig['displaynav']) {
 if ($showclassic) {
     $ihome = $xoopsOption['storytopic'] > 0 ? 1 : 0;
 
-    $sortColumn = $moduleHelper->getConfig('index_sort_column', 'published');
-    $sortOrder  = $moduleHelper->getConfig('index_sort_order', 'DESC');
+    $sortColumn = $helper->getConfig('index_sort_column', 'published');
+    $sortOrder  = $helper->getConfig('index_sort_order', 'DESC');
 
     $sarray = AmsStory::getAllPublished($xoopsOption['storynum'], $start, $xoopsModuleConfig['restrictindex'], $xoopsOption['storytopic'], $ihome, true, $sortColumn, false, $sortOrder);
     $scount = count($sarray);

@@ -98,7 +98,7 @@ function b_ams_spotlight_edit($options)
     }
 
 
-    $form = new XoopsFormElementTray('', '<br/><br />');
+    $form = new XoopsFormElementTray('', '<br/><br>');
     $numarticles_select = new XoopsFormText(_AMS_MB_SPOT_NUMARTICLES, 'options[0]', 10, 10, $options[0]);
     $form->addElement($numarticles_select);
 
@@ -114,7 +114,7 @@ function b_ams_spotlight_edit($options)
 
     //spotlight preview image
     $imgpath=sprintf('', 'modules/AMS/assets/images/spotlight_preview/');
-    $form -> addElement(new XoopsFormLabel('', "<br /><img src='" . XOOPS_URL . '/modules/AMS/assets/images/spotlight_preview/'
+    $form -> addElement(new XoopsFormLabel('', "<br><img src='" . XOOPS_URL . '/modules/AMS/assets/images/spotlight_preview/'
                                                . $options[2] . ".jpg' name='template_preview' id='template_preview' alt='' />"));
 
 

@@ -50,7 +50,7 @@
                 <{$story.hometext}>
             <{/if}>
             <{if $page == 0}>
-                <br />
+                <br>
             <{/if}>
             <{$story.bodytext}>
         </p>

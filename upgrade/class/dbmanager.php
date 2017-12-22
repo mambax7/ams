@@ -138,43 +138,43 @@ class db_manager
         $content = "<table align='center'><tr><td align='left'>\n";
         if (isset($this->s_tables['create'])) {
             foreach ($this->s_tables['create'] as $key => $val) {
-                $content .= sprintf(_INSTALL_L45, "<b>$key</b>")."<br />\n";
+                $content .= sprintf(_INSTALL_L45, "<b>$key</b>")."<br>\n";
             }
         }
         if (isset($this->s_tables['insert'])) {
             foreach ($this->s_tables['insert'] as $key => $val) {
-                $content .= sprintf(_INSTALL_L119, $val, "<b>$key</b>")."<br />\n";
+                $content .= sprintf(_INSTALL_L119, $val, "<b>$key</b>")."<br>\n";
             }
         }
         if (isset($this->s_tables['alter'])) {
             foreach ($this->s_tables['alter'] as $key => $val) {
-                $content .= sprintf(_INSTALL_L133, "<b>$key</b>")."<br />\n";
+                $content .= sprintf(_INSTALL_L133, "<b>$key</b>")."<br>\n";
             }
         }
         if (isset($this->s_tables['drop'])) {
             foreach ($this->s_tables['drop'] as $key => $val) {
-                $content .= sprintf(_INSTALL_L163, "<b>$key</b>")."<br />\n";
+                $content .= sprintf(_INSTALL_L163, "<b>$key</b>")."<br>\n";
             }
         }
-        $content .= "<br />\n";
+        $content .= "<br>\n";
         if (isset($this->f_tables['create'])) {
             foreach ($this->f_tables['create'] as $key => $val) {
-                $content .= sprintf(_INSTALL_L118, "<b>$key</b>")."<br />\n";
+                $content .= sprintf(_INSTALL_L118, "<b>$key</b>")."<br>\n";
             }
         }
         if (isset($this->f_tables['insert'])) {
             foreach ($this->f_tables['insert'] as $key => $val) {
-                $content .= sprintf(_INSTALL_L120, $val, "<b>$key</b>")."<br />\n";
+                $content .= sprintf(_INSTALL_L120, $val, "<b>$key</b>")."<br>\n";
             }
         }
         if (isset($this->f_tables['alter'])) {
             foreach ($this->f_tables['alter'] as $key => $val) {
-                $content .= sprintf(_INSTALL_L134, "<b>$key</b>")."<br />\n";
+                $content .= sprintf(_INSTALL_L134, "<b>$key</b>")."<br>\n";
             }
         }
         if (isset($this->f_tables['drop'])) {
             foreach ($this->f_tables['drop'] as $key => $val) {
-                $content .= sprintf(_INSTALL_L164, "<b>$key</b>")."<br />\n";
+                $content .= sprintf(_INSTALL_L164, "<b>$key</b>")."<br>\n";
             }
         }
         $content .= "</td></tr></table>\n";

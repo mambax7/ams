@@ -20,7 +20,7 @@ use Xmf\Module\Admin;
 require __DIR__ . '/admin_header.php';
 
 $moduleAdmin = Admin::getInstance();
-$moduleAdmin->displayNavigation('index.php');
+$moduleAdmin->displayNavigation(basename(__FILE__));
 
 $moduleAdmin->displayIndex();
 

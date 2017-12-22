@@ -96,7 +96,7 @@ class sFiles
 
     public function getFileRealName($format= 'S')
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $smiley = 0;
         switch ($format) {
             case 'S':
@@ -121,7 +121,7 @@ class sFiles
 
     public function getMimetype($format= 'S')
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $smiley = 0;
         switch ($format) {
             case 'S':
@@ -146,7 +146,7 @@ class sFiles
 
     public function getDownloadname($format= 'S')
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $smiley = 0;
         switch ($format) {
             case 'S':
@@ -212,7 +212,7 @@ class sFiles
 
     public function store()
     {
-        $myts = MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
         $fileRealName = $myts->addSlashes($this->filerealname);
         $downloadname = $myts->addSlashes($this->downloadname);
         $date = time();

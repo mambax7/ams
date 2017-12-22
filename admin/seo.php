@@ -44,7 +44,7 @@ $SEOHandler = xoops_getModuleHandler('seo', 'AMS');
 //if process form submitted
 if (isset($_POST['submit'])) {
     AMS_updateCache();
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
     $SEO_is_Enable= (int)$_POST['friendlyurl_enable'];
     $SEO_URL_Template='[XOOPS_URL]/'.$myts->htmlSpecialChars($_POST['urltemplate']);
 
@@ -61,7 +61,7 @@ $thisSEO['urltemplate'] = preg_replace($pattern, $rep_pat, $thisSEO['urltemplate
 
 $sform = new XoopsThemeForm(_AMS_AM_SEO_SUBMITFORM, 'seoform', XOOPS_URL . '/modules/' . $amsModule->getVar('dirname') . '/admin/seo.php');
 
-$friendly_url_tray= new XoopsFormElementTray(_AMS_AM_SEO_FRIENDLYURL, '<br />');
+$friendly_url_tray= new XoopsFormElementTray(_AMS_AM_SEO_FRIENDLYURL, '<br>');
 $friendly_url_tray->addElement(new XoopsFormRadioYN(_AMS_AM_SEO_ENABLE, 'friendlyurl_enable', $thisSEO['friendlyurl_enable'], _AMS_AM_YES, _AMS_AM_NO));
 
 $friendly_url_type = new XoopsFormText(_AMS_AM_SEO_URLTEMPLATE . ' = [XOOPS_URL]/', 'urltemplate', 60, 100, $thisSEO['urltemplate']);

@@ -49,7 +49,7 @@ if (!$gpermHandler->checkRight('ams_submit', $perm_itemid, $groups, $module_id))
 }
 
 $op   = 'form';
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 //If approve privileges
 $approveprivilege = 0;
@@ -206,7 +206,7 @@ switch ($op) {
         //Display post preview
         $p_title    = $story->title('Preview');
         $p_hometext = $story->hometext('Preview');
-        $p_hometext .= '<br />' . $story->bodytext('Preview');
+        $p_hometext .= '<br>' . $story->bodytext('Preview');
         $topversion = (0 == $story->revision && 0 == $story->revisionminor) ? 1 : 0;
         $topicalign = isset($story->topicalign) ? 'align="' . $story->topicalign() . '"' : '';
     $p_hometext = (('' != $xt->topic_imgurl()) && $story->topicdisplay()) ? '<img src="assets/images/topics/' . $xt->topic_imgurl() . '" ' . $story->topicalign() . ' alt="" />' . $p_hometext : $p_hometext;
@@ -343,7 +343,7 @@ switch ($op) {
             if (1 == $approve && 0 == $oldapprove && $story->published <= time()) {
                 $notificationHandler->triggerEvent('global', 0, 'new_story', $tags);
             } elseif (1 != $approve) {
-            $tags['WAITINGSTORIES_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php?op=edit&amp;storyid='.$story->storyid();
+                $tags['WAITINGSTORIES_URL'] = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php?op=edit&amp;storyid='.$story->storyid();
                 $notificationHandler->triggerEvent('global', 0, 'story_submit', $tags);
 
                 // If notify checkbox is set, add subscription for approve
@@ -426,13 +426,13 @@ switch ($op) {
 
         $message = '';
         $story->calculateVersion();
-        $message         .= _AMS_NW_TRYINGTOSAVE . ' ' . $story->version . '.' . $story->revision . '.' . $story->revisionminor . ' <br />';
+        $message         .= _AMS_NW_TRYINGTOSAVE . ' ' . $story->version . '.' . $story->revision . '.' . $story->revisionminor . ' <br>';
         $higher_versions = $story->getVersions(true);
         if (count($higher_versions) > 0) {
             $message .= sprintf(_AMS_NW_VERSIONSEXIST, count($higher_versions));
-            $message .= '<br />';
+            $message .= '<br>';
             foreach ($higher_versions as $key => $version) {
-                $message .= $version['version'] . '.' . $version['revision'] . '.' . $version['revisionminor'] . '<br />';
+                $message .= $version['version'] . '.' . $version['revision'] . '.' . $version['revisionminor'] . '<br>';
             }
         }
         $message .= _AMS_NW_AREYOUSUREOVERRIDE;

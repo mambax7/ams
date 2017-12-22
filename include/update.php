@@ -1,7 +1,17 @@
 <?php
 
-function xoops_module_update_AMS(&$module, $old_version)
+function xoops_module_update_ams(&$module, $old_version)
 {
+    $moduleDirName = basename(dirname(__DIR__));
+    $capsDirName   = strtoupper($moduleDirName);
+
+    /** @var ams\Helper $helper */
+    /** @var ams\Utility $utility */
+    /** @var ams\Configurator $configurator */
+    $helper  = ams\Helper::getInstance();
+    $utility = new ams\Utility();
+    $configurator = new ams\Configurator();
+
     if ($old_version < 225) { //If upgrade from AMS older than 2.25
         $GLOBALS['xoopsDB']->queryFromFile(XOOPS_ROOT_PATH.'/modules/AMS/sql/upgrade.sql');
     }

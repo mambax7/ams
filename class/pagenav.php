@@ -13,8 +13,8 @@ class AMSPageNav extends XoopsPageNav
         $start_name = 'start',
         $extra_arg = '',
         $friendlyurl_enable = 0,
-        $friendlyurl = '')
-    {
+        $friendlyurl = ''
+    ) {
         $this->total              = (int)$total_items;
         $this->perpage            = (int)$items_perpage;
         $this->current            = (int)$current_start;
