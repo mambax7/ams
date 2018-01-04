@@ -28,9 +28,7 @@
 //  Project: Article Management System (AMS)                                           //
 //  ------------------------------------------------------------------------ //
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    exit();
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined.');
 
 // AMS cookie structure
 //create in AMS 2.50 but for future CLONEABLE ability

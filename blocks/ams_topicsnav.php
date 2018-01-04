@@ -28,10 +28,10 @@ function b_ams_topicsnav_show($options)
 {
     include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newstopic.php';
     global $xoopsDB, $xoopsUser;
-    $block = array();
+    $block = [];
     $topics = AmsTopic::getAllTopics($options[0]);
     foreach ($topics as $topic) {
-        $block['topics'][] = array('id' => $topic->topic_id, 'title' => $topic->topic_title());
+        $block['topics'][] = ['id' => $topic->topic_id, 'title' => $topic->topic_title()];
     }
     return $block;
 }

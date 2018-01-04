@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\ams;
+<?php namespace XoopsModules\Ams;
 
 /*
  Utility Class Definition
@@ -24,12 +24,9 @@
  */
 
 use Xmf\Request;
-use Xoopsmodules\xxxxx;
-use Xoopsmodules\xxxxx\common;
+use XoopsModules\Ams;
+use XoopsModules\Ams\Common;
 
-require_once __DIR__ . '/common/VersionChecks.php';
-require_once __DIR__ . '/common/ServerStats.php';
-require_once __DIR__ . '/common/FilesManagement.php';
 
 require_once __DIR__ . '/../include/common.php';
 

@@ -24,14 +24,13 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 //  Based on standard News module v1.2 with several changes by Mithrandir    //
+include __DIR__ . '/preloads/autoloader.php';
 
-if (!defined('XOOPS_ROOT_PATH')) {
-    exit();
-}
+defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined.');
 $moduleDirName = basename(__DIR__);
 //Added AMS 2.50 Beta 2
 //Fetch AMS spotlight dynamically
-$spotlight_templates = $spotlight_templates_list = array();
+$spotlight_templates = $spotlight_templates_list = [];
 $spotlight_templates_list_count = 0;
 $path                           = XOOPS_ROOT_PATH . "/modules/$moduleDirName/templates";
 if ($handle = opendir($path)) {
@@ -248,10 +247,10 @@ if (is_object($GLOBALS['xoopsModule']) && $GLOBALS['xoopsModule']->getVar('dirna
     $permHelper = new Xmf\Module\Helper\Permission($modversion['dirname']);
 
     if ($permHelper->checkPermission('ams_submit', 0)) {
-        $modversion['sub'][] = array(
+        $modversion['sub'][] = [
             'name' => _AMS_MI_NEWS_SMNAME1,
             'url'  => 'submit.php',
-        );
+        ];
     }
 }
 
@@ -296,7 +295,7 @@ $modversion['config'][$config_count]['default'] = 5;
 // options to be displayed in selection box
 // required and valid for 'select' or 'select_multi' formtype option only
 // language constants can be used for array key, otherwise use integer
-$modversion['config'][$config_count]['options'] = array('1' => 1, '5' => 5, '10' => 10, '15' => 15, '20' => 20, '25' => 25, '30' => 30);
+$modversion['config'][$config_count]['options'] = ['1' => 1, '5' => 5, '10' => 10, '15' => 15, '20' => 20, '25' => 25, '30' => 30];
 $config_count++;
 
 $modversion['config'][$config_count]['name']        = 'storycountadmin';
@@ -305,7 +304,7 @@ $modversion['config'][$config_count]['description'] = '_AMS_MI_STORYCOUNTADMIN_D
 $modversion['config'][$config_count]['formtype']    = 'select';
 $modversion['config'][$config_count]['valuetype']   = 'int';
 $modversion['config'][$config_count]['default']     = 10;
-$modversion['config'][$config_count]['options']     = array(
+$modversion['config'][$config_count]['options']     = [
     '1'  => 1,
     '2'  => 2,
     '4'  => 4,
@@ -320,7 +319,7 @@ $modversion['config'][$config_count]['options']     = array(
     '30' => 30,
     '35' => 35,
     '40' => 40
-);
+];
 $config_count++;
 
 $modversion['config'][$config_count]['name']        = 'storyhome_topic';
@@ -329,7 +328,7 @@ $modversion['config'][$config_count]['description'] = '_AMS_MI_STORYCOUNTTOPIC_D
 $modversion['config'][$config_count]['formtype']    = 'select';
 $modversion['config'][$config_count]['valuetype']   = 'int';
 $modversion['config'][$config_count]['default']     = 10;
-$modversion['config'][$config_count]['options']     = array(
+$modversion['config'][$config_count]['options']     = [
     '1'  => 1,
     '2'  => 2,
     '4'  => 4,
@@ -344,7 +343,7 @@ $modversion['config'][$config_count]['options']     = array(
     '30' => 30,
     '35' => 35,
     '40' => 40
-);
+];
 $config_count++;
 
 $modversion['config'][$config_count]['name']        = 'max_items';
@@ -361,7 +360,7 @@ $modversion['config'][$config_count]['description'] = '_AMS_MI_SPOTLIGHT_ITEMDES
 $modversion['config'][$config_count]['formtype']    = 'select';
 $modversion['config'][$config_count]['valuetype']   = 'int';
 $modversion['config'][$config_count]['default']     = 20;
-$modversion['config'][$config_count]['options']     = array(
+$modversion['config'][$config_count]['options']     = [
     '1'   => 1,
     '5'   => 5,
     '10'  => 10,
@@ -372,7 +371,7 @@ $modversion['config'][$config_count]['options']     = array(
     '50'  => 50,
     '100' => 100,
     '500' => 500
-);
+];
 $config_count++;
 
 $modversion['config'][$config_count]['name']        = 'displaynav';
@@ -397,7 +396,7 @@ $modversion['config'][$config_count]['description'] = '_AMS_MI_UPLOADGROUPS_DESC
 $modversion['config'][$config_count]['formtype']    = 'select';
 $modversion['config'][$config_count]['valuetype']   = 'int';
 $modversion['config'][$config_count]['default']     = 2;
-$modversion['config'][$config_count]['options']     = array('_AMS_MI_UPLOAD_GROUP1' => 1, '_AMS_MI_UPLOAD_GROUP2' => 2, '_AMS_MI_UPLOAD_GROUP3' => 3);
+$modversion['config'][$config_count]['options']     = ['_AMS_MI_UPLOAD_GROUP1' => 1, '_AMS_MI_UPLOAD_GROUP2' => 2, '_AMS_MI_UPLOAD_GROUP3' => 3];
 $config_count++;
 
 $modversion['config'][$config_count]['name']        = 'maxuploadsize';
@@ -408,32 +407,32 @@ $modversion['config'][$config_count]['valuetype']   = 'int';
 $modversion['config'][$config_count]['default']     = 1048576;
 $config_count++;
 
-$modversion['config'][$config_count] = array(
+$modversion['config'][$config_count] = [
     'name'        => 'index_sort_column',
     'title'       => '_AMS_MI_SORT_COLUMN',
     'description' => '_AMS_MI_SORT_COLUMN_DESC',
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'default'     => 'published',
-    'options'     => array(
+    'options'     => [
         '_AMS_MI_SORT_COLUMN_PUBLISHED' => 'published',
         '_AMS_MI_SORT_COLUMN_TITLE'     => 'title',
-    ),
-);
+    ],
+];
 $config_count++;
 
-$modversion['config'][$config_count] = array(
+$modversion['config'][$config_count] = [
     'name'        => 'index_sort_order',
     'title'       => '_AMS_MI_SORT_ORDER',
     'description' => '_AMS_MI_SORT_ORDER_DESC',
     'formtype'    => 'select',
     'valuetype'   => 'text',
     'default'     => 'DESC',
-    'options'     => array(
+    'options'     => [
         '_AMS_MI_SORT_ORDER_DESCEND' => 'DESC',
         '_AMS_MI_SORT_ORDER_ASCEND'  => 'ASC',
-    ),
-);
+    ],
+];
 $config_count++;
 
 //Workaround for XOOPS Cube Legacy 2.2. XC not support XOOPS Editor by default
@@ -447,7 +446,7 @@ if (file_exists(XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php')) {
     $editorHandler = new XoopsEditorHandler;
     $editor_list   = array_flip($editorHandler->getList());
 } else {
-    $editor_list = array('_AMS_MI_EDITOR_DEFAULT' => 'textarea', '_AMS_MI_EDITOR_DHTML' => 'dhtmlext');
+    $editor_list = ['_AMS_MI_EDITOR_DEFAULT' => 'textarea', '_AMS_MI_EDITOR_DHTML' => 'dhtmlext'];
 }
 $modversion['config'][$config_count]['name']        = 'editor';
 $modversion['config'][$config_count]['title']       = '_AMS_MI_EDITOR';
@@ -482,10 +481,10 @@ $modversion['config'][$config_count]['description'] = '_AMS_MI_NEWSDISPLAYDESC';
 $modversion['config'][$config_count]['formtype']    = 'select';
 $modversion['config'][$config_count]['valuetype']   = 'text';
 $modversion['config'][$config_count]['default']     = 'Classic';
-$modversion['config'][$config_count]['options']     = array(
+$modversion['config'][$config_count]['options']     = [
     '_AMS_MI_NEWSCLASSIC' => 'Classic',
     '_AMS_MI_NEWSBYTOPIC' => 'Bytopic'
-);
+];
 $config_count++;
 
 // For Author's name
@@ -495,7 +494,7 @@ $modversion['config'][$config_count]['description'] = '_AMS_MI_ADISPLAYNAMEDSC';
 $modversion['config'][$config_count]['formtype']    = 'select';
 $modversion['config'][$config_count]['valuetype']   = 'int';
 $modversion['config'][$config_count]['default']     = 1;
-$modversion['config'][$config_count]['options']     = array('_AMS_MI_DISPLAYNAME1' => 1, '_AMS_MI_DISPLAYNAME2' => 2, '_AMS_MI_DISPLAYNAME3' => 3);
+$modversion['config'][$config_count]['options']     = ['_AMS_MI_DISPLAYNAME1' => 1, '_AMS_MI_DISPLAYNAME2' => 2, '_AMS_MI_DISPLAYNAME3' => 3];
 $config_count++;
 
 $modversion['config'][$config_count]['name']        = 'columnmode';
@@ -504,7 +503,7 @@ $modversion['config'][$config_count]['description'] = '_AMS_MI_COLUMNMODE_DESC';
 $modversion['config'][$config_count]['formtype']    = 'select';
 $modversion['config'][$config_count]['valuetype']   = 'int';
 $modversion['config'][$config_count]['default']     = 1;
-$modversion['config'][$config_count]['options']     = array(1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5);
+$modversion['config'][$config_count]['options']     = [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5];
 $config_count++;
 
 $modversion['config'][$config_count]['name']        = 'restrictindex';
@@ -559,12 +558,12 @@ $modversion['notification']['lookup_func'] = 'ams_notify_iteminfo';
 $modversion['notification']['category'][1]['name']           = 'global';
 $modversion['notification']['category'][1]['title']          = _AMS_MI_NEWS_GLOBAL_NOTIFY;
 $modversion['notification']['category'][1]['description']    = _AMS_MI_NEWS_GLOBAL_NOTIFYDSC;
-$modversion['notification']['category'][1]['subscribe_from'] = array('index.php', 'article.php');
+$modversion['notification']['category'][1]['subscribe_from'] = ['index.php', 'article.php'];
 
 $modversion['notification']['category'][2]['name']           = 'story';
 $modversion['notification']['category'][2]['title']          = _AMS_MI_NEWS_STORY_NOTIFY;
 $modversion['notification']['category'][2]['description']    = _AMS_MI_NEWS_STORY_NOTIFYDSC;
-$modversion['notification']['category'][2]['subscribe_from'] = array('article.php');
+$modversion['notification']['category'][2]['subscribe_from'] = ['article.php'];
 $modversion['notification']['category'][2]['item_name']      = 'storyid';
 $modversion['notification']['category'][2]['allow_bookmark'] = 1;
 

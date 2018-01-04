@@ -32,7 +32,7 @@ $search_form = new XoopsThemeForm(_SR_SEARCH, 'search_form', $_SERVER['PHP_SELF'
 $search_form->addElement(new XoopsFormText(_SR_KEYWORDS, 'query', 30, 255, htmlspecialchars(stripslashes(implode(' ', $queries)), ENT_QUOTES)), true);
 $search_form->addElement(new XoopsFormText(_AMS_NW_USERNAME, 'username', 30, 255, $username), false);
 $type_select = new XoopsFormSelect(_SR_TYPE, 'andor', $andor);
-$type_select->addOptionArray(array('AND' =>_SR_ALL, 'OR' =>_SR_ANY, 'exact' =>_SR_EXACT));
+$type_select->addOptionArray(['AND' =>_SR_ALL, 'OR' =>_SR_ANY, 'exact' =>_SR_EXACT]);
 $search_form->addElement($type_select);
 if (!empty($mids)) {
     $mods_checkbox = new XoopsFormCheckBox(_SR_SEARCHIN, 'mids[]', $mids);

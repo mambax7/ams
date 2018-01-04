@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\xxxxx\common;
+<?php namespace XoopsModules\Ams\Common;
 
 /*
  You may not change or alter any portion of this comment or credits

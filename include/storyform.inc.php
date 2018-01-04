@@ -166,7 +166,7 @@ if (1 == $wysiwyg_is_exist && true === $xoopsModuleConfig['editor_userchoice']) 
 }
 
 //Change multiple WYSIWYG using CBB Way
-$editor_configs = array();
+$editor_configs = [];
 //required configs
 $editor_configs['caption'] = _AMS_NW_THESCOOP;
 $editor_configs['name'] ='hometext';
@@ -203,7 +203,7 @@ if (1 == $wysiwyg_is_exist) {
 
 $sform->addElement(new XoopsFormLabel('', '* ' . _MULTIPLE_PAGE_GUIDE), false);
 
-$editor_configs = array();
+$editor_configs = [];
 //required configs
 $editor_configs['caption'] = _AMS_AM_EXTEXT;
 $editor_configs['name'] ='bodytext';
@@ -272,7 +272,7 @@ switch ($xoopsModuleConfig['uploadgroups']) {
 if ($allowupload) {
     if ($edit) {
         $sfiles = new sFiles();
-        $filesarr=array();
+        $filesarr= [];
         $filesarr=$sfiles->getAllbyStory($story->storyid());
         if (count($filesarr)>0) {
             $upl_tray = new XoopsFormElementTray(_AMS_AM_UPLOAD_ATTACHFILE, '<br>');

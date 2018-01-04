@@ -22,7 +22,7 @@ class OldNewsTopic
 
     public function getAllTopics()
     {
-        $ret = array();
+        $ret = [];
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $sql = 'SELECT * FROM ' . $db->prefix('topics');
         $result = $db->query($sql);

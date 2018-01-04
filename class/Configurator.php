@@ -1,4 +1,4 @@
-<?php namespace Xoopsmodules\ams;
+<?php namespace XoopsModules\Ams\Common;
 
 /*
  You may not change or alter any portion of this comment or credits
@@ -20,7 +20,7 @@
  *
  */
 
-require_once __DIR__ . '/../include/common.php';
+require_once __DIR__ . '/../../include/common.php';
 
 /**
  * Class Configurator
@@ -30,7 +30,8 @@ class Configurator
     public $name;
     public $paths           = [];
     public $uploadFolders   = [];
-    public $blankFiles      = [];
+    public $copyBlankFiles  = [];
+    public $copyTestFolders = [];
     public $templateFolders = [];
     public $oldFiles        = [];
     public $oldFolders      = [];
@@ -44,12 +45,13 @@ class Configurator
         $moduleDirName = basename(dirname(__DIR__));
         $capsDirName   = strtoupper($moduleDirName);
 
-        $config = include __DIR__ . '/../include/config.php';
+        $config = include __DIR__ . '/../../include/config.php';
 
         $this->name            = $config->name;
         $this->paths           = $config->paths;
         $this->uploadFolders   = $config->uploadFolders;
-        $this->blankFiles      = $config->blankFiles;
+        $this->copyBlankFiles  = $config->copyBlankFiles;
+        $this->copyTestFolders = $config->copyTestFolders;
         $this->templateFolders = $config->templateFolders;
         $this->oldFiles        = $config->oldFiles;
         $this->oldFolders      = $config->oldFolders;

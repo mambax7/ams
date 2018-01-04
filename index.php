@@ -1,31 +1,24 @@
 <?php
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright    XOOPS Project https://xoops.org/
+ * @license      GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
+ * @package
+ * @since
+ * @author     XOOPS Development Team
+ */
 
 use Xmf\Module\Helper;
 
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-// ------------------------------------------------------------------------- //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
 include __DIR__ . '/../../mainfile.php';
 
 include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
@@ -109,7 +102,7 @@ if ($showclassic) {
     $scount = count($sarray);
     $xoopsTpl->assign('story_count', $scount);
     if ($scount > 0) {
-        $uids = array();
+        $uids = [];
         foreach ($sarray as $storyid => $thisstory) {
             $uids[$thisstory->uid()] = $thisstory->uid();
         }
@@ -120,7 +113,7 @@ if ($showclassic) {
         }
         $xoopsTpl->assign('stories', $stories);
     } else {
-        $xoopsTpl->assign('stories', array());
+        $xoopsTpl->assign('stories', []);
     }
     $xoopsTpl->assign('columns', $column_count);
 
@@ -152,7 +145,7 @@ if ($showclassic) {
 
     $article_counts = AmsStory::countPublishedOrderedByTopic();
 
-    $smarty_topics = array();
+    $smarty_topics = [];
     foreach (array_keys($alltopics) as $i) {
         $allstories[$i] = AmsStory::getAllPublished($xoopsOption['storynum'], 0, false, $i, 0);
         if (count($allstories[$i]) > 0) {
@@ -168,25 +161,26 @@ if ($showclassic) {
         $memberHandler = xoops_getHandler('member');
         $user_arr = $memberHandler->getUsers(new Criteria('uid', '(' . implode(',', array_keys($uids)) . ')', 'IN'), true);
         foreach ($alltopics as $topicid => $topic) {
-            $topicstories = array();
+            $topicstories = [];
             foreach ($allstories[$topicid] as $thisstory) {
                 $topicstories[] = $thisstory->toArray(false, false, 0, $user_arr);
             }
             $subcount = 0;
-            $subs = array();
+            $subs = [];
             //$key = findKey($smarty_topics, $topicstories[0]['posttimestamp']);
             $subtopics = $topic_obj_tree->getFirstChild($topicid);
             $subcount = count($subtopics);
             foreach (array_keys($subtopics) as $i) {
-                $subs[$i] = array('id' => $i, 'title' => $subtopics[$i]->topic_title(), 'imageurl' => $subtopics[$i]->topic_imgurl());
+                $subs[$i] = ['id' => $i, 'title' => $subtopics[$i]->topic_title(), 'imageurl' => $subtopics[$i]->topic_imgurl()];
             }
-            $smarty_topics[] = array('title'         => $topic->topic_title(),
-                                     'stories'       => $topicstories,
-                                     'id'            => $topicid,
-                                     'subtopics'     => $subs,
-                                     'articlecount'  => $article_counts[$topicid],
-                                     'subtopiccount' => $subcount
-            );
+            $smarty_topics[] = [
+                'title'         => $topic->topic_title(),
+                'stories'       => $topicstories,
+                'id'            => $topicid,
+                'subtopics'     => $subs,
+                'articlecount'  => $article_counts[$topicid],
+                'subtopiccount' => $subcount
+            ];
             unset($subs);
         }
     }

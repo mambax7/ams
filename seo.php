@@ -14,12 +14,12 @@ $novaseo_pg=$_GET['novaseo_pg'];
 
 //print $novaseo_op."-".$novaseo_id."-".$novaseo_pg."-";exit;
 
-$novaseo_op_map = array(
+$novaseo_op_map = [
     '0' => 'index.php',
     '1' => 'article.php',
     '2' => 'item.php',
     '3' => 'print.php'
-);
+];
 
 if (! empty($novaseo_op)) {
     // module specific dispatching logic, other module must implement as

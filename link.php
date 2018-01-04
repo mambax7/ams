@@ -60,7 +60,7 @@ include_once XOOPS_ROOT_PATH.'/header.php';
 
 $username = (isset($_POST['username']) && '' != $_POST['username']) ? $_POST['username'] : '';
 $username = $myts->addSlashes($username);
-$queries = array();
+$queries = [];
 $andor = isset($_POST['andor']) ? $_POST['andor'] : 'AND';
 
 switch ($op) {
@@ -69,9 +69,9 @@ switch ($op) {
     break;
 
     case 'results':
-    $results = array();
+    $results = [];
     if ('exact' !== $andor) {
-        $ignored_queries = array(); // holds kewords that are shorter than allowed minmum length
+        $ignored_queries = []; // holds kewords that are shorter than allowed minmum length
         $temp_queries = preg_split('/[\s,]+/', $_POST['query']);
         foreach ($temp_queries as $q) {
             $q = trim($q);
@@ -86,7 +86,7 @@ switch ($op) {
         if (strlen($query) < $xoopsConfigSearch['keyword_min']) {
             //query string too short
         }
-        $queries = array($myts->addSlashes($query));
+        $queries = [$myts->addSlashes($query)];
     }
     $moduleHandler = xoops_getHandler('module');
     if ('' != $username) {
@@ -157,7 +157,7 @@ switch ($op) {
         $links = $_POST['links'];
         $titles = $_POST['titles'];
     } else {
-        $linkids = array();
+        $linkids = [];
         $xoopsTpl->assign('message', 'No Link Selected');
     }
     if (count($linkids) > 0) {

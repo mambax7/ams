@@ -1,28 +1,23 @@
 <?php
-//  ------------------------------------------------------------------------ //
-//                XOOPS - PHP Content Management System                      //
-//                    Copyright (c) 2000 XOOPS.org                           //
-//                       <http://www.xoops.org/>                             //
-//  ------------------------------------------------------------------------ //
-//  This program is free software; you can redistribute it and/or modify     //
-//  it under the terms of the GNU General Public License as published by     //
-//  the Free Software Foundation; either version 2 of the License, or        //
-//  (at your option) any later version.                                      //
-//                                                                           //
-//  You may not change or alter any portion of this comment or credits       //
-//  of supporting developers from this source code or any supporting         //
-//  source code which is considered copyrighted (c) material of the          //
-//  original comment or credit authors.                                      //
-//                                                                           //
-//  This program is distributed in the hope that it will be useful,          //
-//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
-//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
-//  GNU General Public License for more details.                             //
-//                                                                           //
-//  You should have received a copy of the GNU General Public License        //
-//  along with this program; if not, write to the Free Software              //
-//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
-//  ------------------------------------------------------------------------ //
+/*
+ * You may not change or alter any portion of this comment or credits
+ * of supporting developers from this source code or any supporting source code
+ * which is considered copyrighted (c) material of the original comment or credit authors.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+/**
+ * @copyright      {@link https://xoops.org/ XOOPS Project}
+ * @license        {@link http://www.gnu.org/licenses/gpl-2.0.html GNU GPL 2 or later}
+ * @package
+ * @since
+ * @author         XOOPS Development Team
+ */
+
+use XoopsModules\Ams;
 
 include_once __DIR__ . '/../../mainfile.php';
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/class.newsstory.php';
@@ -105,7 +100,7 @@ switch ($op) {
             $story   = new AmsStory($storyid);
             $story->delete();
             $sfiles   = new sFiles();
-            $filesarr = array();
+            $filesarr = [];
             $filesarr = $sfiles->getAllbyStory($storyid);
             if (count($filesarr) > 0) {
                 foreach ($filesarr as $onefile) {
@@ -121,7 +116,7 @@ switch ($op) {
             //include_once __DIR__ . '/../../include/cp_header.php';
             //xoops_cp_header();
             echo '<h4>' . _AMS_AM_CONFIG . '</h4>';
-            xoops_confirm(array('op' => 'delete', 'storyid' => $_REQUEST['storyid'], 'ok' => 1), 'submit.php', _AMS_AM_RUSUREDEL);
+            xoops_confirm(['op' => 'delete', 'storyid' => $_REQUEST['storyid'], 'ok' => 1], 'submit.php', _AMS_AM_RUSUREDEL);
         }
         break;
 
@@ -337,7 +332,7 @@ switch ($op) {
         if ($result) {
             // Notification
             $notificationHandler = xoops_getHandler('notification');
-            $tags                = array();
+            $tags                = [];
             $tags['STORY_NAME']  = $story->title();
             $tags['STORY_URL']   = XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/article.php?storyid=' . $story->storyid();
             if (1 == $approve && 0 == $oldapprove && $story->published <= time()) {
@@ -414,13 +409,13 @@ switch ($op) {
             redirect_header(XOOPS_URL . '/modules/AMS/index.php', 3, _NOPERM);
         }
         $change  = isset($_POST['change']) ? $_POST['change'] : 0;
-        $hiddens = array(
+        $hiddens = [
             'bodytext' => $bodytext,
             'hometext' => $hometext,
             'storyid'  => $storyid,
             'change'   => $change,
             'op'       => 'override_ok'
-        );
+        ];
         $story   = new AmsStory($storyid);
         $story->setChange($change);
 

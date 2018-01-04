@@ -29,17 +29,18 @@ include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class
 include_once XOOPS_ROOT_PATH . '/class/template.php';
 $xoopsOption['theme_use_smarty'] = 1;
 $xoopsTpl = new XoopsTpl();
-$xoopsTpl->xoops_setCaching(0);
+$xoopsTpl->caching=(0);
 if (3 == $xoopsConfig['debug_mode']) {
     $xoopsTpl->xoops_setDebugging(true);
 }
-$xoopsTpl->assign(array('xoops_theme'      => $xoopsConfig['theme_set'],
-                        'xoops_imageurl'   => XOOPS_THEME_URL . '/' . $xoopsConfig['theme_set'] . '/',
-                        'xoops_themecss'   => xoops_getcss($xoopsConfig['theme_set']),
-                        'xoops_requesturi' => htmlspecialchars($GLOBALS['xoopsRequestUri'], ENT_QUOTES),
-                        'xoops_sitename'   => htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES),
-                        'xoops_slogan'     => htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES)
-                  ));
+$xoopsTpl->assign([
+                      'xoops_theme'      => $xoopsConfig['theme_set'],
+                      'xoops_imageurl'   => XOOPS_THEME_URL . '/' . $xoopsConfig['theme_set'] . '/',
+                      'xoops_themecss'   => xoops_getcss($xoopsConfig['theme_set']),
+                      'xoops_requesturi' => htmlspecialchars($GLOBALS['xoopsRequestUri'], ENT_QUOTES),
+                      'xoops_sitename'   => htmlspecialchars($xoopsConfig['sitename'], ENT_QUOTES),
+                      'xoops_slogan'     => htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES)
+                  ]);
 
 $storyid = isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0;
 $version = isset($_GET['version']) ? (int)$_GET['version'] : 0;

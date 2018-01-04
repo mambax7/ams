@@ -29,7 +29,7 @@ header('Content-Type:text/xml; charset=utf-8');
 
 include_once XOOPS_ROOT_PATH.'/class/template.php';
 $tpl = new XoopsTpl();
-$tpl->xoops_setCaching(2);
+$tpl->caching=(2);
 $tpl->xoops_setCacheTime(3600);
 $cache_file='db:system_rss.tpl';
 if (defined('XOOPS_CUBE_LEGACY') && (XOOPS_CUBE_LEGACY==true)) {
@@ -79,12 +79,13 @@ if (!$tpl->is_cached($cache_file)) {
                     $story_link = XOOPS_URL . '/modules/AMS/article.php?storyid=' . $story->storyid() ;
                     $story_guid = XOOPS_URL . '/modules/AMS/article.php?storyid=' . $story->storyid() ;
                 }
-                $tpl->append('items', array(
+                $tpl->append('items', [
                     'title' => xoops_utf8_encode(htmlspecialchars($story->title(), ENT_QUOTES)) ,
                     'link' => $story_link ,
                     'guid' => $story_guid  ,
                     'pubdate' => formatTimestamp($story->published(), 'rss') ,
-                    'description' => xoops_utf8_encode(htmlspecialchars($story->hometext(), ENT_QUOTES))));
+                    'description' => xoops_utf8_encode(htmlspecialchars($story->hometext(), ENT_QUOTES))
+                ]);
             }
         }
     }
@@ -95,12 +96,13 @@ if (!$tpl->is_cached($cache_file)) {
     
         if (!empty($sarray) && is_array($sarray)) {
             foreach ($sarray as $story) {
-                $tpl->append('items', array(
+                $tpl->append('items', [
                     'title' => xoops_utf8_encode(htmlspecialchars($story->title(), ENT_QUOTES)) ,
                     'link' => XOOPS_URL . '/modules/news/article.php?storyid=' . $story->storyid() ,
                     'guid' => XOOPS_URL . '/modules/news/article.php?storyid=' . $story->storyid() ,
                     'pubdate' => formatTimestamp($story->published(), 'rss') ,
-                    'description' => xoops_utf8_encode(htmlspecialchars($story->hometext(), ENT_QUOTES))));
+                    'description' => xoops_utf8_encode(htmlspecialchars($story->hometext(), ENT_QUOTES))
+                ]);
             }
         }
     }

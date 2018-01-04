@@ -37,19 +37,20 @@ include_once XOOPS_ROOT_PATH.'/language/'.$xoopsConfig['language'].'/calendar.ph
 $lastyear = 0;
 $lastmonth = 0;
 
-$months_arr = array(1  => _CAL_JANUARY,
-                    2  => _CAL_FEBRUARY,
-                    3  => _CAL_MARCH,
-                    4  => _CAL_APRIL,
-                    5  => _CAL_MAY,
-                    6  => _CAL_JUNE,
-                    7  => _CAL_JULY,
-                    8  => _CAL_AUGUST,
-                    9  => _CAL_SEPTEMBER,
-                    10 => _CAL_OCTOBER,
-                    11 => _CAL_NOVEMBER,
-                    12 => _CAL_DECEMBER
-);
+$months_arr = [
+    1  => _CAL_JANUARY,
+    2  => _CAL_FEBRUARY,
+    3  => _CAL_MARCH,
+    4  => _CAL_APRIL,
+    5  => _CAL_MAY,
+    6  => _CAL_JUNE,
+    7  => _CAL_JULY,
+    8  => _CAL_AUGUST,
+    9  => _CAL_SEPTEMBER,
+    10 => _CAL_OCTOBER,
+    11 => _CAL_NOVEMBER,
+    12 => _CAL_DECEMBER
+];
 
 $fromyear = isset($_GET['year']) ? (int)$_GET['year'] : 0;
 $frommonth = isset($_GET['month']) ? (int)$_GET['month'] : 0;
@@ -77,8 +78,8 @@ $result = $xoopsDB->query('SELECT published FROM '
 if (!$result) {
     exit();
 } else {
-    $years = array();
-    $months = array();
+    $years = [];
+    $months = [];
     $i = 0;
     while (list($time) = $xoopsDB->fetchRow($result)) {
         $time = formatTimestamp($time, 'mysql', $useroffset);
@@ -96,7 +97,7 @@ if (!$result) {
             if ($lastyear != $this_year) {
                 $years[$i]['number'] = $lastyear;
                 $years[$i]['months'] = $months;
-                $months = array();
+                $months = [];
                 $lastmonth = 0;
                 $lastyear = $this_year;
                 $i++;
@@ -132,7 +133,7 @@ if (0 != $fromyear && 0 != $frommonth) {
     $count = 0;
     while ($myrow = $xoopsDB->fetchArray($result)) {
         $article = new AmsStory($myrow);
-        $story = array();
+        $story = [];
         $story['title'] = "<a href='index.php?storytopic=".$article->topicid()."'>".$article->topic_title()."</a>: <a href='article.php?storyid=".$article->storyid()."'>".$article->title() . '</a>';
         $story['counter'] = $article->counter();
         $story['date'] = formatTimestamp($article->published(), 'm', $useroffset);

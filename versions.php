@@ -66,14 +66,15 @@ if (!isset($_POST['submit'])) {
                     $version_array[2] = 0;
                 }
                 include_once XOOPS_ROOT_PATH . '/header.php';
-                xoops_confirm(array('op'            => 'delversions',
-                                    'submit'        => 1,
-                                    'ok'            => 1,
-                                    'storyid'       => $_POST['storyid'],
-                                    'version'       => $version_array[0],
-                                    'revision'      => $version_array[1],
-                                    'revisionminor' => $version_array[2]
-                              ), 'versions.php', _AMS_NW_RUSUREDELVERSIONS);
+                xoops_confirm([
+                                  'op'            => 'delversions',
+                                  'submit'        => 1,
+                                  'ok'            => 1,
+                                  'storyid'       => $_POST['storyid'],
+                                  'version'       => $version_array[0],
+                                  'revision'      => $version_array[1],
+                                  'revisionminor' => $version_array[2]
+                              ], 'versions.php', _AMS_NW_RUSUREDELVERSIONS);
             }
             break;
 
@@ -96,14 +97,15 @@ if (!isset($_POST['submit'])) {
                     $version_array[2] = 0;
                 }
                 include_once XOOPS_ROOT_PATH . '/header.php';
-                xoops_confirm(array('op'            => 'delallversions',
-                                    'submit'        => 1,
-                                    'ok'            => 1,
-                                    'storyid'       => $_POST['storyid'],
-                                    'version'       => $version_array[0],
-                                    'revision'      => $version_array[1],
-                                    'revisionminor' => $version_array[2]
-                              ), 'versions.php', _AMS_NW_RUSUREDELALLVERSIONS);
+                xoops_confirm([
+                                  'op'            => 'delallversions',
+                                  'submit'        => 1,
+                                  'ok'            => 1,
+                                  'storyid'       => $_POST['storyid'],
+                                  'version'       => $version_array[0],
+                                  'revision'      => $version_array[1],
+                                  'revisionminor' => $version_array[2]
+                              ], 'versions.php', _AMS_NW_RUSUREDELALLVERSIONS);
             }
             break;
     }

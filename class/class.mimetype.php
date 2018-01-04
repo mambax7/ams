@@ -100,7 +100,7 @@ class cmimetype
 
     public function privBuildMimeArray()
     {
-        return array(
+        return [
 
   '3dm'    => 'x-world/x-3dmf',
   '3dmf'   => 'x-world/x-3dmf',
@@ -796,6 +796,6 @@ class cmimetype
   'swf'    => 'application/x-shockwave-flash2-preview',
   'swf'    => 'application/futuresplash',
   'swf'    => 'image/vnd.rn-realflash'
-      );
+        ];
     }
 }

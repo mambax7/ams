@@ -30,7 +30,7 @@ function b_ams_author_show($options)
         $options[3] = 'average';
     }
     include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
-    $block = array();
+    $block = [];
     $authors = AmsStory::getAuthors($options[1], $options[0], $options[2], $options[3]);
     if (is_array($authors) && count($authors) > 0) {
         $block['authors'] = $authors;

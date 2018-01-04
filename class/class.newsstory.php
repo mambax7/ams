@@ -41,7 +41,7 @@ class AmsStory extends AmsXoopsStory
     public $ratings; //individual ratings
     public $rating; //average rating
     public $updated; //Last update
-    public $_errors=array(); //errors encountered
+    public $_errors= []; //errors encountered
     public $isNew = false;
     public $versionConflict = false;
     public $banner;
@@ -80,7 +80,7 @@ class AmsStory extends AmsXoopsStory
 
     public function topic($single_topic = false)
     {
-        static $topicsCache = array();
+        static $topicsCache = [];
         $topicId = $this->topicid();
         if (!isset($topicsCache[$topicId])) {
             $topicsCache = AmsTopic::getAllTopics();
@@ -178,7 +178,7 @@ class AmsStory extends AmsXoopsStory
     ) {
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $myts = \MyTextSanitizer::getInstance();
-        $ret = array();
+        $ret = [];
         $sql = 'SELECT * FROM '
                . $db->prefix('ams_article') . ' n, '
                . $db->prefix('ams_text') . ' t, '
@@ -237,7 +237,7 @@ class AmsStory extends AmsXoopsStory
     {
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $myts = \MyTextSanitizer::getInstance();
-        $ret = array();
+        $ret = [];
         $criteria = new CriteriaCompo(new Criteria('published', 0));
         if ($checkRight) {
             global $xoopsUser;
@@ -278,7 +278,7 @@ class AmsStory extends AmsXoopsStory
 
     public function getByTopic($topicid, $limit=0)
     {
-        $ret = array();
+        $ret = [];
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $sql = 'SELECT * FROM '
                . $db->prefix('ams_article') . ' n, '
@@ -420,7 +420,7 @@ class AmsStory extends AmsXoopsStory
     {
         if (0 == $this->uid) {
             $this->uname = $GLOBALS['xoopsConfig']['anonymous'];
-            return array();
+            return [];
         }
         global $xoopsModule, $xoopsModuleConfig;
         if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
@@ -589,7 +589,7 @@ class AmsStory extends AmsXoopsStory
                . $this->texttable . ' WHERE storyid='
                . $this->storyid . "$clause ORDER BY version DESC, revision DESC, revisionminor DESC";
         $result = $this->db->query($sql);
-        $ret = array();
+        $ret = [];
         $i = 0;
         while ($row = $this->db->fetchArray($result)) {
             $ret[$i] = $row;
@@ -632,14 +632,14 @@ class AmsStory extends AmsXoopsStory
             return true;
         }
         if (1 == $this->change) {
-            $this->version       += 1;
+            ++$this->version;
             $this->revision      = 0;
             $this->revisionminor = 0;
         } elseif (2 == $this->change) {
-            $this->revision      += 1;
+            ++$this->revision;
             $this->revisionminor = 0;
         } elseif (3 == $this->change) {
-            $this->revisionminor += 1;
+            ++$this->revisionminor;
         }
         $sql = 'SELECT COUNT(*) FROM '
                . $this->texttable . ' WHERE storyid='
@@ -691,7 +691,7 @@ class AmsStory extends AmsXoopsStory
     {
         $sql = 'SELECT * FROM ' . $this->db->prefix('ams_rating') . ' WHERE storyid = ' . $this->storyid;
         if ($result = $this->db->query($sql)) {
-            $ratings = array();
+            $ratings = [];
             while ($row = $this->db->fetchArray($result)) {
                 $ratings[] = $row;
             }
@@ -774,13 +774,13 @@ class AmsStory extends AmsXoopsStory
                . $this->storyid . ", $uid, $rating, " . $this->db->quoteString($hostname) . ', '
                . time() . ')';
         if ($this->db->query($sql)) {
-            $this->ratings[] = array(
+            $this->ratings[] = [
                 'storyid'         => $this->storyid,
             'ratinguser' => $uid,
             'rating' => $rating,
             'ratinghostname' => $hostname,
                 'ratingtimestamp' => time()
-            );
+            ];
             return true;
         }
         $this->_errors[] = _AMS_NW_COULDNOTSAVERATING;
@@ -894,7 +894,7 @@ class AmsStory extends AmsXoopsStory
             }
         }
         if ('' == $this->uname) {
-            $users = array($this->uid() => $this->uname($users));
+            $users = [$this->uid() => $this->uname($users)];
         }
         $story['poster'] = $this->uname;
         if ($story['poster']) {
@@ -1013,7 +1013,7 @@ class AmsStory extends AmsXoopsStory
     */
     public static function getAllNews($limit, $start = 0, $criteria = null)
     {
-        $ret = array();
+        $ret = [];
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         // @todo rework SQL to prevent 1055 error
         $setSqlMode = "SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))";
@@ -1056,12 +1056,12 @@ class AmsStory extends AmsXoopsStory
     /**
     * Static method to get version counts for selected articles
     */
-    public static function getVersionCounts($storyids = array())
+    public static function getVersionCounts($storyids = [])
     {
-        if ($storyids == array()) {
+        if ($storyids == []) {
             return false;
         }
-        $ret = array();
+        $ret = [];
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $sql = 'SELECT storyid, count(version) AS VersionCount FROM '
                . $db->prefix('ams_text') . ' WHERE storyid IN ('
@@ -1082,7 +1082,7 @@ class AmsStory extends AmsXoopsStory
         if ('uname' !== $name) {
             $name = 'name'; //making sure that there is not invalid information in field value
         }
-        $ret = array();
+        $ret = [];
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         if ('count' === $sort) {
             $sql = 'SELECT u.' . $name . ' AS name, u.uid , count( n.storyid ) AS count

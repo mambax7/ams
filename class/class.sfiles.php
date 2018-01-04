@@ -187,7 +187,7 @@ class sFiles
     public function getAllbyStory($storyid)
     {
         $db = XoopsDatabaseFactory::getDatabaseConnection();
-        $ret = array();
+        $ret = [];
         $sql = 'SELECT * FROM ' . $this->table . ' WHERE storyid=' . $storyid . '';
         $result = $db->query($sql);
         while ($myrow = $db->fetchArray($result)) {

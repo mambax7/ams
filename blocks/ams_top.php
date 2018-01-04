@@ -28,8 +28,8 @@ function b_ams_top_show($options)
 {
     $myts = \MyTextSanitizer::getInstance();
     include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
-    $block = array();
-    if (!isset($options[4]) || 0 == $options[4] || $options[4] == array(0)) {
+    $block = [];
+    if (!isset($options[4]) || 0 == $options[4] || $options[4] == [0]) {
         $stories = AmsStory::getAllPublished($options[1], 0, false, 0, 1, true, $options[0]);
     } else {
         // If using Xoops 2.0.9.1 way of saving array values
@@ -54,7 +54,7 @@ function b_ams_top_show($options)
                 $stat = formatTimestamp($story->published(), 's');
                 break;
         }
-        $news = array();
+        $news = [];
         $title = $story->title();
         if (strlen($title) >= $options[2]) {
             $title = xoops_substr($title, 0, $options[2] - 1);
@@ -95,7 +95,7 @@ function b_ams_top_edit($options)
     $form->addElement(new XoopsFormText(_AMS_MB_NEWS_TEASER, 'options[3]', 10, 10, $options[3]));
 
     if (!isset($options[4])) {
-        $topics = array(0);
+        $topics = [0];
     }
     // If using Xoops 2.0.9.1 way of saving array values
     elseif (is_array($options[4])) {

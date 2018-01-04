@@ -120,7 +120,7 @@ class IdgObjectHandler extends XoopsObjectHandler
     */
     public function &getObjects($criteria = null, $id_as_key = false, $as_object = true)
     {
-        $ret = array();
+        $ret = [];
         $limit = $start = 0;
         $sql = 'SELECT * FROM '.$this->table;
         if (isset($criteria) && is_subclass_of($criteria, 'CriteriaElement')) {
@@ -150,7 +150,7 @@ class IdgObjectHandler extends XoopsObjectHandler
     */
     public function convertResultSet($result, $id_as_key = false, $as_object = true)
     {
-        $ret = array();
+        $ret = [];
         while ($myrow = $this->db->fetchArray($result)) {
             $obj = $this->create(false);
             $obj->assignVars($myrow);
@@ -158,7 +158,7 @@ class IdgObjectHandler extends XoopsObjectHandler
                 if ($as_object) {
                     $ret[] = $obj;
                 } else {
-                    $row = array();
+                    $row = [];
                     $vars = $obj->getVars();
                     foreach (array_keys($vars) as $i) {
                         $row[$i] = $obj->getVar($i);
@@ -169,7 +169,7 @@ class IdgObjectHandler extends XoopsObjectHandler
                 if ($as_object) {
                     $ret[$myrow[$this->keyName]] = $obj;
                 } else {
-                    $row = array();
+                    $row = [];
                     $vars = $obj->getVars();
                     foreach (array_keys($vars) as $i) {
                         $row[$i] = $obj->getVar($i);
@@ -235,7 +235,7 @@ class IdgObjectHandler extends XoopsObjectHandler
             list($count) = $this->db->fetchRow($result);
             return $count;
         } else {
-            $ret = array();
+            $ret = [];
             while (list($id, $count) = $this->db->fetchRow($result)) {
                 $ret[$id] = $count;
             }

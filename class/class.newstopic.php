@@ -123,7 +123,7 @@ class AmsTopic extends AmsXoopsTopic
 
     public static function getAllTopics($checkRight = false, $permission = 'ams_view')
     {
-        static $topics_arr = array();
+        static $topics_arr = [];
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $table = $db->prefix('ams_topics');
         if ((!isset($topics_arr['checked']) && false !== $checkRight) || (!isset($topics_arr['unchecked']) && false === $checkRight)) {
@@ -140,7 +140,7 @@ class AmsTopic extends AmsXoopsTopic
                 $gpermHandler = xoops_getHandler('groupperm');
                 $topics = $gpermHandler->getItemIds($permission, $groups, $newsModule->getVar('mid'));
                 if (0 == count($topics)) {
-                    return array();
+                    return [];
                 }
                 $topics = implode(',', $topics);
                 $sql .= ' WHERE topic_id IN (' . $topics . ')';
@@ -158,12 +158,12 @@ class AmsTopic extends AmsXoopsTopic
                 unset($topic);
             }
         }
-        return $checkRight ? (isset($topics_arr['checked']) ? $topics_arr['checked'] : array()) : (isset($topics_arr['unchecked']) ? $topics_arr['unchecked'] : array());
+        return $checkRight ? (isset($topics_arr['checked']) ? $topics_arr['checked'] : []) : (isset($topics_arr['unchecked']) ? $topics_arr['unchecked'] : []);
     }
 
     public function getAllAuthors($byName = false)
     {
-        static $authors = array();
+        static $authors = [];
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         if (0 == count($authors)) {
             $sql = 'SELECT DISTINCT u.uid, u.uname, u.name FROM ' . $db->prefix('users') . ' u, ' . $db->prefix('ams_text') . ' t

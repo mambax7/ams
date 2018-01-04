@@ -39,7 +39,7 @@ class OldNewsStory extends XoopsStory
 
     public function getAll()
     {
-        $ret = array();
+        $ret = [];
         $db = XoopsDatabaseFactory::getDatabaseConnection();
         $sql = 'SELECT * FROM ' . $db->prefix('stories');
         $result = $db->query($sql);

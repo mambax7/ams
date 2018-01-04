@@ -27,7 +27,7 @@
 function b_ams_topics_show()
 {
     global $xoopsDB, $storytopic;
-    $block = array();
+    $block = [];
     include_once XOOPS_ROOT_PATH . '/modules/AMS/class/xoopstopic.php';
     $xt = new XoopsTopic($xoopsDB->prefix('ams_topics'));
     $jump = XOOPS_URL . '/modules/AMS/index.php?storytopic=';

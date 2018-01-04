@@ -38,7 +38,7 @@ switch ($op) {
         $spotlightBlock = $blockHandler->getObjects(new Criteria('b.func_file', 'ams_spotlight.php'));
         $spotlightBlock = isset($spotlightBlock[0]) ? $spotlightBlock[0] : null;
         $block = $spotlightHandler->getSpotlightBlock(false);
-        $spotlights = isset($block['spotlights']) ? $block['spotlights'] : array();
+        $spotlights = isset($block['spotlights']) ? $block['spotlights'] : [];
         $output = "<div align='right'>
                         <a href='spotlight.php?op=add'><img src='../assets/images/new.png' />"._AMS_AM_SPOT_ADD . '</a>';
         if (is_object($spotlightBlock)) {
@@ -155,7 +155,7 @@ switch ($op) {
                 echo $spot->getHtmlErrors();
             }
         } else {
-            xoops_confirm(array('ok' => 1, 'id' => $_REQUEST['id'], 'op' => 'delete'), 'spotlight.php', _AMS_AM_RUSUREDELSPOTLIGHT);
+            xoops_confirm(['ok' => 1, 'id' => $_REQUEST['id'], 'op' => 'delete'], 'spotlight.php', _AMS_AM_RUSUREDELSPOTLIGHT);
         }
         break;
 

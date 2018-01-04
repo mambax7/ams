@@ -24,61 +24,61 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
-use Xoopsmodules\ams;
+use XoopsModules\Ams;
 
 require_once __DIR__ . '/../class/Helper.php';
 //require_once __DIR__ . '/../include/common.php';
-$helper = ams\Helper::getInstance();
+$helper = Ams\Helper::getInstance();
 
 $pathIcon32 = \Xmf\Module\Admin::menuIconPath('');
 $pathModIcon32 = $helper->getModule()->getInfo('modicons32');
 
-$adminmenu=array();
+$adminmenu= [];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _AMS_MI_HOME ,
     'link'  => 'admin/index.php' ,
     'icon'  => $pathIcon32.'home.png'
-);
+];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _AMS_MI_NEWS_ADMENU2,
     'link'  => 'admin/articles.php?op=topicsmanager',
     'icon'  => $pathIcon32.'category.png',
-);
+];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _AMS_MI_NEWS_ADMENU3,
     'link'  => 'admin/articles.php?op=newarticle',
     'icon'  => $pathIcon32.'content.png',
-);
+];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _AMS_MI_NEWS_GROUPPERMS,
     'link'  => 'admin/groupperms.php',
     'icon'  => $pathIcon32.'permissions.png',
-);
+];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _AMS_MI_SPOTLIGHT,
     'link'  => 'admin/spotlight.php',
     'icon'  => $pathIcon32.'insert_table_row.png',
-);
+];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _AMS_MI_AUDIENCE,
     'link'  => 'admin/articles.php?op=audience',
     'icon'  => $pathIcon32.'users.png',
-);
+];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => 'SEO',
     'link'  => 'admin/seo.php',
     'icon'  => $pathIcon32.'search.png',
-);
+];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _AMS_MI_ABOUT,
     'link'  => 'admin/about.php',
     'icon'  => $pathIcon32.'about.png',
-);
+];

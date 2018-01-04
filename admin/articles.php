@@ -89,7 +89,7 @@ function lastStories()
     $title = Request::getString('title', '');
     $topicid = Request::getInt('topicid', 0);
     $status = Request::getString('status', 'none');
-    $author = Request::getArray('author', array());
+    $author = Request::getArray('author', []);
 
     $criteria = new CriteriaCompo();
     $querystring = 'op=newarticle';
@@ -127,14 +127,14 @@ function lastStories()
     $criteria->setOrder($order);
 
     $sort = Request::getString('sort', 'n.published');
-    $validSorts = array(
+    $validSorts = [
         'n.storyid',
         'n.title',
         'n.published',
         'n.counter',
         'n.rating',
         'n.comments',
-    );
+    ];
     if (!in_array($sort, $validSorts, true)) {
         $sort = 'n.published';
     }
@@ -354,9 +354,9 @@ function topicsmanager()
     $gpermHandler = xoops_getHandler('groupperm');
     $group_type_ref = $memberHandler->getGroups(null, true);
 
-    $admin_list = array();
-    $user_list = array();
-    $full_list = array();
+    $admin_list = [];
+    $user_list = [];
+    $full_list = [];
     $admincount=1;
     $usercount=1;
     $fullcount=1;
@@ -380,7 +380,7 @@ function topicsmanager()
     $user_list=array_keys($user_list);
     $full_list = array_keys($full_list);
 
-    $groups_ids = array();
+    $groups_ids = [];
     if ($topic_id > 0) {        // Edit mode
         $groups_ids = $gpermHandler->getGroupIds('ams_approve', $topic_id, $xoopsModule->getVar('mid'));
         $groups_ids = array_values($groups_ids);
@@ -391,7 +391,7 @@ function topicsmanager()
     $groups_AMS_can_approve_checkbox->addOptionArray($group_list);
     $sform->addElement($groups_AMS_can_approve_checkbox);
 
-    $groups_ids = array();
+    $groups_ids = [];
     if ($topic_id > 0) {        // Edit mode
         $groups_ids = $gpermHandler->getGroupIds('ams_submit', $topic_id, $xoopsModule->getVar('mid'));
         $groups_ids = array_values($groups_ids);
@@ -402,7 +402,7 @@ function topicsmanager()
     $groups_AMS_can_submit_checkbox->addOptionArray($group_list);
     $sform->addElement($groups_AMS_can_submit_checkbox);
 
-    $groups_ids = array();
+    $groups_ids = [];
     if ($topic_id > 0) {        // Edit mode
         $groups_ids = $gpermHandler->getGroupIds('ams_view', $topic_id, $xoopsModule->getVar('mid'));
         $groups_ids = array_values($groups_ids);
@@ -451,7 +451,7 @@ function modTopicS()
             $sfiles = new sFiles();
             $dstpath = XOOPS_ROOT_PATH . '/modules/' . $xoopsModule-> dirname() . '/assets/images/topics';
             $destname=$sfiles->createUploadName($dstpath, $fldname, true);
-            $permittedtypes=array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
+            $permittedtypes= ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'];
             $uploader = new XoopsMediaUploader($dstpath, $permittedtypes, $xoopsModuleConfig['maxuploadsize']);
             $uploader->setTargetFileName($destname);
             if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
@@ -522,7 +522,7 @@ function delTopic()
     if (!isset($_POST['ok'])) {
         echo '<h4>' . _AMS_AM_CONFIG . '</h4>';
         $xt = new XoopsTopic($xoopsDB -> prefix('ams_topics'), (int)$_GET['topic_id']);
-        xoops_confirm(array('op' => 'delTopic', 'topic_id' => (int)$_GET['topic_id'], 'ok' => 1 ), 'articles.php', _AMS_AM_WAYSYWTDTTAL . '<br>' . $xt->topic_title('S'));
+        xoops_confirm(['op' => 'delTopic', 'topic_id' => (int)$_GET['topic_id'], 'ok' => 1], 'articles.php', _AMS_AM_WAYSYWTDTTAL . '<br>' . $xt->topic_title('S'));
     } else {
         $xt = new XoopsTopic($xoopsDB -> prefix('ams_topics'), (int)$_POST['topic_id']);
         // get all subtopics under the specified topic
@@ -572,7 +572,7 @@ function addTopic()
                 $sfiles = new sFiles();
                 $dstpath = XOOPS_ROOT_PATH . '/modules/' . $xoopsModule-> dirname() . '/assets/images/topics';
                 $destname=$sfiles->createUploadName($dstpath, $fldname, true);
-                $permittedtypes=array('image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png');
+                $permittedtypes= ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'];
                 $uploader = new XoopsMediaUploader($dstpath, $permittedtypes, $xoopsModuleConfig['maxuploadsize']);
                 $uploader->setTargetFileName($destname);
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
@@ -639,7 +639,7 @@ function addTopic()
             AMS_updateCache();
 
             $notificationHandler = xoops_getHandler('notification');
-            $tags = array();
+            $tags = [];
             $tags['TOPIC_NAME'] = $_POST['topic_title'];
             $notificationHandler -> triggerEvent('global', 0, 'new_category', $tags);
             redirect_header('articles.php?op=topicsmanager', 1, _AMS_AM_DBUPDATED);
@@ -685,7 +685,7 @@ function audienceForm($id = 0)
         $groups = $gpermHandler->getGroupIds('ams_audience', $id, $xoopsModule->getVar('mid'));
     } else {
         $audience = '';
-        $groups = array();
+        $groups = [];
     }
     include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $aform = new XoopsThemeForm(_AMS_AM_MANAGEAUDIENCES, 'audienceform', 'articles.php', 'post');
@@ -749,7 +749,7 @@ switch ($op) {
             $story = new AmsStory($storyid);
             $story->delete();
             $sfiles = new sFiles();
-            $filesarr = array();
+            $filesarr = [];
             $filesarr = $sfiles->getAllbyStory($storyid);
             if (count($filesarr) > 0) {
                 foreach ($filesarr as $onefile) {
@@ -763,7 +763,7 @@ switch ($op) {
         } else {
             $story = new AmsStory($storyid);
             echo '<h4>' . _AMS_AM_CONFIG . '</h4>';
-            xoops_confirm(array('op' => 'delete', 'storyid' => $storyid, 'ok' => 1), 'articles.php', _AMS_AM_RUSUREDEL . '<br>' . $story->title());
+            xoops_confirm(['op' => 'delete', 'storyid' => $storyid, 'ok' => 1], 'articles.php', _AMS_AM_RUSUREDEL . '<br>' . $story->title());
         }
         break;
 
@@ -802,11 +802,11 @@ switch ($op) {
         }
         $storycount = $audienceHandler->getStoryCountByAudience($thisaudience);
         if ($storycount > 0) {
-            xoops_confirm(array('op' => 'delaudienceok', 'audienceid' => $_GET['audienceid'], 'newaudience' => $newaudiences), 'articles.php', $thisaudience->getVar('audience') . '<br>'
-                                                                                                                                               . sprintf(_AMS_AM_AUDIENCEHASSTORIES, $storycount));
+            xoops_confirm(['op' => 'delaudienceok', 'audienceid' => $_GET['audienceid'], 'newaudience' => $newaudiences], 'articles.php', $thisaudience->getVar('audience') . '<br>'
+                                                                                                                                          . sprintf(_AMS_AM_AUDIENCEHASSTORIES, $storycount));
         } else {
-            xoops_confirm(array('op' => 'delaudienceok', 'audienceid' => $_GET['audienceid'], 'newaudience' => 1), 'articles.php', $thisaudience->getVar('audience') . '<br>'
-                                                                                                                                   . _AMS_AM_RUSUREDELAUDIENCE);
+            xoops_confirm(['op' => 'delaudienceok', 'audienceid' => $_GET['audienceid'], 'newaudience' => 1], 'articles.php', $thisaudience->getVar('audience') . '<br>'
+                                                                                                                              . _AMS_AM_RUSUREDELAUDIENCE);
         }
         break;
 

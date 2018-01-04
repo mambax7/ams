@@ -159,7 +159,7 @@ class AmsSpotlightHandler extends IdgObjectHandler
     {
         $myts = \MyTextSanitizer::getInstance();
         include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
-        $block = array();
+        $block = [];
 
         if ($display_only) {
             $criteria = new Criteria('display', 1);
@@ -171,7 +171,7 @@ class AmsSpotlightHandler extends IdgObjectHandler
         if (0 == count($spots)) {
             return $block;
         }
-        $ids = array();
+        $ids = [];
         foreach (array_keys($spots) as $i) {
             switch ($spots[$i]->getVar('mode')) {
                 // Latest Article
@@ -244,22 +244,23 @@ class AmsSpotlightHandler extends IdgObjectHandler
                 $poster = '';
                 $teaser = $myts->displayTarea($spots[$i]->getVar('teaser', 'n'), 1);
             }
-            $block['spotlights'][] = array('spotid'             => $spots[$i]->getVar('spotlightid'),
-                                           'id'                 => $id,
-                                           'title'              => $title,
-                                           'hits'               => $hits,
-                                           'image'              => $image,
-                                           'text'               => $teaser,
-                                           'weight'             => $spots[$i]->getVar('weight'),
-                                           'display'            => $spots[$i]->getVar('display'),
-                                           'posttime'           => $posttime,
-                                           'poster'             => $poster,
-                                           'posterid'           => $posterid,
-                                           'autoteaser'         => $spots[$i]->getVar('autoteaser'),
-                                           'custom'             => $custom,
-                                           'friendlyurl_enable' => $friendlyurl_enable,
-                                           'friendlyurl'        => $friendlyurl
-            );
+            $block['spotlights'][] = [
+                'spotid'             => $spots[$i]->getVar('spotlightid'),
+                'id'                 => $id,
+                'title'              => $title,
+                'hits'               => $hits,
+                'image'              => $image,
+                'text'               => $teaser,
+                'weight'             => $spots[$i]->getVar('weight'),
+                'display'            => $spots[$i]->getVar('display'),
+                'posttime'           => $posttime,
+                'poster'             => $poster,
+                'posterid'           => $posterid,
+                'autoteaser'         => $spots[$i]->getVar('autoteaser'),
+                'custom'             => $custom,
+                'friendlyurl_enable' => $friendlyurl_enable,
+                'friendlyurl'        => $friendlyurl
+            ];
         }
         $block['ids'] = $ids;
         return $block;

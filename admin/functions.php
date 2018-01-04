@@ -2,7 +2,7 @@
 function adminmenu($currentoption=0, $breadcrumb = '')
 {
     global $xoopsModule, $xoopsConfig;
-    $tblColors=array();
+    $tblColors= [];
     $tblColors[0]=$tblColors[1]=$tblColors[2]=$tblColors[3]=$tblColors[4]=$tblColors[5]=$tblColors[6]=$tblColors[7]=$tblColors[8]='';
     if ($currentoption>=0) {
         $tblColors[$currentoption]='id=\'current\'';

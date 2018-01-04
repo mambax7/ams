@@ -49,7 +49,7 @@ if (isset($_POST['submit'])) {
     $SEO_URL_Template='[XOOPS_URL]/'.$myts->htmlSpecialChars($_POST['urltemplate']);
 
     //Save setting into cache
-    $thisSEO= $SEOHandler->save_setting(array('friendlyurl_enable'=>$SEO_is_Enable,'urltemplate'=>$SEO_URL_Template));
+    $thisSEO= $SEOHandler->save_setting(['friendlyurl_enable' =>$SEO_is_Enable, 'urltemplate' =>$SEO_URL_Template]);
 } else { //just print form. Don't process anything
 }
 //load AMS SEO setting from cache

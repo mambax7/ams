@@ -28,7 +28,7 @@ function b_ams_topics_moderate()
 {
     //include_once XOOPS_ROOT_PATH."/class/xoopstopic.php";
     include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
-    $block = array();
+    $block = [];
 
     $storyarray = AmsStory :: getAllSubmitted(0, true, true);
     if (count($storyarray) > 0) {
