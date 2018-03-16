@@ -23,6 +23,9 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
+
+use XoopsModules\Ams;
+
 include_once XOOPS_ROOT_PATH.'/class/logger.php';
 include_once XOOPS_ROOT_PATH.'/class/database/databasefactory.php';
 include_once XOOPS_ROOT_PATH.'/class/database/'.XOOPS_DB_TYPE.'database.php';
@@ -42,9 +45,9 @@ class db_manager
 
     public function __construct()
     {
-        $this->db = XoopsDatabaseFactory::getDatabase();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->db->setPrefix(XOOPS_DB_PREFIX);
-        $this->db->setLogger(XoopsLogger::instance());
+        $this->db->setLogger(\XoopsLogger::instance());
     }
 
     public function isConnectable()

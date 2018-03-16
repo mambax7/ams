@@ -1,4 +1,7 @@
 <?php
+
+use XoopsModules\Ams;
+
 function adminmenu($currentoption=0, $breadcrumb = '')
 {
     global $xoopsModule, $xoopsConfig;
@@ -7,11 +10,10 @@ function adminmenu($currentoption=0, $breadcrumb = '')
     if ($currentoption>=0) {
         $tblColors[$currentoption]='id=\'current\'';
     }
-    if (file_exists(XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/language/'.$xoopsConfig['language'].'/modinfo.php')) {
-        include_once __DIR__ . '/../language/'.$xoopsConfig['language'].'/modinfo.php';
-    } else {
-        include_once __DIR__ . '/../language/english/modinfo.php';
-    }
+
+    /** @var Ams\Helper $helper */
+    $helper = Ams\Helper::getInstance();
+    $helper->loadLanguage('modinfo');
 
     /* Nice buttons styles */
     $return = "
@@ -83,7 +85,7 @@ function adminmenu($currentoption=0, $breadcrumb = '')
     echo "<li style=\"list-style: none; margin: 0; display: inline; \"><a href=\"groupperms.php\" style=\"padding: 3px 0.5em; margin-left: 3px; border: 1px solid #778; background: ".$tblColors[2]."; text-decoration: none; \">"._AMS_MI_NEWS_GROUPPERMS."</a></li>";
     echo "<li style=\"list-style: none; margin: 0; display: inline; \"><a href=\"spotlight.php\" style=\"padding: 3px 0.5em; margin-left: 3px; border: 1px solid #778; background: ".$tblColors[3]."; text-decoration: none; \">"._AMS_AM_SPOTLIGHT."</a></li>";
     if (!table_exists('ams_article')) {
-        echo "<li style=\"list-style: none; margin: 0; display: inline; \"><a href=\"".XOOPS_URL."/modules/AMS/upgrade/index.php\" style=\"padding: 3px 0.5em; margin-left: 3px; border: 1px solid #778; background: ".$tblColors[4]."; text-decoration: none; \">"._AMS_AM_NEWS_UPGRADE."</a></li>";
+        echo "<li style=\"list-style: none; margin: 0; display: inline; \"><a href=\"".XOOPS_URL."/modules/ams/upgrade/index.php\" style=\"padding: 3px 0.5em; margin-left: 3px; border: 1px solid #778; background: ".$tblColors[4]."; text-decoration: none; \">"._AMS_AM_NEWS_UPGRADE."</a></li>";
     }
     echo "<li style=\"list-style: none; margin: 0; display: inline; \"><a href=\"index.php?op=audience\" style=\"padding: 3px 0.5em; margin-left: 3px; border: 1px solid #778; background: ".$tblColors[5]."; text-decoration: none; \">"._AMS_AM_MANAGEAUDIENCES."</a></li>";
     echo "<li style=\"list-style: none; margin: 0; display: inline; \"><a href=\"../../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=".$xoopsModule -> getVar( 'mid' )."\" style=\"padding: 3px 0.5em; margin-left: 3px; border: 1px solid #778; background: ".$tblColors[6]."; text-decoration: none; \">"._PREFERENCES."</a></li>";

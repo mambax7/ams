@@ -23,11 +23,14 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
+
+use XoopsModules\Ams;
+
 include __DIR__ . '/../../mainfile.php';
-include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
+//include_once XOOPS_ROOT_PATH.'/modules/ams/class/Story.php';
 $com_itemid = isset($_GET['com_itemid']) ? (int)$_GET['com_itemid'] : 0;
 if ($com_itemid > 0) {
-    $article = new AmsStory($com_itemid);
+    $article = new Ams\Story($com_itemid);
     $article->uname();
     $com_replytext = _POSTEDBY.'&nbsp;<b>'.$article->uname.'</b>&nbsp;'._DATE.'&nbsp;<b>'.formatTimestamp($article->published()).'</b><br><br>'.$article->hometext();
     $bodytext = $article->bodytext();

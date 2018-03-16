@@ -24,12 +24,14 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
+use XoopsModules\Ams;
+
 function b_ams_topicsnav_show($options)
 {
-    include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newstopic.php';
+//    include_once XOOPS_ROOT_PATH . '/modules/ams/class/Topic.php';
     global $xoopsDB, $xoopsUser;
     $block = [];
-    $topics = AmsTopic::getAllTopics($options[0]);
+    $topics = Ams\Topic::getAllTopics($options[0]);
     foreach ($topics as $topic) {
         $block['topics'][] = ['id' => $topic->topic_id, 'title' => $topic->topic_title()];
     }
@@ -39,8 +41,8 @@ function b_ams_topicsnav_show($options)
 function b_ams_topicsnav_edit($options)
 {
     include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-    $form = new XoopsFormElementTray('', '<br/>');
-    $restrict_select = new XoopsFormRadioYN(_AMS_MB_NEWS_RESTRICTTOPICS, 'options[0]', $options[0]);
+    $form = new \XoopsFormElementTray('', '<br/>');
+    $restrict_select = new \XoopsFormRadioYN(_AMS_MB_NEWS_RESTRICTTOPICS, 'options[0]', $options[0]);
     $form->addElement($restrict_select);
 
     return $form->render();

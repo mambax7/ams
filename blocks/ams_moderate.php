@@ -24,13 +24,15 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
+use XoopsModules\Ams;
+
 function b_ams_topics_moderate()
 {
     //include_once XOOPS_ROOT_PATH."/class/xoopstopic.php";
-    include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
+//    include_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
     $block = [];
 
-    $storyarray = AmsStory :: getAllSubmitted(0, true, true);
+    $storyarray = Ams\Story :: getAllSubmitted(0, true, true);
     if (count($storyarray) > 0) {
         $block['lang_story_title'] = _AMS_MB_TITLE;
         $block['lang_story_date'] = _AMS_MB_POSTED;
@@ -41,21 +43,21 @@ function b_ams_topics_moderate()
             $uids[$thisstory->uid()] = $thisstory->uid();
         }
         $memberHandler = xoops_getHandler('member');
-        $user_arr = $memberHandler->getUsers(new Criteria('uid', '(' . implode(',', array_keys($uids)) . ')', 'IN'), true);
+        $user_arr = $memberHandler->getUsers(new \Criteria('uid', '(' . implode(',', array_keys($uids)) . ')', 'IN'), true);
         foreach ($storyarray as $newstory) {
             $newstory->uname($user_arr);
             $title = $newstory -> title();
             if (!isset($title) || ('' == $title)) {
-                $linktitle = "<a href='" . XOOPS_URL . '/modules/AMS/index.php?op=edit&amp;storyid='
+                $linktitle = "<a href='" . XOOPS_URL . '/modules/ams/index.php?op=edit&amp;storyid='
                              . $newstory-> storyid() . "'>" . _AMS_MB_NOSUBJECT . '</a>';
             } else {
-                $linktitle = "<a href='" . XOOPS_URL . '/modules/AMS/submit.php?op=edit&amp;storyid='
+                $linktitle = "<a href='" . XOOPS_URL . '/modules/ams/submit.php?op=edit&amp;storyid='
                              . $newstory-> storyid() . "'>" . $title . '</a>';
             }
             $story['title'] = $linktitle;
             $story['date'] = formatTimestamp($newstory -> created());
             $story['author'] = "<a href='" . XOOPS_URL . '/userinfo.php?uid=' . $newstory-> uid() . "'>" . $newstory -> uname . '</a>';
-            $story['action'] = "<a href='" . XOOPS_URL . '/modules/AMS/submit.php?op=delete&amp;storyid='
+            $story['action'] = "<a href='" . XOOPS_URL . '/modules/ams/submit.php?op=delete&amp;storyid='
                                . $newstory-> storyid() . "'>" . _AMS_MB_DELETE . '</a>';
             $story['topic_title'] = $newstory -> topic_title();
             $block['stories'][] = $story;

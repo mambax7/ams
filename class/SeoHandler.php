@@ -1,23 +1,12 @@
-<?php
-if (!class_exists('IdgObjectHandler')) {
-    include_once XOOPS_ROOT_PATH . '/modules/AMS/class/idgobject.php';
-}
+<?php namespace XoopsModules\Ams;
 
-class AmsSEO extends XoopsObject
-{
-    public function __construct()
-    {
-        $this->initVar('settingid', XOBJ_DTYPE_INT, null, true, 11);
-        $this->initVar('settingvalue', XOBJ_DTYPE_TXTBOX, null, false, 100);
-        $this->initVar('settingtype', XOBJ_DTYPE_TXTBOX, null, false, 30);
-    }
-}
+use XoopsModules\Ams;
 
-class AMSSEOHandler extends IdgObjectHandler
+class SeoHandler extends \XoopsPersistableObjectHandler //IdgObjectHandler
 {
     public function __construct($db)
     {
-        parent::__construct($db, 'ams_setting', 'AmsSEO', 'settingid');
+        parent::__construct($db, 'ams_setting', Seo::class, 'settingid');
     }
 
     private function readDb($setting_type)

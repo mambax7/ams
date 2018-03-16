@@ -24,12 +24,14 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
+use XoopsModules\Ams;
+
 // comment callback functions
 
-include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
+//include_once XOOPS_ROOT_PATH.'/modules/ams/class/Story.php';
 function ams_com_update($story_id, $total_num)
 {
-    $article = new AmsStory($story_id);
+    $article = new Ams\Story($story_id);
     if (!$article->updateComments($total_num)) {
         return false;
     }

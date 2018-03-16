@@ -27,19 +27,19 @@ include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
 include_once XOOPS_ROOT_PATH . '/class/tree.php';
 
-$fform = new XoopsThemeForm(_AMS_AM_FILTER, 'filterform', 'articles.php');
+$fform = new \XoopsThemeForm(_AMS_AM_FILTER, 'filterform', 'articles.php');
 $fform->setExtra('enctype="multipart/form-data"');
 
-$first_row = new XoopsFormElementTray(_OPTIONS);
+$first_row = new \XoopsFormElementTray(_OPTIONS);
 
-$first_row->addElement(new XoopsFormText(_AMS_AM_TITLE, 'title', 50, 80, $title));
+$first_row->addElement(new \XoopsFormText(_AMS_AM_TITLE, 'title', 50, 80, $title));
 global $xoopsDB;
-$xt = new AmsTopic($xoopsDB->prefix('ams_topics'));
+$xt = new Topic($xoopsDB->prefix('ams_topics'));
 $alltopics = $xt->getAllTopics();
-$topic_obj_tree = new XoopsObjectTree($alltopics, 'topic_id', 'topic_pid');
+$topic_obj_tree = new \XoopsObjectTree($alltopics, 'topic_id', 'topic_pid');
 $first_row->addElement($topic_obj_tree->makeSelectElement('topicid', 'topic_title', '--', $topicid, true, 0, '', _AMS_AM_TOPIC));
 
-$author_select = new XoopsFormSelect(_AMS_AM_POSTER, 'author', $author, 5, true);
+$author_select = new \XoopsFormSelect(_AMS_AM_POSTER, 'author', $author, 5, true);
 $authors = $xt->getAllAuthors();
 //$authors = array_flip($authors);
 
@@ -49,8 +49,8 @@ foreach ($authors as $key => $user_arr) {
 
 $first_row->addElement($author_select);
 
-$second_row = new XoopsFormElementTray(_AMS_AM_SORTING);
-$status_select = new XoopsFormSelect(_AMS_AM_STATUS, 'status', $status);
+$second_row = new \XoopsFormElementTray(_AMS_AM_SORTING);
+$status_select = new \XoopsFormSelect(_AMS_AM_STATUS, 'status', $status);
 $status_select->addOption('none', '---');
 $status_select->addOption('published', _AMS_AM_PUBLISHED);
 $status_select->addOption('expired', _AMS_AM_EXPIRED);
@@ -59,13 +59,13 @@ $second_row->addElement($status_select);
 
 
 $order = isset($order) ? $order : 'DESC';
-$order_select = new XoopsFormSelect(_AMS_AM_ORDER, 'order', $order);
+$order_select = new \XoopsFormSelect(_AMS_AM_ORDER, 'order', $order);
 $order_select->addOption('DESC', _DESCENDING);
 $order_select->addOption('ASC', _ASCENDING);
 $second_row->addElement($order_select);
 
 $sort = isset($sort) ? $sort : 0;
-$sort_select = new XoopsFormSelect(_AMS_AM_SORT, 'sort', $sort);
+$sort_select = new \XoopsFormSelect(_AMS_AM_SORT, 'sort', $sort);
 $sort_select->addOption('n.storyid', _AMS_AM_STORYID);
 $sort_select->addOption('n.title', _AMS_AM_TITLE);
 $sort_select->addOption('n.published', _AMS_AM_PUBLISHED);
@@ -76,8 +76,8 @@ $second_row->addElement($sort_select);
 $fform->addElement($first_row);
 $fform->addElement($second_row);
 
-$fform->addElement(new XoopsFormHidden('op', 'newarticle'));
-$button_row = new XoopsFormElementTray('');
-$button_row->addElement(new XoopsFormButton('', 'submit', _AMS_AM_FILTER, 'submit'));
-//$button_row->addElement(new XoopsFormButton('', 'reset', _AMS_AM_RESET, 'reset'));
+$fform->addElement(new \XoopsFormHidden('op', 'newarticle'));
+$button_row = new \XoopsFormElementTray('');
+$button_row->addElement(new \XoopsFormButton('', 'submit', _AMS_AM_FILTER, 'submit'));
+//$button_row->addElement(new \XoopsFormButton('', 'reset', _AMS_AM_RESET, 'reset'));
 $fform->addElement($button_row);

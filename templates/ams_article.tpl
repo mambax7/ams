@@ -4,7 +4,7 @@
     <div class="itemHead">
         <div class="itemTitle" style="float:left;">
 			<{if $story.friendlyurl_enable != 1}>
-            <a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$story.id}>"><{$story.title}></a>
+            <a href="<{$xoops_url}>/modules/ams/article.php?storyid=<{$story.id}>"><{$story.title}></a>
 			<{else}>
             <a href="<{$story.friendlyurl}>"><{$story.title}></a>
 			<{/if}>
@@ -32,7 +32,7 @@
                     <tr>
                         <td class="head" width="20%"><{$link.link_module}></td>
                         <td class="<{cycle values="odd, even"}>">
-                            <a href='<{$xoops_url}>/modules/AMS/viewlink.php?lid=<{$link.linkid}><{if $link.storyid!=$story.id}>&amp;rev=1<{/if}>
+                            <a href='<{$xoops_url}>/modules/ams/viewlink.php?lid=<{$link.linkid}><{if $link.storyid!=$story.id}>&amp;rev=1<{/if}>
                             ' target="<{$link.target}>"><{$link.link_title}></a>
                             <{if $admin}>
                                 (<{$link.hits}>)
@@ -59,15 +59,15 @@
         <div style="text-align:right;">
             <{if $admin}>
                 <span class="itemAdminLink">
-                    &nbsp;<a href='<{$xoops_url}>/modules/AMS/submit.php?op=edit&amp;storyid=<{$story.id}>'><{$smarty.const._EDIT}></a>
+                    &nbsp;<a href='<{$xoops_url}>/modules/ams/submit.php?op=edit&amp;storyid=<{$story.id}>'><{$smarty.const._EDIT}></a>
                     <{if ($story.hasversions == 1)}>&nbsp&nbsp|
-                       &nbsp&nbsp<a href='<{$xoops_url}>/modules/AMS/versions.php?storyid=<{$story.id}>'><{$smarty.const._AMS_NW_VERSION}></a>
+                       &nbsp&nbsp<a href='<{$xoops_url}>/modules/ams/versions.php?storyid=<{$story.id}>'><{$smarty.const._AMS_NW_VERSION}></a>
                     <{/if}>
                     &nbsp&nbsp;
                 </span>
             <{/if}>
             <{if ($story.posterid == $xoops_userid || $admin)}>
-                <span class="itemPermaLink">|&nbsp&nbsp;<a href='<{$xoops_url}>/modules/AMS/link.php?storyid=<{$story.id}>'><{$smarty.const._AMS_NW_MANAGELINK}></a>&nbsp;</span>
+                <span class="itemPermaLink">|&nbsp&nbsp;<a href='<{$xoops_url}>/modules/ams/link.php?storyid=<{$story.id}>'><{$smarty.const._AMS_NW_MANAGELINK}></a>&nbsp;</span>
             <{/if}>
         </div>
     </div>
@@ -84,7 +84,7 @@
             <tr>
                 <td class="head" width="20%"><{$link.link_module}></td>
                 <td class="<{cycle values="odd, even"}>">
-                    <a href='<{$xoops_url}>/modules/AMS/viewlink.php?lid=<{$link.linkid}><{if $link.storyid!=$story.id}>&amp;rev=1<{/if}>' target="<{$link.target}>"><{$link.link_title}></a>
+                    <a href='<{$xoops_url}>/modules/ams/viewlink.php?lid=<{$link.linkid}><{if $link.storyid!=$story.id}>&amp;rev=1<{/if}>' target="<{$link.target}>"><{$link.link_title}></a>
                     <{if $admin}>
                         (<{$link.hits}>)
                     <{/if}>
@@ -105,9 +105,9 @@
 
 <div style="padding: 5px; text-align: right; margin-right:3px;">
 <{if $story.forum}>
-                <a href="<{$xoops_url}>/modules/newbb/viewforum.php?forum=<{$story.forum}>"><img src="<{$xoops_url}>/modules/AMS/assets/images/discuss.png" /></a>
+                <a href="<{$xoops_url}>/modules/newbb/viewforum.php?forum=<{$story.forum}>"><img src="<{$xoops_url}>/modules/ams/assets/images/discuss.png" /></a>
             <{/if}>
-<a href="<{$xoops_url}>/modules/AMS/print.php?storyid=<{$story.id}>"><img src="<{$xoops_url}>/modules/AMS/assets/images/print.png" border="0" alt="<{$lang_printerpage}>" /></a> <a target="_top" href="<{$mail_link}>"><img src="<{$xoops_url}>/modules/AMS/assets/images/email.png" border="0" alt="<{$lang_sendstory}>" /></a> <a target="_top" href="<{$xoops_url}>/modules/AMS/"><img src="<{$xoops_url}>/modules/AMS/assets/images/home.png" border="0" alt="<{$lang_home}>" /></a>
+<a href="<{$xoops_url}>/modules/ams/print.php?storyid=<{$story.id}>"><img src="<{$xoops_url}>/modules/ams/assets/images/print.png" border="0" alt="<{$lang_printerpage}>" /></a> <a target="_top" href="<{$mail_link}>"><img src="<{$xoops_url}>/modules/ams/assets/images/email.png" border="0" alt="<{$lang_sendstory}>" /></a> <a target="_top" href="<{$xoops_url}>/modules/ams/"><img src="<{$xoops_url}>/modules/ams/assets/images/home.png" border="0" alt="<{$lang_home}>" /></a>
 </div>
 
 <div style="text-align: center; padding: 3px; margin:3px;">

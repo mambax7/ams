@@ -1,7 +1,10 @@
 <?php
+
+use XoopsModules\Ams;
+
 include __DIR__ . '/../../../include/cp_header.php';
-include_once __DIR__ . '/class/class.newsstory.php';
-include_once __DIR__ . '/class/class.newstopic.php';
+//include_once __DIR__ . '/class/Story.php';
+//include_once __DIR__ . '/class/Topic.php';
 include_once __DIR__ . '/class/newsupgrade.php';
 xoops_cp_header();
 set_magic_quotes_runtime(1);
@@ -67,14 +70,14 @@ if (isset($_POST['submit'])) {
 
         case 'Update':
         /*
-        include_once XOOPS_ROOT_PATH."/modules/AMS/include/update.php";
+        include_once XOOPS_ROOT_PATH."/modules/ams/include/update.php";
         xoops_module_update_AMS($xoopsModule, 220); //invoke update procedure - the SQL will fail if already upgraded, but no harm should come to it.
         header('location: '.XOOPS_URL.'/modules/system/admin.php?fct=modulesadmin&op=update&module=AMS');
         exit();*/
-        include_once XOOPS_ROOT_PATH.'/modules/AMS/upgrade/class/dbmanager.php';
-        include_once XOOPS_ROOT_PATH.'/modules/AMS/upgrade/language/install.php';
+        include_once XOOPS_ROOT_PATH.'/modules/ams/upgrade/class/dbmanager.php';
+        include_once XOOPS_ROOT_PATH.'/modules/ams/upgrade/language/install.php';
         $dbm = new db_manager;
-        $dbm->queryFromFile(XOOPS_ROOT_PATH.'/modules/AMS/sql/upgrade.sql');
+        $dbm->queryFromFile(XOOPS_ROOT_PATH.'/modules/ams/sql/upgrade.sql');
         $feedback = $dbm->report();
         echo $feedback;
         echo "<br><br><a href='".XOOPS_URL."/modules/system/admin.php?fct=modulesadmin&op=update&module=AMS'>Proceed</a>";
@@ -83,19 +86,19 @@ if (isset($_POST['submit'])) {
     }
 }
 include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-$upgrade_form = new XoopsThemeForm('Upgrade', 'upgradeform', 'index.php');
+$upgrade_form = new \XoopsThemeForm('Upgrade', 'upgradeform', 'index.php');
 if (!isset($_POST['submit'])) {
-    $upgrade_form->addElement(new XoopsFormButton('Import Articles and Topics from News module', 'submit', 'Import', 'submit'));
-    $upgrade_form->addElement(new XoopsFormButton('Articles and Topics ARE Imported Earlier, Proceed to Next Step', 'submit', 'Proceed', 'submit'));
+    $upgrade_form->addElement(new \XoopsFormButton('Import Articles and Topics from News module', 'submit', 'Import', 'submit'));
+    $upgrade_form->addElement(new \XoopsFormButton('Articles and Topics ARE Imported Earlier, Proceed to Next Step', 'submit', 'Proceed', 'submit'));
 } else {
-    $upgrade_form->addElement(new XoopsFormButton('MOVE Comments From News Articles to AMS Articles', 'submit', 'Comments', 'submit'));
+    $upgrade_form->addElement(new \XoopsFormButton('MOVE Comments From News Articles to AMS Articles', 'submit', 'Comments', 'submit'));
     $moduleHandler = xoops_getHandler('module');
     $newsModule = $moduleHandler->getByDirname('news');
     if (is_object($newsModule) && $newsModule->getVar('version') > 110) {
-        $upgrade_form->addElement(new XoopsFormButton('Copy Permissions From News to AMS', 'submit', 'Permissions', 'submit'));
+        $upgrade_form->addElement(new \XoopsFormButton('Copy Permissions From News to AMS', 'submit', 'Permissions', 'submit'));
     }
 }
-$upgrade_form->addElement(new XoopsFormButton('Update Article Management System Module', 'submit', 'Update', 'submit'));
+$upgrade_form->addElement(new \XoopsFormButton('Update Article Management System Module', 'submit', 'Update', 'submit'));
 $upgrade_form->display();
 
 

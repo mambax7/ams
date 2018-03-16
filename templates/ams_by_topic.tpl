@@ -3,7 +3,7 @@
 <{if isset($topicbanner)}><div><{$topicbanner}></div><{/if}>
 
 <{if $displaynav == true}>
-  <div style="text-align: right;"><b><a href="<{$xoops_url}>/modules/AMS/submit.php"><img src="<{$xoops_url}>/modules/AMS/assets/images/new.png"><{$lang_postnewarticle}></a></b></div>
+  <div style="text-align: right;"><b><a href="<{$xoops_url}>/modules/ams/submit.php"><img src="<{$xoops_url}>/modules/ams/assets/images/new.png"><{$lang_postnewarticle}></a></b></div>
   <div style="text-align: center;">
     <{$topic_form.javascript}>
         <form name="<{$topic_form.name}>" id="<{$topic_form.name}>" action="<{$topic_form.action}>" method="<{$topic_form.method}>">
@@ -43,7 +43,7 @@
                             <table cellpadding="0" cellspacing="0" width="100%">
                                 <tr class="itemHead" style="line-height: 200%;">
                                     <td class="itemTitle">
-                                        &nbsp;&nbsp;<a href="<{$xoops_url}>/modules/AMS/index.php?storytopic=<{$topic.id}>"><{$topic.title}></a>
+                                        &nbsp;&nbsp;<a href="<{$xoops_url}>/modules/ams/index.php?storytopic=<{$topic.id}>"><{$topic.title}></a>
                                     </td>
                                     <td class="itemTitle" style="text-align: right;">
                                         <{$smarty.const._AMS_NW_TOTALARTICLES}> : <{$topic.articlecount}>&nbsp;&nbsp;
@@ -57,14 +57,14 @@
                           <{if $storycount == 0}>
                             <ul>
 				<{if $topic.stories[i].friendlyurl_enable != 1}>
-                                <li><a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$topic.stories[i].id}>"><{$topic.stories[i].title}></a> (<{$topic.stories[i].posttime}>)</li>
+                                <li><a href="<{$xoops_url}>/modules/ams/article.php?storyid=<{$topic.stories[i].id}>"><{$topic.stories[i].title}></a> (<{$topic.stories[i].posttime}>)</li>
 				<{else}>
                                 <li><a href="<{$topic.stories[i].friendlyurl}>"><{$topic.stories[i].title}></a> (<{$topic.stories[i].posttime}>)</li>
 				<{/if}>
                             <{assign var="storycount" value=1}>
                           <{else}>
 				<{if $topic.stories[i].friendlyurl_enable != 1}>
-                            	<li><a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$topic.stories[i].id}>"><{$topic.stories[i].title}></a> (<{$topic.stories[i].posttime}>)</li>
+                            	<li><a href="<{$xoops_url}>/modules/ams/article.php?storyid=<{$topic.stories[i].id}>"><{$topic.stories[i].title}></a> (<{$topic.stories[i].posttime}>)</li>
 				<{else}>
                             	<li><a href="<{$topic.stories[i].friendlyurl}>"><{$topic.stories[i].title}></a> (<{$topic.stories[i].posttime}>)</li>
 				<{/if}>
@@ -74,7 +74,7 @@
                         <{/section}>
                         <{if $storycount > 0}>
                             </ul>
-                            <a href="<{$xoops_url}>/modules/AMS/index.php?storytopic=<{$topic.id}>"><{$lang_morereleases}><{$topic.title}></a>
+                            <a href="<{$xoops_url}>/modules/ams/index.php?storytopic=<{$topic.id}>"><{$lang_morereleases}><{$topic.title}></a>
                         <{/if}>
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                         <ul>
                             <{foreach item=subtopic from=$topic.subtopics}>
                                 <{if $subtopic.imageurl != "" }>
-                                    <li class="<{cycle values="even,odd"}>" style="list-style: url(<{$xoops_url}>/modules/AMS/assets/images/topics/<{$subtopic.imageurl}>) circle; list-style-position: inside; text-align: left;">
+                                    <li class="<{cycle values="even,odd"}>" style="list-style: url(<{$xoops_url}>/modules/ams/assets/images/topics/<{$subtopic.imageurl}>) circle; list-style-position: inside; text-align: left;">
                                 <{else}>
                                     <li>
            <div class="breadcrumb"><{$breadcrumb}></div>
@@ -124,7 +124,7 @@
         <!-- start news item loop -->
         <{counter assign=story_count start=0 print=false}>
         <{section name=i loop=$stories}>
-            <li><a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$stories[i].id}>"><{$stories[i].title}></a> (<{$stories[i].posttime}>)</li>
+            <li><a href="<{$xoops_url}>/modules/ams/article.php?storyid=<{$stories[i].id}>"><{$stories[i].title}></a> (<{$stories[i].posttime}>)</li>
         <{counter}>
         <{/section}>
     </ul></td></tr>
@@ -133,7 +133,7 @@
 <div style="text-align: right; margin: 10px;"><{$pagenav}></div>
 <{include file='db:system_notification_select.tpl'}>
 <br>                     <{/if}>
-                                    <a valign="middle" href="<{$xoops_url}>/modules/AMS/index.php?storytopic=<{$subtopic.id}>"><{$subtopic.title}></a>
+                                    <a valign="middle" href="<{$xoops_url}>/modules/ams/index.php?storytopic=<{$subtopic.id}>"><{$subtopic.title}></a>
 
                                 </li>
                             <{/foreach}>

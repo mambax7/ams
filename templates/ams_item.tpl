@@ -8,7 +8,7 @@
                     <td class="itemHead">
                         <span class="itemTitle">
 							<{if $story.friendlyurl_enable != 1}>
-				            <a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$story.id}>"><{$story.title}></a>
+				            <a href="<{$xoops_url}>/modules/ams/article.php?storyid=<{$story.id}>"><{$story.title}></a>
 							<{else}>
 				            <a href="<{$story.friendlyurl}>"><{$story.title}></a>
 							<{/if}>						
@@ -43,7 +43,7 @@
                         </div>
                         <div class="itemPermaLink" style="text-align: right;">
 						<{if $story.friendlyurl_enable != 1}>
-						<a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$story.id}>"><{$story.bytestext}></a>
+						<a href="<{$xoops_url}>/modules/ams/article.php?storyid=<{$story.id}>"><{$story.bytestext}></a>
 						<{else}>
 						<a href="<{$story.friendlyurl}>"><{$story.bytestext}></a>
 						<{/if}>						
@@ -51,7 +51,7 @@
                             <{if $showcomments}>
                                 &nbsp;|&nbsp;
 								<{if $story.friendlyurl_enable != 1}>
-                                <a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$story.id}>"><{$story.comments}></a>
+                                <a href="<{$xoops_url}>/modules/ams/article.php?storyid=<{$story.id}>"><{$story.comments}></a>
 								<{else}>
 								<a href="<{$story.friendlyurl}>"><{$story.comments}></a>
 								<{/if}>						

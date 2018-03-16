@@ -1,7 +1,10 @@
-<?php
+<?php namespace XoopsModules\Ams;
+
+use XoopsModules\Ams;
+
 include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
-class AMSPageNav extends XoopsPageNav
+class PageNav extends \XoopsPageNav
 {
     public $friendlyurl_enable;
     public $friendlyurl;

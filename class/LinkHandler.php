@@ -1,0 +1,96 @@
+<?php namespace XoopsModules\Ams;
+
+//  ------------------------------------------------------------------------ //
+//                XOOPS - PHP Content Management System                      //
+//                    Copyright (c) 2000 XOOPS.org                           //
+//                       <http://www.xoops.org/>                             //
+//  ------------------------------------------------------------------------ //
+//  This program is free software; you can redistribute it and/or modify     //
+//  it under the terms of the GNU General Public License as published by     //
+//  the Free Software Foundation; either version 2 of the License, or        //
+//  (at your option) any later version.                                      //
+//                                                                           //
+//  You may not change or alter any portion of this comment or credits       //
+//  of supporting developers from this source code or any supporting         //
+//  source code which is considered copyrighted (c) material of the          //
+//  original comment or credit authors.                                      //
+//                                                                           //
+//  This program is distributed in the hope that it will be useful,          //
+//  but WITHOUT ANY WARRANTY; without even the implied warranty of           //
+//  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            //
+//  GNU General Public License for more details.                             //
+//                                                                           //
+//  You should have received a copy of the GNU General Public License        //
+//  along with this program; if not, write to the Free Software              //
+//  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
+// ------------------------------------------------------------------------- //
+
+use XoopsModules\Ams;
+
+class LinkHandler extends \XoopsPersistableObjectHandler //IdgObjectHandler
+{
+    public function __construct($db)
+    {
+        parent::__construct($db, 'ams_link', 'Link', 'linkid');
+    }
+
+    /**
+    * get array of links by story
+    *
+    * @param int $storyid ID of story
+    *
+    * @return array
+    */
+    public function &getByStory($storyid)
+    {
+        global $xoopsModule;
+        $ret = [];
+        $moduleHandler = xoops_getHandler('module');
+        $link = 'article.php?storyid=' . (int)$storyid;
+        $myts = \MyTextSanitizer::getInstance();
+
+        if ('AMS' !== $xoopsModule->getVar('dirname')) {
+            $newsmodule = $moduleHandler->getByDirname('AMS');
+        } else {
+            $newsmodule = $xoopsModule;
+        }
+        $sql = 'SELECT n.title, n.storyid, l.* FROM '
+               . $this->table . ' l, '
+               . $this->db->prefix('ams_article') . " n WHERE n.storyid=l.storyid AND ((link_link='$link' AND link_module=" . $newsmodule->mid() . ') OR (l.storyid = '
+               . (int)$storyid . '))';
+        $directresult = $this->db->query($sql);
+        //$moduleids[$newsmodule->getVar('mid')] = $newsmodule->getVar('mid');
+        while (false !== ($row = $this->db->fetchArray($directresult))) {
+            if ($row['storyid'] == $storyid) {
+                if ($row['link_module'] > -1) {
+                    $moduleids[$row['link_module']] = $row['link_module'];
+                    $row['target'] = '_self';
+                } else {
+                    $row['target'] = '_blank';
+                }
+                $row['link_title'] = $myts->htmlSpecialChars($row['link_title']);
+                $row['hits'] = $row['link_counter'];
+                $ret[$row['link_position']][] = $row;
+            } else {
+                $row['link_module'] = $newsmodule->getVar('mid');
+                $row['link_link'] = 'article.php?storyid='.$row['storyid'];
+                $row['link_title'] = $myts->htmlSpecialChars($row['title']);
+                $row['target'] = '_self';
+                $row['hits'] = $row['link_counter'];
+                // Backlink, so set position to recommended reading
+                $ret['bottom'][] = $row;
+            }
+        }
+        if (isset($moduleids)) {
+            $moduleids = '(' . implode(',', array_keys($moduleids)) . ')';
+            $modules = $moduleHandler->getList(new \Criteria('mid', $moduleids, 'IN'));
+        }
+        $modules[$newsmodule->getVar('mid')] = $newsmodule->getVar('name');
+        foreach ($ret as $position => $links) {
+            foreach ($links as $key => $link) {
+                $ret[$position][$key]['link_module'] = ($link['link_module'] > -1) ? $modules[$link['link_module']] : _AMS_NW_EXTERNALLINK;
+            }
+        }
+        return $ret;
+    }
+}

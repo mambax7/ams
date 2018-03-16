@@ -24,6 +24,8 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 // ------------------------------------------------------------------------- //
 
+use XoopsModules\Ams;
+
 include_once XOOPS_ROOT_PATH . '/class/xoopsstory.php';
 include_once XOOPS_ROOT_PATH.'/include/comment_constants.php';
 
@@ -31,7 +33,7 @@ class OldNewsStory extends XoopsStory
 {
     public function __construct($storyid=-1)
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         if (is_array($storyid)) {
             $this->makeStory($storyid);
         }
@@ -40,10 +42,10 @@ class OldNewsStory extends XoopsStory
     public function getAll()
     {
         $ret = [];
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
+        $db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql = 'SELECT * FROM ' . $db->prefix('stories');
         $result = $db->query($sql);
-        while ($myrow = $db->fetchArray($result)) {
+        while (false !== ($myrow = $db->fetchArray($result))) {
             $ret[] = new OldNewsStory($myrow);
         }
         return $ret;
@@ -74,7 +76,7 @@ class OldNewsStory extends XoopsStory
 
     public function importFiles()
     {
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
+        $db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql = 'INSERT INTO ' . $db->prefix('ams_files') . '
 	            SELECT * FROM ' . $db->prefix('stories_files') . '';
         return $db->query($sql);
@@ -87,7 +89,7 @@ class OldNewsStory extends XoopsStory
         $amsModule = $moduleHandler->getByDirname('AMS');
         $mid = $amsModule->getVar('mid');
         $old_mid = $newsModule->getVar('mid');
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
+        $db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql = 'UPDATE '.$db->prefix('xoopscomments').' SET com_modid=' . (int)$mid . ' WHERE com_modid=' . (int)$old_mid;
         return $db->query($sql);
     }

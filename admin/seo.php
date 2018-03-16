@@ -23,9 +23,12 @@
 // along with this program; if not, write to the Free Software              //
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 // ------------------------------------------------------------------------ //
+
+use XoopsModules\Ams;
+
 include __DIR__ . '/admin_header.php';
 include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-include_once XOOPS_ROOT_PATH . '/modules/AMS/include/functions.inc.php';
+include_once XOOPS_ROOT_PATH . '/modules/ams/include/functions.inc.php';
 
 global $xoopsModule;
 if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
@@ -39,7 +42,7 @@ $moduleAdmin = \Xmf\Module\Admin::getInstance();
 $moduleAdmin->displayNavigation('seo.php');
 
 //load AMS SEO class
-$SEOHandler = xoops_getModuleHandler('seo', 'AMS');
+$SEOHandler = Ams\Helper::getInstance()->getHandler('Seo');
 
 //if process form submitted
 if (isset($_POST['submit'])) {
@@ -59,23 +62,23 @@ $pattern = "/\[XOOPS_URL\]\//";
 $rep_pat = '';
 $thisSEO['urltemplate'] = preg_replace($pattern, $rep_pat, $thisSEO['urltemplate']);
 
-$sform = new XoopsThemeForm(_AMS_AM_SEO_SUBMITFORM, 'seoform', XOOPS_URL . '/modules/' . $amsModule->getVar('dirname') . '/admin/seo.php');
+$sform = new \XoopsThemeForm(_AMS_AM_SEO_SUBMITFORM, 'seoform', XOOPS_URL . '/modules/' . $amsModule->getVar('dirname') . '/admin/seo.php');
 
-$friendly_url_tray= new XoopsFormElementTray(_AMS_AM_SEO_FRIENDLYURL, '<br>');
-$friendly_url_tray->addElement(new XoopsFormRadioYN(_AMS_AM_SEO_ENABLE, 'friendlyurl_enable', $thisSEO['friendlyurl_enable'], _AMS_AM_YES, _AMS_AM_NO));
+$friendly_url_tray= new \XoopsFormElementTray(_AMS_AM_SEO_FRIENDLYURL, '<br>');
+$friendly_url_tray->addElement(new \XoopsFormRadioYN(_AMS_AM_SEO_ENABLE, 'friendlyurl_enable', $thisSEO['friendlyurl_enable'], _AMS_AM_YES, _AMS_AM_NO));
 
-$friendly_url_type = new XoopsFormText(_AMS_AM_SEO_URLTEMPLATE . ' = [XOOPS_URL]/', 'urltemplate', 60, 100, $thisSEO['urltemplate']);
+$friendly_url_type = new \XoopsFormText(_AMS_AM_SEO_URLTEMPLATE . ' = [XOOPS_URL]/', 'urltemplate', 60, 100, $thisSEO['urltemplate']);
 $friendly_url_tray->addElement($friendly_url_type);
 unset($friendly_url_type);
-$friendly_url_type = new XoopsFormLabel(_AMS_AM_SEO_VALIDTAG . ' = [TOPIC],[AUDIENCE],[AMS_DIR]');
+$friendly_url_type = new \XoopsFormLabel(_AMS_AM_SEO_VALIDTAG . ' = [TOPIC],[AUDIENCE],[AMS_DIR]');
 $friendly_url_tray->addElement($friendly_url_type);
 
 $sform->addElement($friendly_url_tray);
 
 
 //Submit buttons
-$button_tray = new XoopsFormElementTray('', '');
-$submit_btn = new XoopsFormButton('', 'submit', _SUBMIT, 'submit');
+$button_tray = new \XoopsFormElementTray('', '');
+$submit_btn = new \XoopsFormButton('', 'submit', _SUBMIT, 'submit');
 $button_tray->addElement($submit_btn);
 $sform->addElement($button_tray);
 

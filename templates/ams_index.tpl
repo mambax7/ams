@@ -31,7 +31,7 @@
         <!-- start news item loop -->
         <{counter assign=story_count start=0 print=false}>
         <{section name=i loop=$stories}>
-            <li><a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$stories[i].id}>"><{$stories[i].title}></a> (<{$stories[i].posttime}>)</li>
+            <li><a href="<{$xoops_url}>/modules/ams/article.php?storyid=<{$stories[i].id}>"><{$stories[i].title}></a> (<{$stories[i].posttime}>)</li>
         <{counter}>
         <{/section}>
     </ul></td></tr>

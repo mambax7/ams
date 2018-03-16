@@ -1,14 +1,17 @@
 <?php
+
+use XoopsModules\Ams;
+
 include __DIR__ . '/../../mainfile.php';
-include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
+//include_once XOOPS_ROOT_PATH.'/modules/ams/class/Story.php';
 if (empty($_POST['submit'])) {
     $_POST['submit'] = '';
 }
 $storyid = isset($_POST['storyid']) ? (int)$_POST['storyid'] : (isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0);
 if ($storyid > 0) {
-    $article = new AmsStory($storyid);
+    $article = new Ams\Story($storyid);
 } else {
-    redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _AMS_NW_NOSTORY);
+    redirect_header(XOOPS_URL.'/modules/ams/index.php', 3, _AMS_NW_NOSTORY);
     exit();
 }
 if ('' != $_POST['submit'] && $storyid > 0) {
@@ -17,7 +20,7 @@ if ('' != $_POST['submit'] && $storyid > 0) {
     } else {
         $ratemessage = $article->renderErrors();
     }
-    redirect_header(XOOPS_URL . '/modules/AMS/article.php?storyid=' . $article->storyid(), 3, $ratemessage);
+    redirect_header(XOOPS_URL . '/modules/ams/article.php?storyid=' . $article->storyid(), 3, $ratemessage);
     exit();
 } else {
     $GLOBALS['xoopsOption']['template_main'] = 'ams_ratearticle.tpl';

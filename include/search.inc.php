@@ -53,7 +53,7 @@ function ams_search($queryarray, $andor, $limit, $offset, $userid, $storyid = fa
     $result = $xoopsDB->query($sql, $limit, $offset);
     $ret = [];
     $i = 0;
-    while ($myrow = $xoopsDB->fetchArray($result)) {
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
         $ret[$i]['image'] = 'assets/images/articles.gif';
         $ret[$i]['link'] = 'article.php?storyid=' . $myrow['storyid'] . '';
         $ret[$i]['title'] = $myrow['title'];

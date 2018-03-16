@@ -1,4 +1,4 @@
-<?php
+<?php namespace XoopsModules\Ams;
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -32,13 +32,14 @@
  * @package     Cappello
  * @subpackage  form
  */
-class XoopsFormImageSelect extends XoopsFormElementTray
+
+class FormImageSelect extends \XoopsFormElementTray
 {
     public function __construct($caption, $name, $value = 0, $size, $maxlength)
     {
         parent::__construct($caption, '&nbsp;');
-        $this->addElement(new XoopsFormText('', $name, $size, $maxlength, $value));
-        $this->addElement(new XoopsFormLabel('', "<img onmouseover='style.cursor=\"hand\"' onclick='javascript:openWithSelfMain(\"".XOOPS_URL . '/imagemanager.php?target='
+        $this->addElement(new \XoopsFormText('', $name, $size, $maxlength, $value));
+        $this->addElement(new \XoopsFormLabel('', "<img onmouseover='style.cursor=\"hand\"' onclick='javascript:openWithSelfMain(\"".XOOPS_URL . '/imagemanager.php?target='
                                                  . $name . "\",\"imgmanager\",400,430);' src='" . XOOPS_URL . "/assets/images/image.gif' alt='image' />"));
     }
 }

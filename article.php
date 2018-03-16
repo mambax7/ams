@@ -24,14 +24,14 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
+use XoopsModules\Ams;
+
 include __DIR__ . '/../../mainfile.php';
-include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
-include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.sfiles.php';
-if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'].'/main.php')) {
-    include_once XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'].'/main.php';
-} else {
-    include_once XOOPS_ROOT_PATH.'/modules/AMS/language/english/main.php';
-}
+include_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
+include_once XOOPS_ROOT_PATH . '/modules/ams/class/class.sfiles.php';
+/** @var Ams\Helper $helper */
+$helper = Ams\Helper::getInstance();
+$helper->loadLanguage('main');
 /*foreach ($_POST as $k => $v) {
     ${$k} = $v;
 }
@@ -39,7 +39,7 @@ if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'
 $storyid = isset($_GET['storyid']) ? $_GET['storyid'] : 0;
 $storyid = (int)$storyid;
 if (empty($storyid)) {
-    redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);
+    redirect_header(XOOPS_URL . '/modules/ams/index.php', 2, _AMS_NW_NOSTORY);
     exit();
 }
 
@@ -47,7 +47,7 @@ $myts = \MyTextSanitizer::getInstance();
 // set comment mode if not set
 
 
-$article = new AmsStory($storyid);
+$article = new Story($storyid);
 if (0 == $article->published() || $article->published() > time()) {
     //redirect_header('index.php', 2, _AMS_NW_NOSTORY);
     include_once XOOPS_ROOT_PATH.'/header.php';
@@ -64,12 +64,12 @@ if (is_object($xoopsUser)) {
 if (!$gpermHandler->checkRight('ams_approve', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
     if (!$gpermHandler->checkRight('ams_view', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
         if (!$gpermHandler->checkRight('ams_submit', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
-            redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
+            redirect_header(XOOPS_URL.'/modules/ams/index.php', 3, _NOPERM);
             exit();
         }
     }
     if (!$gpermHandler->checkRight('ams_audience', $article->audienceid, $groups, $xoopsModule->getVar('mid'))) {
-        redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, sprintf(_AMS_NW_NOTALLOWEDAUDIENCE, $article->audience));
+        redirect_header(XOOPS_URL.'/modules/ams/index.php', 3, sprintf(_AMS_NW_NOTALLOWEDAUDIENCE, $article->audience));
         exit();
     }
 } else {
@@ -103,7 +103,7 @@ $xoopsTpl->assign('lang_on', _AMS_NW_PUBLISHED_DATE);
 $xoopsTpl->assign('lang_postedby', _AMS_NW_POSTEDBY);
 $xoopsTpl->assign('lang_reads', _AMS_NW_READS);
 if (1 != $article->friendlyurl_enable) {
-    $xoopsTpl->assign('mail_link', 'mailto:?subject='.sprintf(_AMS_NW_INTARTICLE, $xoopsConfig['sitename']).'&amp;body='.sprintf(_AMS_NW_INTARTFOUND, $xoopsConfig['sitename']).':  '.XOOPS_URL.'/modules/AMS/article.php?storyid='.$article->storyid());
+    $xoopsTpl->assign('mail_link', 'mailto:?subject='.sprintf(_AMS_NW_INTARTICLE, $xoopsConfig['sitename']).'&amp;body='.sprintf(_AMS_NW_INTARTFOUND, $xoopsConfig['sitename']).':  '.XOOPS_URL.'/modules/ams/article.php?storyid='.$article->storyid());
 } else {
     $xoopsTpl->assign('mail_link', 'mailto:?subject='.sprintf(_AMS_NW_INTARTICLE, $xoopsConfig['sitename']).'&amp;body='.sprintf(_AMS_NW_INTARTFOUND, $xoopsConfig['sitename']).':  '.$article->friendlyurl);
 }
@@ -113,7 +113,7 @@ $xoopsTpl->assign('admin', $admin);
 $xoopsTpl->assign('hasversions', $article->hasVersions());
 
 $xoopsTpl->assign('lang_attached_files', _AMS_NW_ATTACHEDFILES);
-$sfiles = new sFiles();
+$sfiles = new Ams\Files();
 $filesarr= [];
 $newsfiles= [];
 $filesarr=$sfiles->getAllbyStory($storyid);

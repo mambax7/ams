@@ -1,4 +1,4 @@
-<?php
+<?php namespace XoopsModules\Ams;
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -38,7 +38,7 @@
 * @package IDG
 */
 
-class IdgObjectHandler extends XoopsObjectHandler
+class IdgObjectHandler extends \XoopsObjectHandler
 {
 
     /**#@+
@@ -53,7 +53,7 @@ class IdgObjectHandler extends XoopsObjectHandler
 
     /**
     * Constructor - called from child classes
-    * @param XoopsDatabase     $db         {@link XoopsDatabase} object
+    * @param \XoopsDatabase     $db         {@link XoopsDatabase} object
     * @param string     $tablename  Name of database table
     * @param string     $classname  Name of Class, this handler is managing
     * @param string     $keyname    Name of the property, holding the key
@@ -100,9 +100,9 @@ class IdgObjectHandler extends XoopsObjectHandler
     */
     public function get($id, $as_object = true)
     {
-        $criteria = new Criteria($this->keyName, (int)$id);
+        $criteria = new \Criteria($this->keyName, (int)$id);
         $criteria->setLimit(1);
-        $obj_array = $this->getObjects($criteria, false, $as_object);
+        $obj_array =& $this->getObjects($criteria, false, $as_object);
         if (1 != count($obj_array)) {
             return false;
         }
@@ -151,7 +151,7 @@ class IdgObjectHandler extends XoopsObjectHandler
     public function convertResultSet($result, $id_as_key = false, $as_object = true)
     {
         $ret = [];
-        while ($myrow = $this->db->fetchArray($result)) {
+       while (false !== ($myrow = $this->db->fetchArray($result))) {
             $obj = $this->create(false);
             $obj->assignVars($myrow);
             if (!$id_as_key) {
@@ -195,7 +195,7 @@ class IdgObjectHandler extends XoopsObjectHandler
     {
         if ($limit > 0 || $start > 0) {
             if (null === $criteria) {
-                $criteria = new Criteria($this->keyName, -1, '!=');
+                $criteria = new \Criteria($this->keyName, -1, '!=');
             }
             $criteria->setLimit($limit);
             $criteria->setStart($start);
@@ -236,7 +236,7 @@ class IdgObjectHandler extends XoopsObjectHandler
             return $count;
         } else {
             $ret = [];
-            while (list($id, $count) = $this->db->fetchRow($result)) {
+            while (false !== (list($id, $count) = $this->db->fetchRow($result))) {
                 $ret[$id] = $count;
             }
             return $ret;
@@ -250,7 +250,7 @@ class IdgObjectHandler extends XoopsObjectHandler
     * @param bool $force
     * @return bool FALSE if failed.
     */
-    public function delete(XoopsObject $obj) // , $force = false)
+    public function delete(\XoopsObject $obj) // , $force = false)
     {
         $force = false;
 
@@ -275,7 +275,7 @@ class IdgObjectHandler extends XoopsObjectHandler
     * @return bool FALSE if failed, TRUE if already present and unchanged or successful
     */
 
-    public function insert(XoopsObject $obj) // , $force = false, $checkObject = true)
+    public function insert(\XoopsObject $obj) // , $force = false, $checkObject = true)
     {
         $force = false;
         $checkObject = true;

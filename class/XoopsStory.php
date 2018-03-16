@@ -1,4 +1,4 @@
-<?php
+<?php namespace XoopsModules\Ams;
 /**
  * XOOPS news story
  *
@@ -17,16 +17,16 @@
  * @deprecated
  */
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
+defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
 
 //$GLOBALS['xoopsLogger']->addDeprecated("'/class/xoopstory.php' is deprecated since XOOPS 2.5.4, please create your own class instead.");
-include_once __DIR__ . '/xoopstopic.php';
+include_once __DIR__ . 'XoopsTopic.php';
 include_once XOOPS_ROOT_PATH . '/kernel/user.php';
 
 /**
  * Class XoopsStory
  */
-class AmsXoopsStory
+class XoopsStory
 {
     public $table;
     public $storyid;
@@ -57,7 +57,7 @@ class AmsXoopsStory
      */
     public function Story($storyid = -1)
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->table       = '';
         $this->topicstable = '';
         if (is_array($storyid)) {
@@ -337,7 +337,7 @@ class AmsXoopsStory
      */
     public function topic()
     {
-        return new XoopsTopic($this->topicstable, $this->topicid);
+        return new \XoopsTopic($this->topicstable, $this->topicid);
     }
 
     public function uid()

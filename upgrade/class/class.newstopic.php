@@ -1,4 +1,7 @@
 <?php
+
+use XoopsModules\Ams;
+
 class OldNewsTopic
 {
     public $db;
@@ -8,7 +11,7 @@ class OldNewsTopic
     public $topic_title;
     public function __construct($id=-1)
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         if (is_array($id)) {
             $this->makeObject($id);
         }
@@ -23,10 +26,10 @@ class OldNewsTopic
     public function getAllTopics()
     {
         $ret = [];
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
+        $db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql = 'SELECT * FROM ' . $db->prefix('topics');
         $result = $db->query($sql);
-        while ($row = $db->fetchArray($result)) {
+        while (false !== ($row = $db->fetchArray($result))) {
             $ret[] = new OldNewsTopic($row);
         }
         return $ret;
@@ -46,7 +49,7 @@ class OldNewsTopic
 
     public function copyPermissions($mid)
     {
-        $criteria = new Criteria('gperm_modid', (int)$mid);
+        $criteria = new \Criteria('gperm_modid', (int)$mid);
         $gpermHandler = xoops_getHandler('groupperm');
         $gperm_items = $gpermHandler->getObjects($criteria);
 

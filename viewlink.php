@@ -23,12 +23,15 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
+
+use XoopsModules\Ams;
+
 include __DIR__ . '/../../mainfile.php';
 
 $lid = isset($_GET['lid']) ? (int)$_GET['lid'] : 0;
 $rev = isset($_GET['rev']) ? true : false;
 
-$linkHandler = xoops_getModuleHandler('link', 'AMS');
+$linkHandler = Ams\Helper::getInstance()->getHandler('Link');
 $link = $linkHandler->get($lid);
 $link->increment();
 if ($rev) {

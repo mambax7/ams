@@ -11,7 +11,7 @@
                         <table cellpadding="0" cellspacing="0" class="item">
                             <tr class="itemHead">
                                 <td class="itemTitle">
-                                    <a href="#OpenVersion" onclick='javascript:openWithSelfMain("<{$xoops_url}>/modules/AMS/showversion.php?storyid=<{$story.id}>&amp;version=<{$version.version}>&amp;revision=<{$version.revision}>&amp;revisionminor=<{$version.revisionminor}>", "version", 800, 600);'><{$smarty.const._AMS_NW_VERSION}>&nbsp;<{$version.version}>.<{$version.revision}>.<{$version.revisionminor}></a>
+                                    <a href="#OpenVersion" onclick='javascript:openWithSelfMain("<{$xoops_url}>/modules/ams/showversion.php?storyid=<{$story.id}>&amp;version=<{$version.version}>&amp;revision=<{$version.revision}>&amp;revisionminor=<{$version.revisionminor}>", "version", 800, 600);'><{$smarty.const._AMS_NW_VERSION}>&nbsp;<{$version.version}>.<{$version.revision}>.<{$version.revisionminor}></a>
                                     <{$smarty.const._POSTEDBY}> <{$version.poster}>
                                     <{$smarty.const._ON}> <{$version.posttime}>
                                 </td>

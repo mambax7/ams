@@ -1,21 +1,24 @@
 <?php
+
+use XoopsModules\Ams;
+
 include __DIR__ . '/../../mainfile.php';
-include_once __DIR__ . '/class/class.sfiles.php';
-include_once __DIR__ . '/class/class.newsstory.php';
+//include_once __DIR__ . '/class/Files.php';
+//include_once __DIR__ . '/class/Story.php';
 
 $myts = \MyTextSanitizer::getInstance(); // MyTextSanitizer object
 $fileid = isset($_GET['fileid']) ? (int)$_GET['fileid'] : 0;
 if (empty($fileid)) {
-    redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _ERRORS);
+    redirect_header(XOOPS_URL . '/modules/ams/index.php', 2, _ERRORS);
     exit();
 }
-$sfiles = new sFiles($fileid);
+$sfiles = new Ams\Files($fileid);
 
 // Do we have the right to see the file ?
-$article = new AmsStory($sfiles->getStoryid());
+$article = new Ams\Story($sfiles->getStoryid());
 // and the news, can we see it ?
 if (0 == $article->published() || $article->published() > time()) {
-    redirect_header(XOOPS_URL.'/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);
+    redirect_header(XOOPS_URL.'/modules/ams/index.php', 2, _AMS_NW_NOSTORY);
     exit();
 }
 /*
@@ -23,7 +26,7 @@ if (0 == $article->published() || $article->published() > time()) {
 * Remarks. Save for later if needed. Expired articles still allowed to be read in AMS. Remove this remark if you want to forbid it.
 // Expired
 if ( $article->expired() != 0 && $article->expired() < time() ) {
-    redirect_header(XOOPS_URL.'/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);
+    redirect_header(XOOPS_URL.'/modules/ams/index.php', 2, _AMS_NW_NOSTORY);
     exit();
 }
 */
@@ -34,7 +37,7 @@ if (is_object($xoopsUser)) {
     $groups = XOOPS_GROUP_ANONYMOUS;
 }
 if (!$gpermHandler->checkRight('ams_audience', $article->audienceid, $groups, $xoopsModule->getVar('mid'))) {
-    redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
+    redirect_header(XOOPS_URL.'/modules/ams/index.php', 3, _NOPERM);
     exit();
 }
 

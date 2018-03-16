@@ -1,7 +1,8 @@
-<?php
-include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.mimetype.php';
+<?php namespace XoopsModules\Ams;
 
-class sFiles
+use XoopsModules\Ams;
+
+class Files
 {
     public $db;
     public $table;
@@ -15,7 +16,7 @@ class sFiles
 
     public function __construct($fileid=-1)
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->table = $this->db->prefix('ams_files');
         $this->storyid = 0;
         $this->filerealname = '';
@@ -76,7 +77,7 @@ class sFiles
 
     public function giveMimetype($filename='')
     {
-        $cmimetype = new cmimetype();
+        $cmimetype = new Ams\Mimetype();
         $workingfile=$this->downloadname;
         if ('' != trim($filename)) {
             $workingfile=$filename;
@@ -186,12 +187,12 @@ class sFiles
 
     public function getAllbyStory($storyid)
     {
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
+        $db = \XoopsDatabaseFactory::getDatabaseConnection();
         $ret = [];
         $sql = 'SELECT * FROM ' . $this->table . ' WHERE storyid=' . $storyid . '';
         $result = $db->query($sql);
-        while ($myrow = $db->fetchArray($result)) {
-            $ret[] = new sFiles($myrow);
+        while (false !== ($myrow = $db->fetchArray($result))) {
+            $ret[] = new Files($myrow);
         }
         return $ret;
     }

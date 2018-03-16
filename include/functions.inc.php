@@ -28,7 +28,9 @@
 //  Project: Article Management System (AMS)                                           //
 //  ------------------------------------------------------------------------ //
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined.');
+use XoopsModules\Ams;
+
+defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined.');
 //create in AMS 2.50 but for future CLONEABLE ability
 function AMS_setcookie($name, $string = '', $expire = 0)
 {
@@ -92,7 +94,7 @@ function AMS_updateCache()
     include_once XOOPS_ROOT_PATH . '/class/template.php';
     $tplfileHandler = xoops_getHandler('tplfile');
     $tpllist        = $tplfileHandler->find(null, null, null, $folder);
-    $xoopsTpl       = new XoopsTpl();
+    $xoopsTpl       = new \XoopsTpl();
     xoops_template_clear_module_cache($amsModule->getVar('mid'));            // Clear module's blocks cache
 
     //remove RSS cache (XOOPS, ImpressCMS)
@@ -327,7 +329,7 @@ function AMS_SEO_genURL($title, $audience = '', $topic = '', $op = 0, $id = 0, $
 
 function AMS_SEO_friendlyURLIsEnable()
 {
-    $SEOHandler = xoops_getModuleHandler('seo', 'AMS');
+    $SEOHandler = Ams\Helper::getInstance()->getHandler('Seo');
     $thisSEO    = $SEOHandler->read_setting();
     if (1 == (int)$thisSEO['friendlyurl_enable']) {
         return $thisSEO['urltemplate'];

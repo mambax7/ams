@@ -20,17 +20,16 @@
 use XoopsModules\Ams;
 
 include_once __DIR__ . '/../../mainfile.php';
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/class.newsstory.php';
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/class.sfiles.php';
+//include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Story.php';
+//include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Files.php';
 include_once XOOPS_ROOT_PATH . '/class/uploader.php';
 
 $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0;
 include_once XOOPS_ROOT_PATH . '/header.php';
-if (file_exists(XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/admin.php')) {
-    include_once __DIR__ . '/language/' . $xoopsConfig['language'] . '/admin.php';
-} else {
-    include_once __DIR__ . '/language/english/admin.php';
-}
+/** @var Ams\Helper $helper */
+$helper = Ams\Helper::getInstance();
+$helper->loadLanguage('admin');
+
 include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/include/functions.inc.php';
 $module_id = $xoopsModule->getVar('mid');
 $groups    = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
@@ -40,7 +39,7 @@ $perm_itemid  = isset($_POST['topic_id']) ? (int)$_POST['topic_id'] : 0;
 
 //If no access
 if (!$gpermHandler->checkRight('ams_submit', $perm_itemid, $groups, $module_id)) {
-    redirect_header(XOOPS_URL . '/modules/AMS/index.php', 3, _NOPERM);
+    redirect_header(XOOPS_URL . '/modules/ams/index.php', 3, _NOPERM);
 }
 
 $op   = 'form';
@@ -80,7 +79,7 @@ if (isset($_REQUEST['preview'])) {
     } elseif ($approveprivilege && 'override_ok' == $_REQUEST['op']) {
         $op = 'override_ok';
     } else {
-        redirect_header(XOOPS_URL . '/modules/AMS/index.php', 0, _NOPERM);
+        redirect_header(XOOPS_URL . '/modules/ams/index.php', 0, _NOPERM);
         exit();
     }
     if (isset($_REQUEST['storyid'])) {
@@ -93,13 +92,13 @@ switch ($op) {
 
         if (!empty($_POST['ok'])) {
             if (empty($_POST['storyid'])) {
-                redirect_header(XOOPS_URL . '/modules/AMS/index.php?op=newarticle', 2, _AMS_AM_EMPTYNODELETE);
+                redirect_header(XOOPS_URL . '/modules/ams/index.php?op=newarticle', 2, _AMS_AM_EMPTYNODELETE);
                 exit();
             }
             $storyid = (int)$_POST['storyid'];
-            $story   = new AmsStory($storyid);
+            $story   = new Ams\Story($storyid);
             $story->delete();
-            $sfiles   = new sFiles();
+            $sfiles   = new Ams\Files();
             $filesarr = [];
             $filesarr = $sfiles->getAllbyStory($storyid);
             if (count($filesarr) > 0) {
@@ -109,7 +108,7 @@ switch ($op) {
             }
             xoops_comment_delete($xoopsModule->getVar('mid'), $storyid);
             xoops_notification_deletebyitem($xoopsModule->getVar('mid'), 'story', $storyid);
-            redirect_header(XOOPS_URL . '/modules/AMS/index.php?op=newarticle', 1, _AMS_AM_DBUPDATED);
+            redirect_header(XOOPS_URL . '/modules/ams/index.php?op=newarticle', 1, _AMS_AM_DBUPDATED);
             exit();
         } else {
 
@@ -122,11 +121,11 @@ switch ($op) {
 
     case 'edit':
         if (!$approveprivilege) {
-            redirect_header(XOOPS_URL . '/modules/AMS/index.php', 0, _NOPERM);
+            redirect_header(XOOPS_URL . '/modules/ams/index.php', 0, _NOPERM);
             break;
         }
         $storyid = $_REQUEST['storyid'];
-        $story   = new AmsStory($storyid);
+        $story   = new Ams\Story($storyid);
 
         echo $story->getPath(true) . ' > ' . _EDIT . ' ' . $story->title();
 
@@ -147,15 +146,15 @@ switch ($op) {
         break;
 
     case 'preview':
-        $xt = new AmsTopic($xoopsDB->prefix('ams_topics'), $_POST['topic_id']);
+        $xt = new Ams\Topic($xoopsDB->prefix('ams_topics'), $_POST['topic_id']);
         //$hometext = $_POST['hometext'];
         //$bodytext = $_POST['bodytext'];
 
         if (isset($_POST['storyid'])) {
-            $story = new AmsStory($storyid);
+            $story = new Ams\Story($storyid);
             $edit  = true;
         } else {
-            $story = new AmsStory();
+            $story = new Ams\Story();
             $story->setPublished(0);
             $story->setExpired(0);
             $edit = false;
@@ -214,7 +213,7 @@ switch ($op) {
         } else {
             include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         }
-        $pform = new XoopsThemeForm($p_title, 'previewform', XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php');
+        $pform = new \XoopsThemeForm($p_title, 'previewform', XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php');
         $pform->display();
         print "$p_hometext";
 
@@ -238,11 +237,11 @@ switch ($op) {
             $uid = 0;
         }
         if (empty($_POST['storyid'])) {
-            $story      = new AmsStory();
+            $story      = new Ams\Story();
             $oldapprove = 0;
             $story->setUid($uid);
         } else {
-            $story      = new AmsStory($_POST['storyid']);
+            $story      = new Ams\Story($_POST['storyid']);
             $oldapprove = $story->published() > 0 ? 1 : 0;
 
             $change = isset($_POST['change']) ? $_POST['change'] : 0;
@@ -351,7 +350,7 @@ switch ($op) {
             // Manage upload(s)
             if (isset($_POST['delupload']) && count($_POST['delupload']) > 0) {
                 foreach ($_POST['delupload'] as $onefile) {
-                    $sfiles = new sFiles($onefile);
+                    $sfiles = new Ams\Files($onefile);
                     $sfiles->delete();
                 }
             }
@@ -360,11 +359,11 @@ switch ($op) {
                 $fldname = $_FILES[$_POST['xoops_upload_file'][0]];
                 $fldname = get_magic_quotes_gpc() ? stripslashes($fldname['name']) : $fldname['name'];
                 if (trim('' != $fldname)) {
-                    $sfiles   = new sFiles();
+                    $sfiles   = new Ams\Files();
                     $destname = $sfiles->createUploadName(XOOPS_UPLOAD_PATH, $fldname);
                     // Actually : Web pictures (png, gif, jpeg), zip, doc, xls, pdf, gtar, tar, txt, tiff, htm, xml, ico,swf flv, mp3, bmp, ra, mov, swc. swf not allow by xoops, not AMS
                     $permittedtypes = explode(';', ams_getmoduleoption('mimetypes'));
-                    $uploader       = new XoopsMediaUploader(XOOPS_UPLOAD_PATH, $permittedtypes, $xoopsModuleConfig['maxuploadsize']);
+                    $uploader       = new \XoopsMediaUploader(XOOPS_UPLOAD_PATH, $permittedtypes, $xoopsModuleConfig['maxuploadsize']);
                     $uploader->setTargetFileName($destname);
                     if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
                         if ($uploader->upload()) {
@@ -401,12 +400,12 @@ switch ($op) {
         if (!isset($message)) {
             $message = _AMS_NW_THANKS;
         }
-        redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, $message);
+        redirect_header(XOOPS_URL . '/modules/ams/index.php', 2, $message);
         break;
 
     case _AMS_NW_OVERRIDE:
         if (!$approveprivilege || !$xoopsUser) {
-            redirect_header(XOOPS_URL . '/modules/AMS/index.php', 3, _NOPERM);
+            redirect_header(XOOPS_URL . '/modules/ams/index.php', 3, _NOPERM);
         }
         $change  = isset($_POST['change']) ? $_POST['change'] : 0;
         $hiddens = [
@@ -416,7 +415,7 @@ switch ($op) {
             'change'   => $change,
             'op'       => 'override_ok'
         ];
-        $story   = new AmsStory($storyid);
+        $story   = new Ams\Story($storyid);
         $story->setChange($change);
 
         $message = '';
@@ -436,9 +435,9 @@ switch ($op) {
 
     case 'override_ok':
         if (!$approveprivilege || !$xoopsUser) {
-            redirect_header(XOOPS_URL . '/modules/AMS/index.php', 3, _NOPERM);
+            redirect_header(XOOPS_URL . '/modules/ams/index.php', 3, _NOPERM);
         }
-        $story  = new AmsStory($_POST['storyid']);
+        $story  = new Ams\Story($_POST['storyid']);
         $change = isset($_POST['change']) ? $_POST['change'] : 0;
         $story->setChange($change);
         $story->setUid($xoopsUser->getVar('uid'));
@@ -450,15 +449,15 @@ switch ($op) {
         } else {
             $message = $story->renderErrors();
         }
-        redirect_header(XOOPS_URL . '/modules/AMS/article.php?storyid=' . $story->storyid, 3, $message);
+        redirect_header(XOOPS_URL . '/modules/ams/article.php?storyid=' . $story->storyid, 3, $message);
         break;
 
     case _AMS_NW_FINDVERSION:
         if (!$approveprivilege || !$xoopsUser) {
-            redirect_header(XOOPS_URL . '/modules/AMS/index.php', 3, _NOPERM);
+            redirect_header(XOOPS_URL . '/modules/ams/index.php', 3, _NOPERM);
             exit();
         }
-        $story = new AmsStory($_POST['storyid']);
+        $story = new Ams\Story($_POST['storyid']);
         $story->setUid($xoopsUser->getVar('uid'));
         $story->setHometext($hometext);
         $story->setBodytext($bodytext);
@@ -476,12 +475,12 @@ switch ($op) {
         } else {
             $message = $story->renderErrors();
         }
-        redirect_header(XOOPS_URL . '/modules/AMS/article.php?storyid=' . $story->storyid(), 3, $message);
+        redirect_header(XOOPS_URL . '/modules/ams/article.php?storyid=' . $story->storyid(), 3, $message);
         break;
 
     case 'form':
     default:
-        $story = new AmsStory();
+        $story = new Ams\Story();
         $story->setTitle('');
         $story->setHometext('');
         $noname = 0;

@@ -24,28 +24,28 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
+use XoopsModules\Ams;
+
 $xoopsOption['pagetype'] = 'search';
 include __DIR__ . '/../../mainfile.php';
-if (file_exists(XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'].'/main.php')) {
-    include_once XOOPS_ROOT_PATH.'/modules/AMS/language/'.$xoopsConfig['language'].'/main.php';
-} else {
-    include_once XOOPS_ROOT_PATH.'/modules/AMS/language/english/main.php';
-}
+/** @var Ams\Helper $helper */
+$helper = Ams\Helper::getInstance();
+$helper->loadLanguage('main');
 if (!$xoopsUser) {
-    redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
+    redirect_header(XOOPS_URL.'/modules/ams/index.php', 3, _NOPERM);
 }
-include_once XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php';
+include_once XOOPS_ROOT_PATH.'/modules/ams/class/Story.php';
 $storyid = isset($_POST['storyid']) ? (int)$_POST['storyid'] : (isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0);
 if (!$storyid) {
-    redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);
+    redirect_header(XOOPS_URL . '/modules/ams/index.php', 2, _AMS_NW_NOSTORY);
     exit();
 }
-$article = new AmsStory($storyid);
+$article = new Story($storyid);
 if ($xoopsUser->getVar('uid') != $article->uid()) {
     $gpermHandler = xoops_getHandler('groupperm');
     $groups = $xoopsUser->getGroups();
     if (!$gpermHandler->checkRight('ams_approve', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
-        redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
+        redirect_header(XOOPS_URL.'/modules/ams/index.php', 3, _NOPERM);
         exit();
     }
 }
@@ -91,7 +91,7 @@ switch ($op) {
     $moduleHandler = xoops_getHandler('module');
     if ('' != $username) {
         $memberHandler = xoops_getHandler('member');
-        $criteria = new Criteria('uname', '%'.$username.'%', 'LIKE');
+        $criteria = new \Criteria('uname', '%'.$username.'%', 'LIKE');
         $users = $memberHandler->getUserList($criteria);
     } else {
         $users = 0;

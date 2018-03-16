@@ -26,7 +26,7 @@
 //  Based on standard News module v1.2 with several changes by Mithrandir    //
 include __DIR__ . '/preloads/autoloader.php';
 
-defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined.');
+defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined.');
 $moduleDirName = basename(__DIR__);
 //Added AMS 2.50 Beta 2
 //Fetch AMS spotlight dynamically
@@ -443,7 +443,7 @@ if (file_exists(XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php')) {
     }
     include_once XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php';
     //$editorHandler = XoopsEditorHandler::getInstance();
-    $editorHandler = new XoopsEditorHandler;
+    $editorHandler = new \XoopsEditorHandler;
     $editor_list   = array_flip($editorHandler->getList());
 } else {
     $editor_list = ['_AMS_MI_EDITOR_DEFAULT' => 'textarea', '_AMS_MI_EDITOR_DHTML' => 'dhtmlext'];

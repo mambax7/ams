@@ -4,7 +4,7 @@
     <tr class="itemHead" style="line-height: 200%;">
         <td class="itemTitle">
 			<{if $story.friendlyurl_enable != 1}>
-            &nbsp;<a href='<{$xoops_url}>/modules/AMS/article.php?storyid=<{$story.id}>'><{$story.title}></a>
+            &nbsp;<a href='<{$xoops_url}>/modules/ams/article.php?storyid=<{$story.id}>'><{$story.title}></a>
 			<{else}>
             &nbsp;<a href="<{$story.friendlyurl}>"><{$story.title}></a>
 			<{/if}>

@@ -28,10 +28,12 @@
 # [11-may-2001] Kenneth Lee - http://www.nexgear.com/
 ######################################################################
 
+use XoopsModules\Ams;
+
 include __DIR__ . '/../../mainfile.php';
 $GLOBALS['xoopsOption']['template_main'] = 'ams_archive.tpl';
 include XOOPS_ROOT_PATH.'/header.php';
-include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/class.newsstory.php';
+//include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/Story.php';
 include_once XOOPS_ROOT_PATH.'/language/'.$xoopsConfig['language'].'/calendar.php';
 //error_reporting(E_ALL);
 $lastyear = 0;
@@ -81,7 +83,7 @@ if (!$result) {
     $years = [];
     $months = [];
     $i = 0;
-    while (list($time) = $xoopsDB->fetchRow($result)) {
+    while (false !== (list($time) = $xoopsDB->fetchRow($result))) {
         $time = formatTimestamp($time, 'mysql', $useroffset);
         if (preg_match('/([0-9]{4})-([0-9]{1,2})-([0-9]{1,2}) ([0-9]{1,2}):([0-9]{1,2}):([0-9]{1,2})/', $time, $datetime)) {
             $this_year  = (int)$datetime[1];
@@ -131,8 +133,8 @@ if (0 != $fromyear && 0 != $frommonth) {
     $sql = 'SELECT * FROM ' . $xoopsDB->prefix('ams_article') . " WHERE published >= $monthstart and published <= $monthend ORDER by published DESC";
     $result = $xoopsDB->query($sql);
     $count = 0;
-    while ($myrow = $xoopsDB->fetchArray($result)) {
-        $article = new AmsStory($myrow);
+    while (false !== ($myrow = $xoopsDB->fetchArray($result))) {
+        $article = new Ams\Story($myrow);
         $story = [];
         $story['title'] = "<a href='index.php?storytopic=".$article->topicid()."'>".$article->topic_title()."</a>: <a href='article.php?storyid=".$article->storyid()."'>".$article->title() . '</a>';
         $story['counter'] = $article->counter();

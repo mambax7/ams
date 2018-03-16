@@ -19,6 +19,9 @@
  * @author          Kazumi Ono <onokazu@xoops.org>
  * @version         $Id$
  */
+
+use XoopsModules\Ams;
+
 include __DIR__ . '/mainfile.php';
 
 $GLOBALS['xoopsLogger']->activated = false;
@@ -28,7 +31,7 @@ if (function_exists('mb_http_output')) {
 header('Content-Type:text/xml; charset=utf-8');
 
 include_once XOOPS_ROOT_PATH.'/class/template.php';
-$tpl = new XoopsTpl();
+$tpl = new \XoopsTpl();
 $tpl->caching=(2);
 $tpl->xoops_setCacheTime(3600);
 $cache_file='db:system_rss.tpl';
@@ -65,9 +68,8 @@ if (!$tpl->is_cached($cache_file)) {
     $tpl->assign('image_width', $width);
     $tpl->assign('image_height', $height);
 
-    if (file_exists($fileinc = XOOPS_ROOT_PATH.'/modules/AMS/class/class.newsstory.php')) {
-        include $fileinc;
-        $sarray = AmsStory::getAllPublished(10, 0, true);
+    if (class_exists(Ams\Story::class)) {
+        $sarray = Ams\Story::getAllPublished(10, 0, true);
     
         if (!empty($sarray) && is_array($sarray)) {
             foreach ($sarray as $story) {
@@ -76,8 +78,8 @@ if (!$tpl->is_cached($cache_file)) {
                     $story_link = $story->friendlyurl ;
                     $story_guid = $story->friendlyurl ;
                 } else {
-                    $story_link = XOOPS_URL . '/modules/AMS/article.php?storyid=' . $story->storyid() ;
-                    $story_guid = XOOPS_URL . '/modules/AMS/article.php?storyid=' . $story->storyid() ;
+                    $story_link = XOOPS_URL . '/modules/ams/article.php?storyid=' . $story->storyid() ;
+                    $story_guid = XOOPS_URL . '/modules/ams/article.php?storyid=' . $story->storyid() ;
                 }
                 $tpl->append('items', [
                     'title' => xoops_utf8_encode(htmlspecialchars($story->title(), ENT_QUOTES)) ,
@@ -90,9 +92,8 @@ if (!$tpl->is_cached($cache_file)) {
         }
     }
 
-    if (file_exists($fileinc = XOOPS_ROOT_PATH.'/modules/news/class/class.newsstory.php')) {
-        include $fileinc;
-        $sarray = NewsStory::getAllPublished(10, 0, true);
+    if (class_exists(Ams\Story::class)) {
+        $sarray = Ams\Story::getAllPublished(10, 0, true);
     
         if (!empty($sarray) && is_array($sarray)) {
             foreach ($sarray as $story) {

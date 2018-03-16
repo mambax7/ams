@@ -67,7 +67,7 @@ AMS v2.50 Final
 > Added - Spotlight block (left/center/right) template can be choose.
 > Added - Spotlight template can be added straight into template folder and auto detected when install/upgrade
 > Added - Spotlight templace can have additional php command (see example ams_block_spotlight_ams_right)
-> Added - Spotlight template can have preview. Just put into XOOPS/modules/AMS/assets/images/spotlight_preview.
+> Added - Spotlight template can have preview. Just put into XOOPS/modules/ams/assets/images/spotlight_preview.
 > Added - ImpressCMS support.
 > Added - FCKeditor, DHTML,HTMLArea,FCK,tinymce
 > Added - User can select their favourite editor at submit form
@@ -148,7 +148,7 @@ AMS v2.3
 > Changed default audience to be un-deleteable
 > Fixed HTML in spotlight block
 > Added new option for article image: Topic image, Author's avatar or No image
-> Added import of attachments, permissions and comments to Import facility in AMS/upgrade/index.php
+> Added import of attachments, permissions and comments to Import facility in ams/upgrade/index.php
 > Re-introduced the two input fields (scoop and extended text) - NOT GUARANTEED TO WORK WITH INTERNET EXPLORER
 
 AMS v2.1

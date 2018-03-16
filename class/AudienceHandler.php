@@ -1,21 +1,12 @@
-<?php
-if (!class_exists('IdgObjectHandler')) {
-    include_once XOOPS_ROOT_PATH . '/modules/AMS/class/idgobject.php';
-}
-class AmsAudience extends XoopsObject
-{
-    public function __construct()
-    {
-        $this->initVar('audienceid', XOBJ_DTYPE_INT);
-        $this->initVar('audience', XOBJ_DTYPE_TXTBOX);
-    }
-}
+<?php namespace XoopsModules\Ams;
 
-class AMSAudienceHandler extends IdgObjectHandler
+use XoopsModules\Ams;
+
+class AudienceHandler extends \XoopsPersistableObjectHandler //IdgObjectHandler
 {
     public function __construct($db)
     {
-        parent::__construct($db, 'ams_audience', 'AmsAudience', 'audienceid');
+        parent::__construct($db, 'ams_audience', Audience::class, 'audienceid');
     }
 
     public function deleteReplace($aud, $newaudid)

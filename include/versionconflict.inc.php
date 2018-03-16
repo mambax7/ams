@@ -24,20 +24,20 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-$sform = new XoopsThemeForm(_AMS_NW_VERSIONCONFLICT, 'overrideform', XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php');
+$sform = new \XoopsThemeForm(_AMS_NW_VERSIONCONFLICT, 'overrideform', XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php');
 $sform->setExtra('enctype="multipart/form-data"');
 
-$sform->addElement(new XoopsFormLabel('', _AMS_NW_CONFLICTWHAT2DO));
+$sform->addElement(new \XoopsFormLabel('', _AMS_NW_CONFLICTWHAT2DO));
 
-$sform->addElement(new XoopsFormHidden('storyid', $story->storyid));
-$sform->addElement(new XoopsFormHidden('change', $story->change));
-$sform->addElement(new XoopsFormHidden('hometext', $story->hometext));
-$sform->addElement(new XoopsFormHidden('bodytext', $story->bodytext));
+$sform->addElement(new \XoopsFormHidden('storyid', $story->storyid));
+$sform->addElement(new \XoopsFormHidden('change', $story->change));
+$sform->addElement(new \XoopsFormHidden('hometext', $story->hometext));
+$sform->addElement(new \XoopsFormHidden('bodytext', $story->bodytext));
 
-$submit_tray = new XoopsFormElementTray('');
-$submit_tray->addElement(new XoopsFormButton('', 'op', _AMS_NW_OVERRIDE, 'submit'));
-$submit_tray->addElement(new XoopsFormButton('', 'op', _AMS_NW_FINDVERSION, 'submit'));
-$cancel_button = new XoopsFormButton('', 'cancel', _CANCEL, 'button');
+$submit_tray = new \XoopsFormElementTray('');
+$submit_tray->addElement(new \XoopsFormButton('', 'op', _AMS_NW_OVERRIDE, 'submit'));
+$submit_tray->addElement(new \XoopsFormButton('', 'op', _AMS_NW_FINDVERSION, 'submit'));
+$cancel_button = new \XoopsFormButton('', 'cancel', _CANCEL, 'button');
 $cancel_button->setExtra('onclick="javascript:history.go(-1);"');
 $submit_tray->addElement($cancel_button);
 $sform->addElement($submit_tray);

@@ -23,7 +23,7 @@
                 <div class="itemHead" style="clear:both;">
                     <span class="itemTitle">
 						<{if $spot.friendlyurl_enable != 1}>
-                        <a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$spot.id}>"><{$spot.title}></a>
+                        <a href="<{$xoops_url}>/modules/ams/article.php?storyid=<{$spot.id}>"><{$spot.title}></a>
 						<{else}>
                         <a href="<{$spot.friendlyurl}>"><{$spot.title}></a>
 						<{/if}>					
@@ -42,7 +42,7 @@
                 <div class="itemFoot" style="clear:both;">
                     <div class="itemPermaLink" style="text-align: right;">
 						<{if $spot.friendlyurl_enable != 1}>
-                        <a href="<{$xoops_url}>/modules/AMS/article.php?storyid=<{$spot.id}>"><{$smarty.const._AMS_MB_READMORE}></a>
+                        <a href="<{$xoops_url}>/modules/ams/article.php?storyid=<{$spot.id}>"><{$smarty.const._AMS_MB_READMORE}></a>
 						<{else}>
                         <a href="<{$spot.friendlyurl}>"><{$smarty.const._AMS_MB_READMORE}></a>
 						<{/if}>					

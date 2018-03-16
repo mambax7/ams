@@ -24,14 +24,14 @@ $novaseo_op_map = [
 if (! empty($novaseo_op)) {
     // module specific dispatching logic, other module must implement as
     // per their requirements.
-    $newUrl = '/modules/AMS/' . $novaseo_op_map[$novaseo_op];
+    $newUrl = '/modules/ams/' . $novaseo_op_map[$novaseo_op];
 
     $_ENV['PHP_SELF'] = $newUrl;
     $_SERVER['SCRIPT_NAME'] = $newUrl;
     $_SERVER['PHP_SELF'] = $newUrl;
     switch ($novaseo_op) {
         case '0':
-            //http://xoops.novasmarttechnology.com/modules/AMS/index.php?storytopic=0&start=5
+            //http://xoops.novasmarttechnology.com/modules/ams/index.php?storytopic=0&start=5
             $_SERVER['REQUEST_URI'] = $newUrl . '?storytopic=' . $novaseo_id . '&start=' . $novaseo_pg;
             $_GET['storytopic'] = $novaseo_id;
             $_GET['start'] = $novaseo_pg;

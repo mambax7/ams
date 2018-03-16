@@ -23,19 +23,22 @@
 // along with this program; if not, write to the Free Software              //
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 // ------------------------------------------------------------------------ //
+
+use XoopsModules\Ams;
+
 require __DIR__ . '/admin_header.php';
 
 $moduleAdmin = \Xmf\Module\Admin::getInstance();
 $moduleAdmin->displayNavigation('spotlight.php');
 
-$spotlightHandler = xoops_getModuleHandler('spotlight', $xoopsModule->getVar('dirname'));
+$spotlightHandler = Ams\Helper::getInstance()->getHandler('Spotlight');
 $op = isset($_REQUEST['op']) ? $_REQUEST['op'] : 'list';
 
 switch ($op) {
     case 'list':
     default:
         $blockHandler = xoops_getHandler('block');
-        $spotlightBlock = $blockHandler->getObjects(new Criteria('b.func_file', 'ams_spotlight.php'));
+        $spotlightBlock = $blockHandler->getObjects(new \Criteria('b.func_file', 'ams_spotlight.php'));
         $spotlightBlock = isset($spotlightBlock[0]) ? $spotlightBlock[0] : null;
         $block = $spotlightHandler->getSpotlightBlock(false);
         $spotlights = isset($block['spotlights']) ? $block['spotlights'] : [];
@@ -64,8 +67,8 @@ switch ($op) {
                 if (1 == $spotlights[$i]['autoteaser']) {
                     $spotlights[$i]['text'] = '[auto]' . $spotlights[$i]['text'];
                 }
-                $weight_select = new XoopsFormText('', 'weight['.$spotlights[$i]['spotid'].']', 10, 10, $spotlights[$i]['weight']);
-                $display_select = new XoopsFormRadioYN('', 'display['.$spotlights[$i]['spotid'].']', $spotlights[$i]['display']);
+                $weight_select = new \XoopsFormText('', 'weight['.$spotlights[$i]['spotid'].']', 10, 10, $spotlights[$i]['weight']);
+                $display_select = new \XoopsFormRadioYN('', 'display['.$spotlights[$i]['spotid'].']', $spotlights[$i]['display']);
                 if (isset($class) && 'odd' === $class) {
                     $class = 'even';
                 } else {
@@ -163,7 +166,7 @@ switch ($op) {
         if (!isset($_POST['weight']) || !is_array($_POST['weight']) || count(0 == $_POST['weight'])) {
             header('location:spotlight.php');
         }
-        $criteria = new Criteria('spotlightid', '(' . implode(',', array_keys($_POST['weight'])) . ')', 'IN');
+        $criteria = new \Criteria('spotlightid', '(' . implode(',', array_keys($_POST['weight'])) . ')', 'IN');
         $spots = $spotlightHandler->getObjects($criteria, true);
 
         foreach ($_POST['weight'] as $id => $weight) {

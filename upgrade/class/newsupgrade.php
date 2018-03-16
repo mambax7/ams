@@ -24,14 +24,16 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 // ------------------------------------------------------------------------- //
 
+use XoopsModules\Ams;
+
 class NewsUpgrade
 {
     public function prepare2upgrade()
     {
-        include_once XOOPS_ROOT_PATH.'/modules/AMS/upgrade/class/dbmanager.php';
-        include_once XOOPS_ROOT_PATH.'/modules/AMS/upgrade/language/install.php';
+        include_once XOOPS_ROOT_PATH.'/modules/ams/upgrade/class/dbmanager.php';
+        include_once XOOPS_ROOT_PATH.'/modules/ams/upgrade/language/install.php';
         $dbm = new db_manager;
-        $dbm->queryFromFile(XOOPS_ROOT_PATH.'/modules/AMS/sql/mysql.sql');
+        $dbm->queryFromFile(XOOPS_ROOT_PATH.'/modules/ams/sql/mysql.sql');
         return $dbm->report();
     }
 }

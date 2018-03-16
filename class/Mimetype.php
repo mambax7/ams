@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Ams;
+
 /*
 Copyright (C) 2002 Jason Sheets <jsheets@shadonet.com>.
 All rights reserved.
@@ -57,7 +58,7 @@ SUCH DAMAGE.
 
    Example:
 
-      $mimetype = new mimetype();
+      $mimetype = new Ams\Mimetype();
       print $mimetype->getType('acrobat.pdf');
 
    Author: Jason Sheets <jsheets@shadonet.com>
@@ -67,7 +68,9 @@ SUCH DAMAGE.
    e-mail me.
 */
 
-class cmimetype
+use XoopsModules\Ams;
+
+class Mimetype
 {
     public function getType($filename)
     {

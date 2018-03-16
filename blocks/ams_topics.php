@@ -24,13 +24,15 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
+use XoopsModules\Ams;
+
 function b_ams_topics_show()
 {
     global $xoopsDB, $storytopic;
     $block = [];
-    include_once XOOPS_ROOT_PATH . '/modules/AMS/class/xoopstopic.php';
-    $xt = new XoopsTopic($xoopsDB->prefix('ams_topics'));
-    $jump = XOOPS_URL . '/modules/AMS/index.php?storytopic=';
+//    include_once XOOPS_ROOT_PATH . '/modules/ams/class/XoopsTopic.php';
+    $xt = new Ams\Topic($xoopsDB->prefix('ams_topics'));
+    $jump = XOOPS_URL . '/modules/ams/index.php?storytopic=';
     $storytopic = !empty($storytopic) ? $storytopic : 0;
     ob_start();
     $xt->makeTopicSelBox(1, $storytopic, 'storytopic', 'location="' . $jump . '"+this.options[this.selectedIndex].value');

@@ -24,11 +24,13 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
+use XoopsModules\Ams;
+
 include __DIR__ . '/../../mainfile.php';
-include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/class.newsstory.php';
+//include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/Story.php';
 include_once XOOPS_ROOT_PATH . '/class/template.php';
 $xoopsOption['theme_use_smarty'] = 1;
-$xoopsTpl = new XoopsTpl();
+$xoopsTpl = new \XoopsTpl();
 $xoopsTpl->caching=(0);
 if (3 == $xoopsConfig['debug_mode']) {
     $xoopsTpl->xoops_setDebugging(true);
@@ -47,7 +49,7 @@ $version = isset($_GET['version']) ? (int)$_GET['version'] : 0;
 $revision = isset($_GET['revision']) ? (int)$_GET['revision'] : 0;
 $revisionminor = isset($_GET['revisionminor']) ? (int)$_GET['revisionminor'] : 0;
 if (!$storyid || !$version) {
-    redirect_header(XOOPS_URL . '/modules/AMS/index.php', 2, _AMS_NW_NOSTORY);
+    redirect_header(XOOPS_URL . '/modules/ams/index.php', 2, _AMS_NW_NOSTORY);
     exit();
 }
 
@@ -55,7 +57,7 @@ $myts = \MyTextSanitizer::getInstance();
 // set comment mode if not set
 
 
-$article = new AmsStory();
+$article = new Ams\Story();
 $article->getNewsVersion($storyid, $version, $revision, $revisionminor);
 $gpermHandler = xoops_getHandler('groupperm');
 if (is_object($xoopsUser)) {
@@ -64,7 +66,7 @@ if (is_object($xoopsUser)) {
     $groups = XOOPS_GROUP_ANONYMOUS;
 }
 if (!$gpermHandler->checkRight('ams_approve', $article->topicid(), $groups, $xoopsModule->getVar('mid'))) {
-    redirect_header(XOOPS_URL.'/modules/AMS/index.php', 3, _NOPERM);
+    redirect_header(XOOPS_URL.'/modules/ams/index.php', 3, _NOPERM);
     exit();
 }
 

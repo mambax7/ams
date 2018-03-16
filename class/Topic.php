@@ -1,4 +1,4 @@
-<?php
+<?php namespace XoopsModules\Ams;
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -27,10 +27,13 @@
 // URL: http://www.myweb.ne.jp/, http://www.xoops.org/, http://jp.xoops.org/ //
 // Project: The XOOPS Project                                                //
 // ------------------------------------------------------------------------- //
-include_once __DIR__ . '/xoopstopic.php';
+
+use XoopsModules\Ams;
+
+include_once __DIR__ . 'XoopsTopic.php';
 include_once XOOPS_ROOT_PATH.'/class/tree.php';
 
-class AmsTopic extends AmsXoopsTopic
+class Topic extends Ams\XoopsTopic
 {
     public $banner = '';
     public $banner_inherit;
@@ -39,7 +42,7 @@ class AmsTopic extends AmsXoopsTopic
 
     public function __construct($table, $topicid=0)
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->table = $table;
         if (is_array($topicid)) {
             $this->makeTopic($topicid);
@@ -117,14 +120,14 @@ class AmsTopic extends AmsXoopsTopic
             return $this->banner;
         }
 
-        $parent_topic = new AmsTopic($this->table, $this->topic_pid());
+        $parent_topic = new Ams\Topic($this->table, $this->topic_pid());
         return $parent_topic->getBanner();
     }
 
     public static function getAllTopics($checkRight = false, $permission = 'ams_view')
     {
         static $topics_arr = [];
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
+        $db = \XoopsDatabaseFactory::getDatabaseConnection();
         $table = $db->prefix('ams_topics');
         if ((!isset($topics_arr['checked']) && false !== $checkRight) || (!isset($topics_arr['unchecked']) && false === $checkRight)) {
             $sql = 'SELECT * FROM ' . $table;
@@ -147,8 +150,8 @@ class AmsTopic extends AmsXoopsTopic
             }
             $sql .= ' ORDER BY weight';
             $result = $db->query($sql);
-            while ($array = $db->fetchArray($result)) {
-                $topic = new AmsTopic($table);
+            while (false !== ($array = $db->fetchArray($result))) {
+                $topic = new Ams\Topic($table);
                 $topic->makeTopic($array);
                 if ($checkRight) {
                     $topics_arr['checked'][$array['topic_id']] = $topic;
@@ -164,7 +167,7 @@ class AmsTopic extends AmsXoopsTopic
     public function getAllAuthors($byName = false)
     {
         static $authors = [];
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
+        $db = \XoopsDatabaseFactory::getDatabaseConnection();
         if (0 == count($authors)) {
             $sql = 'SELECT DISTINCT u.uid, u.uname, u.name FROM ' . $db->prefix('users') . ' u, ' . $db->prefix('ams_text') . ' t
                 WHERE u.uid = t.uid';
@@ -172,7 +175,7 @@ class AmsTopic extends AmsXoopsTopic
                 $sql .= ' ORDER BY uname ASC';
             }
             $result = $db->query($sql);
-            while ($array = $db->fetchArray($result)) {
+            while (false !== ($array = $db->fetchArray($result))) {
                 if (false !== $byName) {
                     $authors[] = $array;
                 } else {
@@ -187,7 +190,7 @@ class AmsTopic extends AmsXoopsTopic
     {
         $filename = 'index.php';
         if ($withAllLink) {
-            $ret = "<a href='" . XOOPS_URL . '/modules/AMS/' . $filename . '?storytopic=' . $this->topic_id() . "'>" . $this->topic_title() . '</a>';
+            $ret = "<a href='" . XOOPS_URL . '/modules/ams/' . $filename . '?storytopic=' . $this->topic_id() . "'>" . $this->topic_title() . '</a>';
         } else {
             $ret = $this->topic_title();
         }
@@ -198,7 +201,7 @@ class AmsTopic extends AmsXoopsTopic
             $ret = $this->getTopicPath($withAllLink, $separation, $addIndex) . $separation .$ret;
         } else {
             if ($addIndex) {
-                $ret = "<a href='".XOOPS_URL . '/modules/AMS/'
+                $ret = "<a href='".XOOPS_URL . '/modules/ams/'
                        . $filename . "'>" . $GLOBALS['xoopsModuleConfig']['index_name'] . '</a>'
                        . $separation . $ret;
             }

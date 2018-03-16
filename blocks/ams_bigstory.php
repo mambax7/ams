@@ -24,10 +24,12 @@
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
 
+use XoopsModules\Ams;
+
 function b_ams_bigstory_show()
 {
     global $xoopsDB;
-    include_once XOOPS_ROOT_PATH . '/modules/AMS/class/class.newsstory.php';
+//    include_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
     $myts = \MyTextSanitizer::getInstance();
     $block = [];
     $tdate = mktime(0, 0, 0, date('n'), date('j'), date('Y'));
@@ -45,7 +47,7 @@ function b_ams_bigstory_show()
         $block['story_id'] = $fsid;
     }
     if ($fsid > 0) {
-        $article = new AmsStory($fsid);
+        $article = new Ams\Story($fsid);
         $block['friendlyurl_enable'] = $article->friendlyurl_enable;
         $block['friendlyurl'] = $article->friendlyurl;
     }
