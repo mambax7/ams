@@ -30,7 +30,7 @@ function b_ams_topics_show()
 {
     global $xoopsDB, $storytopic;
     $block = [];
-//    include_once XOOPS_ROOT_PATH . '/modules/ams/class/XoopsTopic.php';
+//    require_once XOOPS_ROOT_PATH . '/modules/ams/class/XoopsTopic.php';
     $xt = new Ams\Topic($xoopsDB->prefix('ams_topics'));
     $jump = XOOPS_URL . '/modules/ams/index.php?storytopic=';
     $storytopic = !empty($storytopic) ? $storytopic : 0;

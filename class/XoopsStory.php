@@ -1,4 +1,5 @@
 <?php namespace XoopsModules\Ams;
+
 /**
  * XOOPS news story
  *
@@ -20,8 +21,8 @@
 defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
 
 //$GLOBALS['xoopsLogger']->addDeprecated("'/class/xoopstory.php' is deprecated since XOOPS 2.5.4, please create your own class instead.");
-include_once __DIR__ . 'XoopsTopic.php';
-include_once XOOPS_ROOT_PATH . '/kernel/user.php';
+require_once __DIR__ . 'XoopsTopic.php';
+require_once XOOPS_ROOT_PATH . '/kernel/user.php';
 
 /**
  * Class XoopsStory

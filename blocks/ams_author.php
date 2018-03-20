@@ -29,7 +29,7 @@ function b_ams_author_show($options)
     if (!isset($options[3])) {
         $options[3] = 'average';
     }
-//    include_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
+//    require_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
     $block = [];
     $authors = Story::getAuthors($options[1], $options[0], $options[2], $options[3]);
     if (is_array($authors) && count($authors) > 0) {
@@ -40,7 +40,7 @@ function b_ams_author_show($options)
 
 function b_ams_author_edit($options)
 {
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $form = new \XoopsFormElementTray('', '<br/>');
 
     $sort_select = new \XoopsFormSelect(_AMS_MB_NEWS_ORDER, 'options[0]', $options[0]);

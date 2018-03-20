@@ -22,7 +22,7 @@ defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 //$GLOBALS['xoopsLogger']->addDeprecated("'/class/xoopstopic.php' is deprecated since XOOPS 2.5.4, please create your own class instead.");
 
-include_once XOOPS_ROOT_PATH . '/class/xoopstree.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopstree.php';
 
 /**
  * Class XoopsTopic
@@ -380,7 +380,7 @@ class XoopsTopic
         $result = $this->db->query('SELECT topic_id, topic_pid, topic_title FROM ' . $this->table);
         $ret    = [];
         $myts   = \MyTextSanitizer::getInstance();
-       while (false !== ($myrow = $this->db->fetchArray($result))) {
+        while (false !== ($myrow = $this->db->fetchArray($result))) {
             $ret[$myrow['topic_id']] = ['title' => $myts->htmlspecialchars($myrow['topic_title']), 'pid' => $myrow['topic_pid']];
         }
 

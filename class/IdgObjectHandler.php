@@ -1,4 +1,5 @@
 <?php namespace XoopsModules\Ams;
+
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -151,7 +152,7 @@ class IdgObjectHandler extends \XoopsObjectHandler
     public function convertResultSet($result, $id_as_key = false, $as_object = true)
     {
         $ret = [];
-       while (false !== ($myrow = $this->db->fetchArray($result))) {
+        while (false !== ($myrow = $this->db->fetchArray($result))) {
             $obj = $this->create(false);
             $obj->assignVars($myrow);
             if (!$id_as_key) {

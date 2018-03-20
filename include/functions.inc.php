@@ -89,9 +89,9 @@ function AMS_updateCache()
     $folder  = $amsModule->getVar('dirname');
     $tpllist = [];
     if (!class_exists('XoopsBlock')) {
-        include_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
+        require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
     }
-    include_once XOOPS_ROOT_PATH . '/class/template.php';
+    require_once XOOPS_ROOT_PATH . '/class/template.php';
     $tplfileHandler = xoops_getHandler('tplfile');
     $tpllist        = $tplfileHandler->find(null, null, null, $folder);
     $xoopsTpl       = new \XoopsTpl();

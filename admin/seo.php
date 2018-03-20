@@ -27,8 +27,8 @@
 use XoopsModules\Ams;
 
 include __DIR__ . '/admin_header.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-include_once XOOPS_ROOT_PATH . '/modules/ams/include/functions.inc.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/modules/ams/include/functions.inc.php';
 
 global $xoopsModule;
 if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {

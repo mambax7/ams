@@ -28,7 +28,7 @@ use XoopsModules\Ams;
 
 function b_ams_topicsnav_show($options)
 {
-//    include_once XOOPS_ROOT_PATH . '/modules/ams/class/Topic.php';
+//    require_once XOOPS_ROOT_PATH . '/modules/ams/class/Topic.php';
     global $xoopsDB, $xoopsUser;
     $block = [];
     $topics = Ams\Topic::getAllTopics($options[0]);
@@ -40,7 +40,7 @@ function b_ams_topicsnav_show($options)
 
 function b_ams_topicsnav_edit($options)
 {
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $form = new \XoopsFormElementTray('', '<br/>');
     $restrict_select = new \XoopsFormRadioYN(_AMS_MB_NEWS_RESTRICTTOPICS, 'options[0]', $options[0]);
     $form->addElement($restrict_select);

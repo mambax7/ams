@@ -27,8 +27,8 @@
 use XoopsModules\Ams;
 
 include __DIR__ . '/../../mainfile.php';
-//include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/Story.php';
-include_once XOOPS_ROOT_PATH . '/class/template.php';
+//require_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/Story.php';
+require_once XOOPS_ROOT_PATH . '/class/template.php';
 $xoopsOption['theme_use_smarty'] = 1;
 $xoopsTpl = new \XoopsTpl();
 $xoopsTpl->caching=(0);
@@ -72,7 +72,7 @@ if (!$gpermHandler->checkRight('ams_approve', $article->topicid(), $groups, $xoo
 
 
 $GLOBALS['xoopsOption']['template_main'] = 'ams_article.tpl';
-include_once XOOPS_ROOT_PATH.'/header.php';
+require_once XOOPS_ROOT_PATH.'/header.php';
 $xoopsTpl->assign('story', $article->toArray(true, false, -1));
 $banner = $myts->displayTarea($article->getBanner(), 1);
 if (!$banner || '' == $banner) {
@@ -95,4 +95,4 @@ $xoopsTpl->assign('admin', false);
 $xoopsTpl->assign('xoops_sitename', $myts->htmlSpecialChars($article->title()));
 $xoopsTpl->assign('xoops_pagetitle', ' v.' . $article->version());
 
-include_once XOOPS_ROOT_PATH.'/footer.php';
+require_once XOOPS_ROOT_PATH.'/footer.php';

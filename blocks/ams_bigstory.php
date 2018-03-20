@@ -29,7 +29,7 @@ use XoopsModules\Ams;
 function b_ams_bigstory_show()
 {
     global $xoopsDB;
-//    include_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
+//    require_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
     $myts = \MyTextSanitizer::getInstance();
     $block = [];
     $tdate = mktime(0, 0, 0, date('n'), date('j'), date('Y'));

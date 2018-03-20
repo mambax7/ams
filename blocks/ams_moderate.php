@@ -28,8 +28,8 @@ use XoopsModules\Ams;
 
 function b_ams_topics_moderate()
 {
-    //include_once XOOPS_ROOT_PATH."/class/xoopstopic.php";
-//    include_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
+    //require_once XOOPS_ROOT_PATH."/class/xoopstopic.php";
+//    require_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
     $block = [];
 
     $storyarray = Ams\Story :: getAllSubmitted(0, true, true);

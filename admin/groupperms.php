@@ -27,9 +27,9 @@
 use XoopsModules\Ams;
 
 include __DIR__ . '/admin_header.php';
-//include_once XOOPS_ROOT_PATH . '/modules/ams/class/Topic.php';
-include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
-include_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
+//require_once XOOPS_ROOT_PATH . '/modules/ams/class/Topic.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+require_once XOOPS_ROOT_PATH.'/class/xoopsform/grouppermform.php';
 
 $moduleAdmin = \Xmf\Module\Admin::getInstance();
 $moduleAdmin->displayNavigation('groupperms.php');

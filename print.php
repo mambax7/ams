@@ -25,7 +25,7 @@ $storyid = isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0;
 if (empty($storyid)) {
     redirect_header(XOOPS_URL . '/modules/ams/index.php');
 }
-//include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->dirname().'/class/Story.php';
+//require_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->dirname().'/class/Story.php';
 
 function PrintPage($storyid)
 {

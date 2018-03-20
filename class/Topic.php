@@ -1,4 +1,5 @@
 <?php namespace XoopsModules\Ams;
+
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -30,8 +31,8 @@
 
 use XoopsModules\Ams;
 
-include_once __DIR__ . 'XoopsTopic.php';
-include_once XOOPS_ROOT_PATH.'/class/tree.php';
+require_once __DIR__ . 'XoopsTopic.php';
+require_once XOOPS_ROOT_PATH.'/class/tree.php';
 
 class Topic extends Ams\XoopsTopic
 {

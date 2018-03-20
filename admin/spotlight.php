@@ -60,7 +60,7 @@ switch ($op) {
                    . _AMS_AM_SPOT_WEIGHT . '</th><th>'
                    . _AMS_AM_SPOT_DISPLAY . '</th><th>'
                    . _AMS_AM_ACTION . '</th>';
-        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+        require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         $minis = 0;
         if (count($spotlights) > 0) {
             foreach (array_keys($spotlights) as $i) {

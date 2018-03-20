@@ -26,10 +26,10 @@
 
 use XoopsModules\Ams;
 
-include_once XOOPS_ROOT_PATH.'/class/logger.php';
-include_once XOOPS_ROOT_PATH.'/class/database/databasefactory.php';
-include_once XOOPS_ROOT_PATH.'/class/database/'.XOOPS_DB_TYPE.'database.php';
-include_once XOOPS_ROOT_PATH.'/class/database/sqlutility.php';
+require_once XOOPS_ROOT_PATH.'/class/logger.php';
+require_once XOOPS_ROOT_PATH.'/class/database/databasefactory.php';
+require_once XOOPS_ROOT_PATH.'/class/database/'.XOOPS_DB_TYPE.'database.php';
+require_once XOOPS_ROOT_PATH.'/class/database/sqlutility.php';
 
 /**
 * database manager for XOOPS installer

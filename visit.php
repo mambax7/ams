@@ -3,8 +3,8 @@
 use XoopsModules\Ams;
 
 include __DIR__ . '/../../mainfile.php';
-//include_once __DIR__ . '/class/Files.php';
-//include_once __DIR__ . '/class/Story.php';
+//require_once __DIR__ . '/class/Files.php';
+//require_once __DIR__ . '/class/Story.php';
 
 $myts = \MyTextSanitizer::getInstance(); // MyTextSanitizer object
 $fileid = isset($_GET['fileid']) ? (int)$_GET['fileid'] : 0;

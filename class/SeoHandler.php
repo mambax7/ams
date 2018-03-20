@@ -33,7 +33,7 @@ class SeoHandler extends \XoopsPersistableObjectHandler //IdgObjectHandler
     public function save_setting($content_parameter=null)
     {
         //configure setting path based on XOOPS version
-        include_once XOOPS_ROOT_PATH . '/mainfile.php';
+        require_once XOOPS_ROOT_PATH . '/mainfile.php';
         if (!defined('XOOPS_VAR_PATH')) {
             $AMS_setting=XOOPS_ROOT_PATH. '/cache';
         } else {
@@ -74,7 +74,7 @@ class SeoHandler extends \XoopsPersistableObjectHandler //IdgObjectHandler
 
     public function read_setting()
     {
-        include_once XOOPS_ROOT_PATH . '/mainfile.php';
+        require_once XOOPS_ROOT_PATH . '/mainfile.php';
 
         //configure setting path based on XOOPS version
         if (!defined('XOOPS_VAR_PATH')) {
@@ -87,7 +87,7 @@ class SeoHandler extends \XoopsPersistableObjectHandler //IdgObjectHandler
             $this->save_setting();
         }
 
-        include_once $AMS_setting . '/xoops_ams_seo_setting.php';
+        require_once $AMS_setting . '/xoops_ams_seo_setting.php';
         return AMS_SEO_setting();
     }
 }

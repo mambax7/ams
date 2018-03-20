@@ -95,7 +95,7 @@ class Mimetype
         // return mime type for extension
         if (isset($mimetypes[$ext])) {
             return $mimetypes[$ext];
-            // if the extension wasn't found return octet-stream
+        // if the extension wasn't found return octet-stream
         } else {
             return 'unknown';
         }

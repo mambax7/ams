@@ -30,8 +30,8 @@ class NewsUpgrade
 {
     public function prepare2upgrade()
     {
-        include_once XOOPS_ROOT_PATH.'/modules/ams/upgrade/class/dbmanager.php';
-        include_once XOOPS_ROOT_PATH.'/modules/ams/upgrade/language/install.php';
+        require_once XOOPS_ROOT_PATH.'/modules/ams/upgrade/class/dbmanager.php';
+        require_once XOOPS_ROOT_PATH.'/modules/ams/upgrade/language/install.php';
         $dbm = new db_manager;
         $dbm->queryFromFile(XOOPS_ROOT_PATH.'/modules/ams/sql/mysql.sql');
         return $dbm->report();

@@ -27,7 +27,6 @@ use Xmf\Request;
 use XoopsModules\Ams;
 use XoopsModules\Ams\Common;
 
-
 require_once __DIR__ . '/../include/common.php';
 
 /**
@@ -42,5 +41,4 @@ class Utility
     use Common\FilesManagement; // Files Management Trait
 
     //--------------- Custom module methods -----------------------------
-
 }

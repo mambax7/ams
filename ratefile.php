@@ -3,7 +3,7 @@
 use XoopsModules\Ams;
 
 include __DIR__ . '/../../mainfile.php';
-//include_once XOOPS_ROOT_PATH.'/modules/ams/class/Story.php';
+//require_once XOOPS_ROOT_PATH.'/modules/ams/class/Story.php';
 if (empty($_POST['submit'])) {
     $_POST['submit'] = '';
 }

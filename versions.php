@@ -1,7 +1,7 @@
 <?php
 
 include __DIR__ . '/../../mainfile.php';
-include_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/Story.php';
+require_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/Story.php';
 if (!isset($_POST['submit'])) {
     if (!isset($_GET['storyid'])) {
         redirect_header(XOOPS_URL.'/modules/ams/index.php', 3, _AMS_NW_NOSTORY);
@@ -9,7 +9,7 @@ if (!isset($_POST['submit'])) {
     }
     $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0; // disable caching
     $GLOBALS['xoopsOption']['template_main'] = 'ams_version.tpl';
-    include_once XOOPS_ROOT_PATH . '/header.php';
+    require_once XOOPS_ROOT_PATH . '/header.php';
     $story = new Story((int)$_GET['storyid']);
     $gpermHandler = xoops_getHandler('groupperm');
     if (!$xoopsUser || !$gpermHandler->checkRight('ams_approve', $story->topicid(), $xoopsUser->getGroups(), $xoopsModule->mid())) {
@@ -55,7 +55,7 @@ if (!isset($_POST['submit'])) {
                 exit();
             }
             if (!empty($_POST['ok'])) {
-                include_once XOOPS_ROOT_PATH . '/header.php';
+                require_once XOOPS_ROOT_PATH . '/header.php';
                 $story->delversions($_POST['version'], $_POST['revision'], $_POST['revisionminor']);
                 redirect_header(XOOPS_URL.'/modules/ams/article.php?storyid='.$story->storyid, 3, sprintf(_AMS_NW_VERSIONUPDATED, $_POST['version'] . '.'
                                                                                                                                   . $_POST['revision'] . '.'
@@ -65,7 +65,7 @@ if (!isset($_POST['submit'])) {
                 if (!isset($version_array[2])) {
                     $version_array[2] = 0;
                 }
-                include_once XOOPS_ROOT_PATH . '/header.php';
+                require_once XOOPS_ROOT_PATH . '/header.php';
                 xoops_confirm([
                                   'op'            => 'delversions',
                                   'submit'        => 1,
@@ -86,7 +86,7 @@ if (!isset($_POST['submit'])) {
                 exit();
             }
             if (!empty($_POST['ok'])) {
-                include_once XOOPS_ROOT_PATH . '/header.php';
+                require_once XOOPS_ROOT_PATH . '/header.php';
                 $story->delallversions($_POST['version'], $_POST['revision'], $_POST['revisionminor']);
                 redirect_header(XOOPS_URL.'/modules/ams/article.php?storyid='.$story->storyid, 3, sprintf(_AMS_NW_VERSIONUPDATED, $_POST['version'] . '.'
                                                                                                                                   . $_POST['revision'] . '.'
@@ -96,7 +96,7 @@ if (!isset($_POST['submit'])) {
                 if (!isset($version_array[2])) {
                     $version_array[2] = 0;
                 }
-                include_once XOOPS_ROOT_PATH . '/header.php';
+                require_once XOOPS_ROOT_PATH . '/header.php';
                 xoops_confirm([
                                   'op'            => 'delallversions',
                                   'submit'        => 1,

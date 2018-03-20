@@ -23,9 +23,9 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
-include_once XOOPS_ROOT_PATH . '/class/tree.php';
+require_once XOOPS_ROOT_PATH . '/class/tree.php';
 
 $fform = new \XoopsThemeForm(_AMS_AM_FILTER, 'filterform', 'articles.php');
 $fform->setExtra('enctype="multipart/form-data"');

@@ -30,7 +30,7 @@ if (function_exists('mb_http_output')) {
 }
 header('Content-Type:text/xml; charset=utf-8');
 
-include_once XOOPS_ROOT_PATH.'/class/template.php';
+require_once XOOPS_ROOT_PATH.'/class/template.php';
 $tpl = new \XoopsTpl();
 $tpl->caching=(2);
 $tpl->xoops_setCacheTime(3600);

@@ -19,18 +19,18 @@
 
 use XoopsModules\Ams;
 
-include_once __DIR__ . '/../../mainfile.php';
-//include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Story.php';
-//include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Files.php';
-include_once XOOPS_ROOT_PATH . '/class/uploader.php';
+require_once __DIR__ . '/../../mainfile.php';
+//require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Story.php';
+//require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/class/Files.php';
+require_once XOOPS_ROOT_PATH . '/class/uploader.php';
 
 $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0;
-include_once XOOPS_ROOT_PATH . '/header.php';
+require_once XOOPS_ROOT_PATH . '/header.php';
 /** @var Ams\Helper $helper */
 $helper = Ams\Helper::getInstance();
 $helper->loadLanguage('admin');
 
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/include/functions.inc.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/include/functions.inc.php';
 $module_id = $xoopsModule->getVar('mid');
 $groups    = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
@@ -112,7 +112,7 @@ switch ($op) {
             exit();
         } else {
 
-            //include_once __DIR__ . '/../../include/cp_header.php';
+            //require_once __DIR__ . '/../../include/cp_header.php';
             //xoops_cp_header();
             echo '<h4>' . _AMS_AM_CONFIG . '</h4>';
             xoops_confirm(['op' => 'delete', 'storyid' => $_REQUEST['storyid'], 'ok' => 1], 'submit.php', _AMS_AM_RUSUREDEL);
@@ -207,11 +207,11 @@ switch ($op) {
 
         //Added  in AMS 2.50 Final. replace deprecated themecenterposts function
         if (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php')) {
-            if (!@include_once XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php') {
-                include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+            if (!@require_once XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php') {
+                require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
             }
         } else {
-            include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+            require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
         }
         $pform = new \XoopsThemeForm($p_title, 'previewform', XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php');
         $pform->display();
@@ -342,7 +342,7 @@ switch ($op) {
 
                 // If notify checkbox is set, add subscription for approve
                 if ($notifypub) {
-                    include_once XOOPS_ROOT_PATH . '/include/notification_constants.php';
+                    require_once XOOPS_ROOT_PATH . '/include/notification_constants.php';
                     $notificationHandler->subscribe('story', $story->storyid(), 'approve', XOOPS_NOTIFICATION_MODE_SENDONCETHENDELETE);
                 }
             }
@@ -467,7 +467,7 @@ switch ($op) {
         if ($story->calculateVersion(true)) {
             if ($story->updateVersion()) {
                 $message = sprintf(_AMS_NW_VERSIONUPDATED, $story->version . '.' . $story->revision . '.' . $story->revisionminor);
-                //redirect_header('article.php?storyid='.$story->storyid(), 3, $message);
+            //redirect_header('article.php?storyid='.$story->storyid(), 3, $message);
                 //exit();
             } else {
                 $message = $story->renderErrors();

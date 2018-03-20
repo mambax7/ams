@@ -27,10 +27,10 @@
 
 use XoopsModules\Ams;
 
-include_once __DIR__ . '/XoopsStory.php';
-include_once __DIR__ . '/Topic.php';
-include_once XOOPS_ROOT_PATH.'/include/comment_constants.php';
-include_once XOOPS_ROOT_PATH.'/modules/ams/include/functions.inc.php';
+require_once __DIR__ . '/XoopsStory.php';
+require_once __DIR__ . '/Topic.php';
+require_once XOOPS_ROOT_PATH.'/include/comment_constants.php';
+require_once XOOPS_ROOT_PATH.'/modules/ams/include/functions.inc.php';
 
 class Story extends Ams\XoopsStory
 {
@@ -877,7 +877,7 @@ class Story extends Ams\XoopsStory
                 $story_pages = count($articletext);
                 if ($story_pages > 1 && $storypage != -1) {
                     global $xoopsTpl;
-//                    include_once XOOPS_ROOT_PATH.'/modules/ams/class/pagenav.php';
+//                    require_once XOOPS_ROOT_PATH.'/modules/ams/class/pagenav.php';
                     $pagenav = new Ams\PageNav($story_pages, 1, $storypage, 'page', 'storyid='.$this->storyid, $this->friendlyurl_enable, $this->friendlyurl);
                     $xoopsTpl->assign('pagenav', $pagenav->renderNav());
                     $story['bodytext'] = $articletext[$storypage];

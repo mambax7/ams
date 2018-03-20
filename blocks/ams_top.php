@@ -29,7 +29,7 @@ use XoopsModules\Ams;
 function b_ams_top_show($options)
 {
     $myts = \MyTextSanitizer::getInstance();
-//    include_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
+//    require_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
     $block = [];
     if (!isset($options[4]) || 0 == $options[4] || $options[4] == [0]) {
         $stories = Story::getAllPublished($options[1], 0, false, 0, 1, true, $options[0]);
@@ -81,7 +81,7 @@ function b_ams_top_show($options)
 function b_ams_top_edit($options)
 {
     global $xoopsDB;
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $form = new \XoopsFormElementTray('', '<br/><br>');
 
     $order_select = new \XoopsFormSelect(_AMS_MB_NEWS_ORDER, 'options[0]', $options[0]);
@@ -108,7 +108,7 @@ function b_ams_top_edit($options)
 
     $topics_select = new \XoopsFormSelect(_AMS_MB_TOPIC, 'options[4]', $topics, 7, true);
 
-//    include_once XOOPS_ROOT_PATH . '/modules/ams/class/Topic.php';
+//    require_once XOOPS_ROOT_PATH . '/modules/ams/class/Topic.php';
     $xt = new Ams\Topic($xoopsDB->prefix('ams_topics'));
     $alltopics = $xt->getAllTopics();
     $topics_select->addOption(0, _AMS_MB_NEWS_ALLTOPICS);

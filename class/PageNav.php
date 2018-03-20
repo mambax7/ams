@@ -2,7 +2,7 @@
 
 use XoopsModules\Ams;
 
-include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
 class PageNav extends \XoopsPageNav
 {

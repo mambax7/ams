@@ -23,7 +23,7 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 //  ------------------------------------------------------------------------ //
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $sform = new \XoopsThemeForm(_AMS_NW_VERSIONCONFLICT, 'overrideform', XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php');
 $sform->setExtra('enctype="multipart/form-data"');
 

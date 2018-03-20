@@ -27,8 +27,8 @@
 use XoopsModules\Ams;
 
 include __DIR__ . '/../../mainfile.php';
-include_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
-include_once XOOPS_ROOT_PATH . '/modules/ams/class/class.sfiles.php';
+require_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
+require_once XOOPS_ROOT_PATH . '/modules/ams/class/class.sfiles.php';
 /** @var Ams\Helper $helper */
 $helper = Ams\Helper::getInstance();
 $helper->loadLanguage('main');
@@ -50,7 +50,7 @@ $myts = \MyTextSanitizer::getInstance();
 $article = new Story($storyid);
 if (0 == $article->published() || $article->published() > time()) {
     //redirect_header('index.php', 2, _AMS_NW_NOSTORY);
-    include_once XOOPS_ROOT_PATH.'/header.php';
+    require_once XOOPS_ROOT_PATH.'/header.php';
     include XOOPS_ROOT_PATH.'/footer.php';
     exit();
 }
@@ -85,7 +85,7 @@ if ($admin) {
     $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0;
 }
 $GLOBALS['xoopsOption']['template_main'] = 'ams_article.tpl';
-include_once XOOPS_ROOT_PATH.'/header.php';
+require_once XOOPS_ROOT_PATH.'/header.php';
 
 $xoopsTpl->assign('story', $article->toArray($admin, true, $storypage));
 $artbanner = $article->getBanner();

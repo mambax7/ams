@@ -34,7 +34,7 @@ $helper->loadLanguage('main');
 if (!$xoopsUser) {
     redirect_header(XOOPS_URL.'/modules/ams/index.php', 3, _NOPERM);
 }
-include_once XOOPS_ROOT_PATH.'/modules/ams/class/Story.php';
+require_once XOOPS_ROOT_PATH.'/modules/ams/class/Story.php';
 $storyid = isset($_POST['storyid']) ? (int)$_POST['storyid'] : (isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0);
 if (!$storyid) {
     redirect_header(XOOPS_URL . '/modules/ams/index.php', 2, _AMS_NW_NOSTORY);
@@ -56,7 +56,7 @@ $myts = \MyTextSanitizer::getInstance();
 $xoopsConfigSearch = $configHandler->getConfigsByCat(XOOPS_CONF_SEARCH);
 $xoopsConfig['module_cache'][$xoopsModule->getVar('mid')] = 0; // disable caching
 $GLOBALS['xoopsOption']['template_main'] = 'ams_searchform.tpl';
-include_once XOOPS_ROOT_PATH.'/header.php';
+require_once XOOPS_ROOT_PATH.'/header.php';
 
 $username = (isset($_POST['username']) && '' != $_POST['username']) ? $_POST['username'] : '';
 $username = $myts->addSlashes($username);

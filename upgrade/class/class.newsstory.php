@@ -26,8 +26,8 @@
 
 use XoopsModules\Ams;
 
-include_once XOOPS_ROOT_PATH . '/class/xoopsstory.php';
-include_once XOOPS_ROOT_PATH.'/include/comment_constants.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsstory.php';
+require_once XOOPS_ROOT_PATH.'/include/comment_constants.php';
 
 class OldNewsStory extends XoopsStory
 {

@@ -3,9 +3,9 @@
 use XoopsModules\Ams;
 
 include __DIR__ . '/../../../include/cp_header.php';
-//include_once __DIR__ . '/class/Story.php';
-//include_once __DIR__ . '/class/Topic.php';
-include_once __DIR__ . '/class/newsupgrade.php';
+//require_once __DIR__ . '/class/Story.php';
+//require_once __DIR__ . '/class/Topic.php';
+require_once __DIR__ . '/class/newsupgrade.php';
 xoops_cp_header();
 set_magic_quotes_runtime(1);
 if (isset($_POST['submit'])) {
@@ -70,12 +70,12 @@ if (isset($_POST['submit'])) {
 
         case 'Update':
         /*
-        include_once XOOPS_ROOT_PATH."/modules/ams/include/update.php";
+        require_once XOOPS_ROOT_PATH."/modules/ams/include/update.php";
         xoops_module_update_AMS($xoopsModule, 220); //invoke update procedure - the SQL will fail if already upgraded, but no harm should come to it.
         header('location: '.XOOPS_URL.'/modules/system/admin.php?fct=modulesadmin&op=update&module=AMS');
         exit();*/
-        include_once XOOPS_ROOT_PATH.'/modules/ams/upgrade/class/dbmanager.php';
-        include_once XOOPS_ROOT_PATH.'/modules/ams/upgrade/language/install.php';
+        require_once XOOPS_ROOT_PATH.'/modules/ams/upgrade/class/dbmanager.php';
+        require_once XOOPS_ROOT_PATH.'/modules/ams/upgrade/language/install.php';
         $dbm = new db_manager;
         $dbm->queryFromFile(XOOPS_ROOT_PATH.'/modules/ams/sql/upgrade.sql');
         $feedback = $dbm->report();
@@ -85,7 +85,7 @@ if (isset($_POST['submit'])) {
         exit();
     }
 }
-include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 $upgrade_form = new \XoopsThemeForm('Upgrade', 'upgradeform', 'index.php');
 if (!isset($_POST['submit'])) {
     $upgrade_form->addElement(new \XoopsFormButton('Import Articles and Topics from News module', 'submit', 'Import', 'submit'));

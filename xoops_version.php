@@ -439,9 +439,9 @@ $config_count++;
 if (file_exists(XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php')) {
     //To be compatible with XOOPS 2.2.x
     if (file_exists(XOOPS_ROOT_PATH . '/class/xoopslists.php')) {
-        include_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
+        require_once XOOPS_ROOT_PATH . '/class/xoopslists.php';
     }
-    include_once XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopseditor/xoopseditor.php';
     //$editorHandler = XoopsEditorHandler::getInstance();
     $editorHandler = new \XoopsEditorHandler;
     $editor_list   = array_flip($editorHandler->getList());

@@ -28,7 +28,7 @@ use XoopsModules\Ams;
 
 function b_ams_spotlight_show($options)
 {
-    include_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
+    require_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
     global $xoopsModule;
     if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
         $moduleHandler = xoops_getHandler('module');
@@ -80,8 +80,8 @@ function b_ams_spotlight_show($options)
 
 function b_ams_spotlight_edit($options)
 {
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-    include_once XOOPS_ROOT_PATH . '/modules/ams/include/functions.inc.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/modules/ams/include/functions.inc.php';
 
     global $xoopsModule;
     AMS_updateCache();

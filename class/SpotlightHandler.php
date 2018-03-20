@@ -1,4 +1,5 @@
 <?php namespace XoopsModules\Ams;
+
 // ------------------------------------------------------------------------ //
 //               XOOPS - PHP Content Management System                      //
 //                   Copyright (c) 2000 XOOPS.org                           //
@@ -36,7 +37,7 @@ class SpotlightHandler extends \XoopsPersistableObjectHandler //IdgObjectHandler
     public function getSpotlightBlock($display_only = true)
     {
         $myts = \MyTextSanitizer::getInstance();
-//        include_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
+//        require_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
         $block = [];
 
         if ($display_only) {

@@ -1,4 +1,5 @@
 <?php namespace XoopsModules\Ams;
+
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //

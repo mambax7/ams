@@ -29,12 +29,12 @@ use XoopsModules\Ams;
 
 require __DIR__ . '/admin_header.php';
 
-//include_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
-//include_once XOOPS_ROOT_PATH . '/modules/ams/class/Topic.php';
-//include_once XOOPS_ROOT_PATH . '/modules/ams/class/class.sfiles.php';
-include_once XOOPS_ROOT_PATH . '/class/uploader.php';
-include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
-include_once XOOPS_ROOT_PATH . '/modules/ams/include/functions.inc.php';
+//require_once XOOPS_ROOT_PATH . '/modules/ams/class/Story.php';
+//require_once XOOPS_ROOT_PATH . '/modules/ams/class/Topic.php';
+//require_once XOOPS_ROOT_PATH . '/modules/ams/class/class.sfiles.php';
+require_once XOOPS_ROOT_PATH . '/class/uploader.php';
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+require_once XOOPS_ROOT_PATH . '/modules/ams/include/functions.inc.php';
 
 //if (isset($_POST)) {
 //    foreach ($_POST as $k => $v) {
@@ -195,7 +195,7 @@ function lastStories()
     echo '</table><br>';
     $totalPublished = Story::countPublishedByTopic();
     if ($totalPublished > $xoopsModuleConfig['storycountadmin']) {
-        include_once XOOPS_ROOT_PATH.'/class/pagenav.php';
+        require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
         $pagenav = new \XoopsPageNav($totalPublished, $xoopsModuleConfig['storycountadmin'], $start, 'start', $querystring);
         echo $pagenav->renderNav();
     }
@@ -207,12 +207,12 @@ function lastStories()
 function topicsmanager()
 {
     global $xoopsModule, $xoopsModuleConfig, $xoopsDB;
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     //$uploadfolder=sprintf(_AMS_AM_UPLOAD_WARNING,XOOPS_URL . "/modules/" . $xoopsModule -> dirname().'/assets/images/topics');
     $uploadirectory= '/modules/' . $xoopsModule-> dirname() . '/assets/images/topics';
     $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
 
-    include_once XOOPS_ROOT_PATH . '/class/tree.php';
+    require_once XOOPS_ROOT_PATH . '/class/tree.php';
     $xt = new Topic($xoopsDB -> prefix('ams_topics'));
     $allTopics = $xt->getAllTopics();
     $totaltopics = count($allTopics);
@@ -688,7 +688,7 @@ function audienceForm($id = 0)
         $audience = '';
         $groups = [];
     }
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $aform = new \XoopsThemeForm(_AMS_AM_MANAGEAUDIENCES, 'audienceform', 'articles.php', 'post');
     if ($id > 0) {
         $aform->addElement(new \XoopsFormHidden('aid', $id));
@@ -707,7 +707,7 @@ switch ($op) {
         $moduleAdmin->displayNavigation('articles.php?op=newarticle');
         $moduleAdmin->addItemButton(_AMS_AM_POSTNEWARTICLE, XOOPS_URL . '/modules/' .$xoopsModule->getVar('dirname') . '/submit.php', 'add');
         $moduleAdmin->displayButton('right', '');
-        include_once XOOPS_ROOT_PATH . '/class/module.textsanitizer.php';
+        require_once XOOPS_ROOT_PATH . '/class/module.textsanitizer.php';
         newSubmissions();
         lastStories();
         break;

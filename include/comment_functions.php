@@ -28,7 +28,7 @@ use XoopsModules\Ams;
 
 // comment callback functions
 
-//include_once XOOPS_ROOT_PATH.'/modules/ams/class/Story.php';
+//require_once XOOPS_ROOT_PATH.'/modules/ams/class/Story.php';
 function ams_com_update($story_id, $total_num)
 {
     $article = new Ams\Story($story_id);

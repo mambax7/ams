@@ -29,9 +29,9 @@
 use XoopsModules\Ams;
 
 if (file_exists(XOOPS_ROOT_PATH.'/language/'.$xoopsConfig['language'].'/calendar.php')) {
-    include_once XOOPS_ROOT_PATH.'/language/'.$xoopsConfig['language'].'/calendar.php';
+    require_once XOOPS_ROOT_PATH.'/language/'.$xoopsConfig['language'].'/calendar.php';
 } else {
-    include_once XOOPS_ROOT_PATH.'/language/english/calendar.php';
+    require_once XOOPS_ROOT_PATH.'/language/english/calendar.php';
 }
 
 /** @var Ams\Helper $helper */
@@ -39,9 +39,9 @@ $helper = Ams\Helper::getInstance();
 $helper->loadLanguage('main');
 
 //Added AMS 2.50 for cookies manangement
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/include/vars.inc.php';
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/include/functions.inc.php';
-include_once XOOPS_ROOT_PATH . '/class/tree.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/include/vars.inc.php';
+require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/include/functions.inc.php';
+require_once XOOPS_ROOT_PATH . '/class/tree.php';
 
 
 //Added AMS 2.50. Enable user selection Editor. Modify at AMS 3.0 to correctly detect XOOPS 2.3.x scheme
@@ -74,14 +74,14 @@ if (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php
                    . '/class/xoopsform/formselecteditor.php')
     || file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formeditor.php')) {
     //if phpp/xoopsforge/xoops2.3.x Framework installed. Support multipe wysiwyg editor (FCK, TinyMCE, Koivi etc)
-    if (!@include_once XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php') {
-        include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    if (!@require_once XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php') {
+        require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     }
 
     //ICMS 1.2 workaround. ICMS bugs not to include  formeditor.php in their xoopsformloader. Remove this when it fixed
     if (!class_exists('XoopsFormEditor')) {
         if (file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formeditor.php')) {
-            include_once XOOPS_ROOT_PATH . '/class/xoopsform/formeditor.php';
+            require_once XOOPS_ROOT_PATH . '/class/xoopsform/formeditor.php';
         }
     }
 
@@ -89,28 +89,28 @@ if (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php
 } elseif (file_exists(XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php') && 'koivi' === $editor) {
     //if KOIVI installed manually in XOOPS 2.0.x
     $wysiwyg_is_exist=2;
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-    include_once XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/wysiwyg/formwysiwygtextarea.php';
 
     if (file_exists(XOOPS_ROOT_PATH . '/class/wysiwyg/language/' . $xoopsConfig['language'] . '.php')) {
-        include_once XOOPS_ROOT_PATH . '/class/wysiwyg/language/' . $xoopsConfig['language'] . '.php';
+        require_once XOOPS_ROOT_PATH . '/class/wysiwyg/language/' . $xoopsConfig['language'] . '.php';
     } else {
-        include_once XOOPS_ROOT_PATH . '/class/wysiwyg/language/english.php';
+        require_once XOOPS_ROOT_PATH . '/class/wysiwyg/language/english.php';
     }
 } elseif (file_exists(XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/formwysiwygtextarea.php') && 'koivi' === $editor) {
     //if XOOPS 2.2.x editor installed. Only KOIVI is supported
     $wysiwyg_is_exist=3;
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-    include_once XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/formwysiwygtextarea.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/formwysiwygtextarea.php';
 
     if (file_exists(XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/language/' . $xoopsConfig['language'] . '.php')) {
-        include_once XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/language/' . $xoopsConfig['language'] . '.php';
+        require_once XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/language/' . $xoopsConfig['language'] . '.php';
     } else {
-        include_once XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/language/english.php';
+        require_once XOOPS_ROOT_PATH . '/class/xoopseditor/koivi/language/english.php';
     }
 } else {
     // if none of editor installed
-    include_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
+    require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 }
 
 $sform = new \XoopsThemeForm(_AMS_NW_SUBMITNEWS, 'storyform', XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php');
@@ -159,8 +159,8 @@ if ($approveprivilege) {
 $myts = \MyTextSanitizer::getInstance();
 /*
 if(file_exists(XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/".$xoopsConfig['language'].".php"))
-include_once __DIR__ . '/'.XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/".$xoopsConfig['language'].".php";
-else include_once __DIR__ . '/'.XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/english.php";
+require_once __DIR__ . '/'.XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/".$xoopsConfig['language'].".php";
+else require_once __DIR__ . '/'.XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar("dirname")."/language/english.php";
 */
 
 //Only enable editor selection if Framework is enabled
