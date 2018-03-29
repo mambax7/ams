@@ -69,7 +69,7 @@ class Story extends Ams\XoopsStory
         if (is_array($storyid)) {
             $this->makeStory($storyid);
             $this->newstopic = $this->topic();
-        } elseif ($storyid != -1) {
+        } elseif (-1 != $storyid) {
             $this->getStory((int)$storyid);
             $this->newstopic = $this->topic(true);
             if (false !== $getRating) {
@@ -425,7 +425,10 @@ class Story extends Ams\XoopsStory
             $this->uname = $GLOBALS['xoopsConfig']['anonymous'];
             return [];
         }
-        global $xoopsModule, $xoopsModuleConfig;
+        global $xoopsModule;
+        /** @var Ams\Helper $helper */
+        $helper = Ams\Helper::getInstance();
+
         if (!isset($xoopsModule) || 'AMS' !== $xoopsModule->getVar('dirname')) {
             $moduleHandler = xoops_getHandler('module');
             $module = $moduleHandler->getByDirname('AMS');
@@ -437,7 +440,7 @@ class Story extends Ams\XoopsStory
                 $option= 1;
             }
         } else {
-            $option = $xoopsModuleConfig['displayname'];
+            $option = $helper->getConfig('displayname');
         }
         if (false !== $users && isset($users[$this->uid()])) {
             $author = $users[$this->uid()];
@@ -681,7 +684,7 @@ class Story extends Ams\XoopsStory
 
     public function hasVersions()
     {
-        if ($this->_hasVersions == -1) {
+        if (-1 == $this->_hasVersions) {
             $sql = 'SELECT count(*) FROM ' . $this->texttable . ' WHERE storyid=' . $this->storyid;
             $result = $this->db->query($sql);
             list($count) = $this->db->fetchRow($result);
@@ -723,14 +726,17 @@ class Story extends Ams\XoopsStory
 
     public function rateStory($rating)
     {
-        global $xoopsUser, $xoopsModuleConfig;
+        global $xoopsUser;
+        /** @var Ams\Helper $helper */
+        $helper = Ams\Helper::getInstance();
+
         $rating = (int)$rating;
         if (empty($this->ratings)) {
             $this->getRatings();
         }
         $ip = getenv('REMOTE_ADDR');
         if (!$xoopsUser) {
-            if (0 == $xoopsModuleConfig['anonymous_vote']) {
+            if (0 == $helper->getConfig('anonymous_vote')) {
                 $this->_errors[] = _AMS_NW_ANONYMOUSVOTEDISABLED;
                 return false;
             }
@@ -875,7 +881,7 @@ class Story extends Ams\XoopsStory
             if (false !== $pagenav) {
                 $articletext = explode('[pagebreak]', $bodytext);
                 $story_pages = count($articletext);
-                if ($story_pages > 1 && $storypage != -1) {
+                if ($story_pages > 1 && -1 != $storypage) {
                     global $xoopsTpl;
 //                    require_once XOOPS_ROOT_PATH.'/modules/ams/class/pagenav.php';
                     $pagenav = new Ams\PageNav($story_pages, 1, $storypage, 'page', 'storyid='.$this->storyid, $this->friendlyurl_enable, $this->friendlyurl);
@@ -889,7 +895,7 @@ class Story extends Ams\XoopsStory
             } else {
                 $articletext = explode('[pagebreak]', $bodytext);
                 $story_pages = count($articletext);
-                if ($story_pages > 1 && $storypage == -1) {
+                if ($story_pages > 1 && -1 == $storypage) {
                     $story['bodytext'] = implode('<br><b>'._AMS_MA_PAGEBREAK . '</b><br>', $articletext);
                 } else {
                     $story['bodytext'] = $bodytext;
@@ -1140,7 +1146,7 @@ class Story extends Ams\XoopsStory
 
     public function setFriendlyUrl($url='', $op=0, $id=0, $pg=0)
     {
-        if ($this->friendlyurl_enable == -1) {  //if  called 1st time
+        if (-1 == $this->friendlyurl_enable) {  //if  called 1st time
             $this->newstopic = new Ams\Topic($this->topicstable, $this->topicid());  //workaround due to destructive getTopicPath
             $this->topic = $this->newstopic->getTopicPath(false, '/', false);
             $this->newstopic = new Ams=Topic($this->topicstable, $this->topicid());  //workaround due to destructive getTopicPath

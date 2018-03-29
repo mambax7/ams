@@ -29,6 +29,10 @@ use XoopsModules\Ams;
 include __DIR__ . '/../../mainfile.php';
 //require_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->getVar('dirname').'/class/Story.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
+
+/** @var Alumni\Helper $helper */
+$helper = Alumni\Helper::getInstance();
+
 $xoopsOption['theme_use_smarty'] = 1;
 $xoopsTpl = new \XoopsTpl();
 $xoopsTpl->caching=(0);
@@ -79,7 +83,7 @@ if (!$banner || '' == $banner) {
     $banner = ' ';
 }
 $xoopsTpl->assign('articlebanner', $banner);
-if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
+if (XOOPS_COMMENT_APPROVENONE != $helper->getConfig('com_rule')) {
     $showcomments = 1;
 } else {
     $showcomments = 0;

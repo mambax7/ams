@@ -64,7 +64,7 @@ class SeoHandler extends \XoopsPersistableObjectHandler //IdgObjectHandler
                 return \$setting;
             }?>";
 
-            if (fwrite($file, $content) == -1) {
+            if (-1 == fwrite($file, $content)) {
                 print 'FAIL WRITING SEO SETTING CACHE';
                 exit;
             }

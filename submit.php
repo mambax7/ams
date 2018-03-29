@@ -68,15 +68,15 @@ if (isset($_REQUEST['preview'])) {
 } elseif (isset($_REQUEST['post'])) {
     $op = 'post';
 } elseif (isset($_REQUEST['op']) && isset($_REQUEST['storyid'])) {
-    if ($approveprivilege && 'edit' == $_REQUEST['op']) {
+    if ($approveprivilege && 'edit' === $_REQUEST['op']) {
         $op = 'edit';
-    } elseif ($approveprivilege && 'delete' == $_REQUEST['op']) {
+    } elseif ($approveprivilege && 'delete' === $_REQUEST['op']) {
         $op = 'delete';
     } elseif ($approveprivilege && _AMS_NW_OVERRIDE == $_REQUEST['op']) {
         $op = _AMS_NW_OVERRIDE;
     } elseif ($approveprivilege && _AMS_NW_FINDVERSION == $_REQUEST['op']) {
         $op = _AMS_NW_FINDVERSION;
-    } elseif ($approveprivilege && 'override_ok' == $_REQUEST['op']) {
+    } elseif ($approveprivilege && 'override_ok' === $_REQUEST['op']) {
         $op = 'override_ok';
     } else {
         redirect_header(XOOPS_URL . '/modules/ams/index.php', 0, _NOPERM);
@@ -215,7 +215,7 @@ switch ($op) {
         }
         $pform = new \XoopsThemeForm($p_title, 'previewform', XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/submit.php');
         $pform->display();
-        print "$p_hometext";
+        print $p_hometext;
 
         $story->uname();
         $author = $story->uname;
@@ -315,7 +315,7 @@ switch ($op) {
             }
 
             $story->audienceid = (int)$_POST['audience'];
-        } elseif (1 == $xoopsModuleConfig['autoapprove'] && !$approveprivilege) {
+        } elseif (1 == $helper->getConfig('autoapprove') && !$approveprivilege) {
             $approve = 1;
             $story->setPublished(time());
             $story->setExpired(0);
@@ -363,7 +363,7 @@ switch ($op) {
                     $destname = $sfiles->createUploadName(XOOPS_UPLOAD_PATH, $fldname);
                     // Actually : Web pictures (png, gif, jpeg), zip, doc, xls, pdf, gtar, tar, txt, tiff, htm, xml, ico,swf flv, mp3, bmp, ra, mov, swc. swf not allow by xoops, not AMS
                     $permittedtypes = explode(';', ams_getmoduleoption('mimetypes'));
-                    $uploader       = new \XoopsMediaUploader(XOOPS_UPLOAD_PATH, $permittedtypes, $xoopsModuleConfig['maxuploadsize']);
+                    $uploader       = new \XoopsMediaUploader(XOOPS_UPLOAD_PATH, $permittedtypes, $helper->getConfig('maxuploadsize'));
                     $uploader->setTargetFileName($destname);
                     if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
                         if ($uploader->upload()) {

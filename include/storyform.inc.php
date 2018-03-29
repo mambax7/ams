@@ -45,7 +45,7 @@ require_once XOOPS_ROOT_PATH . '/class/tree.php';
 
 
 //Added AMS 2.50. Enable user selection Editor. Modify at AMS 3.0 to correctly detect XOOPS 2.3.x scheme
-if (true === $xoopsModuleConfig['editor_userchoice']
+if (true === $helper->getConfig('editor_userchoice')
     && (file_exists(XOOPS_ROOT_PATH . '/Frameworks/xoops22/class/xoopsformloader.php')
         || file_exists(XOOPS_ROOT_PATH . '/class/xoopsform/formselecteditor.php'))) {
     if (isset($_REQUEST['seditor'])) {
@@ -57,14 +57,14 @@ if (true === $xoopsModuleConfig['editor_userchoice']
         AMS_setcookie('cookie_editor', $editor);
     } elseif (!$editor = AMS_getcookie('cookie_editor')) {
         if (empty($editor)) {
-            $editor =$xoopsModuleConfig['editor'];
+            $editor =$helper->getConfig('editor');
         }
     }
-    $editor_select=@ $xoopsModuleConfig['editor_choice'];
+    $editor_select=@ $helper->getConfig('editor_choice');
 } else {
-    $editor=$xoopsModuleConfig['editor'];
+    $editor=$helper->getConfig('editor');
 }
-//print $xoopsModuleConfig['editor'].'-'.$editor.'-'.$xoopsModuleConfig['editor'];exit;
+//print $helper->getConfig('editor').'-'.$editor.'-'.$helper->getConfig('editor');exit;
 
 //Added AMS 2.52. Fix famous BLANK page at submit form
 $wysiwyg_is_exist=0;
@@ -164,7 +164,7 @@ else require_once __DIR__ . '/'.XOOPS_ROOT_PATH."/modules/".$xoopsModule->getVar
 */
 
 //Only enable editor selection if Framework is enabled
-if (1 == $wysiwyg_is_exist && true === $xoopsModuleConfig['editor_userchoice']) {
+if (1 == $wysiwyg_is_exist && true === $helper->getConfig('editor_userchoice')) {
     $sform->addElement(new \XoopsFormSelectEditor($sform, 'seditor', $editor, $story->nohtml(), $editor_select));
 }
 
@@ -260,7 +260,7 @@ if ($edit && (!isset($_GET['approve']))) {
 
 // Manage upload(s)
 $allowupload = false;
-switch ($xoopsModuleConfig['uploadgroups']) {
+switch ($helper->getConfig('uploadgroups')) {
     case 1: //Submitters and Approvers
         $allowupload = true;
         break;
@@ -291,7 +291,7 @@ if ($allowupload) {
             $sform->addElement($upl_tray);
         }
     }
-    $sform->addElement(new \XoopsFormFile(_AMS_AM_SELFILE, 'attachedfile', $xoopsModuleConfig['maxuploadsize']), false);
+    $sform->addElement(new \XoopsFormFile(_AMS_AM_SELFILE, 'attachedfile', $helper->getConfig('maxuploadsize')), false);
 }
 
 

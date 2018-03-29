@@ -47,7 +47,7 @@ class db_manager
     {
         $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $this->db->setPrefix(XOOPS_DB_PREFIX);
-        $this->db->setLogger(\XoopsLogger::instance());
+        $this->db->setLogger(\XoopsLogger::getInstance());
     }
 
     public function isConnectable()

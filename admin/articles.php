@@ -41,6 +41,8 @@ require_once XOOPS_ROOT_PATH . '/modules/ams/include/functions.inc.php';
 //        ${$k} = $v;
 //    }
 //}
+/** @var Ams\Helper $helper */
+$helper = Ams\Helper::getInstance();
 
 $op = Request::getString('op', 'default');
 $storyid = Request::getInt('storyid', 0);
@@ -84,7 +86,9 @@ function newSubmissions()
 */
 function lastStories()
 {
-    global $xoopsModule, $xoopsModuleConfig;
+    global $xoopsModule;
+    /** @var Ams\Helper $helper */
+    $helper = Ams\Helper::getInstance();
     $start = Request::getInt('start', 0, 'GET');
 
     $title = Request::getString('title', '');
@@ -162,7 +166,7 @@ function lastStories()
         . '<th><a href="?'.$querystring.'&amp;sort=n.comments">' . _AMS_AM_COMMENTS . '</a></th>'
         . '<th>' . _AMS_AM_ACTION . '</th></tr>';
 
-    $storyarray = Story :: getAllNews($xoopsModuleConfig['storycountadmin'], $start, $criteria);
+    $storyarray = Story :: getAllNews($helper->getConfig('storycountadmin'), $start, $criteria);
     $storyids = array_keys($storyarray);
     $versioncount_arr = Story::getVersionCounts($storyids);
     foreach ($storyarray as $eachstory) {
@@ -194,9 +198,9 @@ function lastStories()
     }
     echo '</table><br>';
     $totalPublished = Story::countPublishedByTopic();
-    if ($totalPublished > $xoopsModuleConfig['storycountadmin']) {
+    if ($totalPublished > $helper->getConfig('storycountadmin')) {
         require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
-        $pagenav = new \XoopsPageNav($totalPublished, $xoopsModuleConfig['storycountadmin'], $start, 'start', $querystring);
+        $pagenav = new \XoopsPageNav($totalPublished, $helper->getConfig('storycountadmin'), $start, 'start', $querystring);
         echo $pagenav->renderNav();
     }
 }
@@ -206,7 +210,10 @@ function lastStories()
 */
 function topicsmanager()
 {
-    global $xoopsModule, $xoopsModuleConfig, $xoopsDB;
+    global $xoopsModule, $xoopsDB;
+    /** @var Ams\Helper $helper */
+    $helper = Ams\Helper::getInstance();
+
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     //$uploadfolder=sprintf(_AMS_AM_UPLOAD_WARNING,XOOPS_URL . "/modules/" . $xoopsModule -> dirname().'/assets/images/topics');
     $uploadirectory= '/modules/' . $xoopsModule-> dirname() . '/assets/images/topics';
@@ -223,7 +230,7 @@ function topicsmanager()
     echo "<form action='articles.php' method='POST'>";
     echo '<table width="100%" border="0" cellspacing="1" class="outer">';
     echo '<tr><th colspan="5">' . _AMS_AM_TOPICSMNGR . ' (' . ($start +1) .'-'
-        . (($start + $xoopsModuleConfig['storycountadmin']) > $totaltopics ? $totaltopics : $start + $xoopsModuleConfig['storycountadmin'])
+        . (($start + $helper->getConfig('storycountadmin')) > $totaltopics ? $totaltopics : $start + $helper->getConfig('storycountadmin'))
         . ' '._AMS_AM_OF.' '. $totaltopics . ')' .'</th></tr>';
     echo '<tr><th>' . _AMS_AM_TOPIC . '</th><th>' . _AMS_AM_TOPICNAME . '</th><th>' . _AMS_AM_PARENTTOPIC . '</th>'
         . '<th>' . _AMS_AM_WEIGHT . '</th><th>' . _AMS_AM_ACTION . '</th></tr>';
@@ -233,7 +240,7 @@ function topicsmanager()
         $i = 0;
         foreach ($topics_arr as $thisTopic) {
             $i++;
-            if ($i > $start && $i - $start <= $xoopsModuleConfig['storycountadmin']) {
+            if ($i > $start && $i - $start <= $helper->getConfig('storycountadmin')) {
                 $linkedit = XOOPS_URL . '/modules/'.$xoopsModule->dirname() . '/admin/articles.php?op=topicsmanager&amp;topic_id=' . $thisTopic->topic_id();
                 $linkdelete = XOOPS_URL . '/modules/'.$xoopsModule->dirname() . '/admin/articles.php?op=delTopic&amp;topic_id=' . $thisTopic->topic_id();
                 $action=sprintf("<a href='%s'>%s</a> - <a href='%s'>%s</a>", $linkedit, _AMS_AM_EDIT, $linkdelete, _AMS_AM_DELETE);
@@ -257,8 +264,8 @@ function topicsmanager()
     }
 
     echo '</table></div></div></form>';
-    if ($totaltopics > $xoopsModuleConfig['storycountadmin']) {
-        $pagenav = new \XoopsPageNav($totaltopics, $xoopsModuleConfig['storycountadmin'], $start, 'start', 'op=topicsmanager');
+    if ($totaltopics > $helper->getConfig('storycountadmin')) {
+        $pagenav = new \XoopsPageNav($totaltopics, $helper->getConfig('storycountadmin'), $start, 'start', 'op=topicsmanager');
         echo "<div align='right'>";
         echo $pagenav->renderNav().'</div><br>';
     }
@@ -310,7 +317,7 @@ function topicsmanager()
     $imageselect= new \XoopsFormSelect($imgpath, 'topic_imgurl', $topicimage);
     $topics_array = XoopsLists :: getImgListAsArray(XOOPS_ROOT_PATH . '/modules/ams/assets/images/topics/');
     foreach ($topics_array as $image) {
-        $imageselect->addOption("$image", $image);
+        $imageselect->addOption((string)$image, $image);
     }
     $imageselect->setExtra("onchange='showImgSelected(\"image3\", \"topic_imgurl\", \"" . $uploadirectory . '", "", "' . XOOPS_URL . "\")'");
     $imgtray->addElement($imageselect, false);
@@ -321,7 +328,7 @@ function topicsmanager()
 
     $uploadfolder=sprintf(_AMS_AM_UPLOAD_WARNING, XOOPS_URL . '/modules/' . $xoopsModule-> dirname() . '/assets/images/topics');
     $fileseltray= new \XoopsFormElementTray('', '<br>');
-    $fileseltray->addElement(new \XoopsFormFile(_AMS_AM_TOPIC_PICTURE, 'attachedfile', $xoopsModuleConfig['maxuploadsize']), false);
+    $fileseltray->addElement(new \XoopsFormFile(_AMS_AM_TOPIC_PICTURE, 'attachedfile', $helper->getConfig('maxuploadsize')), false);
     $fileseltray->addElement(new \XoopsFormLabel($uploadfolder), false);
     $imgtray->addElement($fileseltray);
     $sform->addElement($imgtray);
@@ -427,7 +434,10 @@ function topicsmanager()
 */
 function modTopicS()
 {
-    global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
+    global $xoopsDB, $xoopsModule;
+    /** @var Ams\Helper $helper */
+    $helper = Ams\Helper::getInstance();
+
     $xt = new Topic($xoopsDB -> prefix('ams_topics'), $_POST['topic_id']);
     if ($_POST['topic_pid'] == $_POST['topic_id']) {
         redirect_header('articles.php?op=topicsmanager', 2, _AMS_AM_ADD_TOPIC_ERROR1);
@@ -453,7 +463,7 @@ function modTopicS()
             $dstpath = XOOPS_ROOT_PATH . '/modules/' . $xoopsModule-> dirname() . '/assets/images/topics';
             $destname=$sfiles->createUploadName($dstpath, $fldname, true);
             $permittedtypes= ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'];
-            $uploader = new \XoopsMediaUploader($dstpath, $permittedtypes, $xoopsModuleConfig['maxuploadsize']);
+            $uploader = new \XoopsMediaUploader($dstpath, $permittedtypes, $helper->getConfig('maxuploadsize'));
             $uploader->setTargetFileName($destname);
             if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
                 if ($uploader->upload()) {
@@ -553,7 +563,10 @@ function delTopic()
 
 function addTopic()
 {
-    global $xoopsDB, $xoopsModule, $xoopsModuleConfig;
+    global $xoopsDB, $xoopsModule;
+    /** @var Ams\Helper $helper */
+    $helper = Ams\Helper::getInstance();
+
     $topicpid = isset($_POST['topic_pid']) ? (int)$_POST['topic_pid'] : 0;
     $xt = new Topic($xoopsDB -> prefix('ams_topics'));
     if (!$xt -> topicExists($topicpid, $_POST['topic_title'])) {
@@ -574,7 +587,7 @@ function addTopic()
                 $dstpath = XOOPS_ROOT_PATH . '/modules/' . $xoopsModule-> dirname() . '/assets/images/topics';
                 $destname=$sfiles->createUploadName($dstpath, $fldname, true);
                 $permittedtypes= ['image/gif', 'image/jpeg', 'image/pjpeg', 'image/x-png', 'image/png'];
-                $uploader = new \XoopsMediaUploader($dstpath, $permittedtypes, $xoopsModuleConfig['maxuploadsize']);
+                $uploader = new \XoopsMediaUploader($dstpath, $permittedtypes, $helper->getConfig('maxuploadsize'));
                 $uploader->setTargetFileName($destname);
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][0])) {
                     if ($uploader->upload()) {

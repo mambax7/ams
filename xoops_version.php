@@ -271,7 +271,7 @@ $modversion['comments']['callback']['update']  = 'ams_com_update';
 // Config Settings (only for modules that need config settings generated automatically)
 
 $config_count = 1;
-// name of config option for accessing its specified value. i.e. $xoopsModuleConfig['storyhome']
+// name of config option for accessing its specified value. i.e. $helper->getConfig('storyhome')
 $modversion['config'][$config_count]['name'] = 'storyhome';
 
 // title of this config option displayed in config settings form

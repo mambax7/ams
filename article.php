@@ -93,8 +93,8 @@ if ('' == $artbanner) {
     $artbanner = ' ';
 }
 $xoopsTpl->assign('articlebanner', $myts->displayTarea($artbanner, 1));
-$showcomments = (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) ? 1 : 0;
-$allow_rating = $xoopsUser || $xoopsModuleConfig['anonymous_vote'] ? 1 :0;
+$showcomments = (XOOPS_COMMENT_APPROVENONE != $helper->getConfig('com_rule')) ? 1 : 0;
+$allow_rating = $xoopsUser || $helper->getConfig('anonymous_vote') ? 1 :0;
 $xoopsTpl->assign('showcomments', $showcomments);
 $xoopsTpl->assign('allow_rating', $allow_rating);
 $xoopsTpl->assign('lang_printerpage', _AMS_NW_PRINTERFRIENDLY);

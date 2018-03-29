@@ -32,13 +32,13 @@ if (isset($_GET['storytopic'])) {
 }
 if (isset($_GET['storynum'])) {
     $xoopsOption['storynum'] = (int)$_GET['storynum'];
-    if ($xoopsOption['storynum'] > $xoopsModuleConfig['max_items']) {
-        $xoopsOption['storynum'] = $xoopsModuleConfig['max_items'];
+    if ($xoopsOption['storynum'] > $helper->getConfig('max_items')) {
+        $xoopsOption['storynum'] = $helper->getConfig('max_items');
     }
 } elseif ($xoopsOption['storytopic'] > 0) {
-    $xoopsOption['storynum'] = $xoopsModuleConfig['storyhome_topic'];
+    $xoopsOption['storynum'] = $helper->getConfig('storyhome_topic');
 } else {
-    $xoopsOption['storynum'] = $xoopsModuleConfig['storyhome'];
+    $xoopsOption['storynum'] = $helper->getConfig('storyhome');
 }
 
 if (isset($_GET['start'])) {
@@ -46,7 +46,7 @@ if (isset($_GET['start'])) {
 } else {
     $start = 0;
 }
-if (empty($xoopsModuleConfig['newsdisplay']) || 'Classic' === $xoopsModuleConfig['newsdisplay'] || $xoopsOption['storytopic'] > 0) {
+if (empty($helper->getConfig('newsdisplay')) || 'Classic' === $helper->getConfig('newsdisplay') || $xoopsOption['storytopic'] > 0) {
     $showclassic = 1;
 } else {
     $showclassic = 0;
@@ -54,7 +54,7 @@ if (empty($xoopsModuleConfig['newsdisplay']) || 'Classic' === $xoopsModuleConfig
 
 $myts = \MyTextSanitizer::getInstance();
 $pagetitle = $myts->htmlSpecialChars($xoopsModule->name());
-$column_count = $xoopsModuleConfig['columnmode'];
+$column_count = $helper->getConfig('columnmode');
 if ($showclassic) {
     $GLOBALS['xoopsOption']['template_main'] = 'ams_index.tpl';
 } else {
@@ -62,7 +62,7 @@ if ($showclassic) {
 }
 include XOOPS_ROOT_PATH.'/header.php';
 $xoopsTpl->assign('columnwidth', (int)(1 / $column_count * 100));
-if (1 == $xoopsModuleConfig['displaynav']) {
+if (1 == $helper->getConfig('displaynav')) {
     $xoopsTpl->assign('displaynav', true);
     $xt = new Ams\Topic($xoopsDB->prefix('ams_topics'));
     $allTopics = $xt->getAllTopics(true);
@@ -73,7 +73,7 @@ if (1 == $xoopsModuleConfig['displaynav']) {
     $topic_form->addElement($topic_tree->makeSelectElement('storytopic', 'topic_title', '-', $xoopsOption['storytopic'], true));
     // Make number options
     $i = 1;
-    while ($i <= $xoopsModuleConfig['max_items']) {
+    while ($i <= $helper->getConfig('max_items')) {
         $options[$i] = $i;
         if (1 == $i) {
             $i = 5;
@@ -98,7 +98,7 @@ if ($showclassic) {
     $sortColumn = $helper->getConfig('index_sort_column', 'published');
     $sortOrder  = $helper->getConfig('index_sort_order', 'DESC');
 
-    $sarray = Story::getAllPublished($xoopsOption['storynum'], $start, $xoopsModuleConfig['restrictindex'], $xoopsOption['storytopic'], $ihome, true, $sortColumn, false, $sortOrder);
+    $sarray = Story::getAllPublished($xoopsOption['storynum'], $start, $helper->getConfig('restrictindex'), $xoopsOption['storytopic'], $ihome, true, $sortColumn, false, $sortOrder);
     $scount = count($sarray);
     $xoopsTpl->assign('story_count', $scount);
     if ($scount > 0) {
@@ -117,7 +117,7 @@ if ($showclassic) {
     }
     $xoopsTpl->assign('columns', $column_count);
 
-    $totalcount = Story::countPublishedByTopic($xoopsOption['storytopic'], $xoopsModuleConfig['restrictindex']);
+    $totalcount = Story::countPublishedByTopic($xoopsOption['storytopic'], $helper->getConfig('restrictindex'));
     if ($totalcount > $scount) {
         require_once XOOPS_ROOT_PATH.'/class/pagenav.php';
         $pagenav = new \XoopsPageNav($totalcount, $xoopsOption['storynum'], $start, 'start', 'storytopic='.$xoopsOption['storytopic']);
@@ -139,7 +139,7 @@ if ($showclassic) {
 } else {
     require_once XOOPS_ROOT_PATH . '/class/tree.php';
     $xt = new Ams\Topic($xoopsDB -> prefix('ams_topics'));
-    $allTopics = $xt->getAllTopics($xoopsModuleConfig['restrictindex']);
+    $allTopics = $xt->getAllTopics($helper->getConfig('restrictindex'));
     $topic_obj_tree = new \XoopsObjectTree($allTopics, 'topic_id', 'topic_pid');
     $alltopics = $topic_obj_tree->getFirstChild(0);
 
@@ -189,7 +189,7 @@ if ($showclassic) {
     $xoopsTpl->assign('columns', $column_count);
     $xoopsTpl->assign('breadcrumb', false);
 }
-if (XOOPS_COMMENT_APPROVENONE != $xoopsModuleConfig['com_rule']) {
+if (XOOPS_COMMENT_APPROVENONE != $helper->getConfig('com_rule')) {
     $showcomments = 1;
 } else {
     $showcomments = 0;
