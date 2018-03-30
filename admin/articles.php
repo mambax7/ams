@@ -217,7 +217,7 @@ function topicsmanager()
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     //$uploadfolder=sprintf(_AMS_AM_UPLOAD_WARNING,XOOPS_URL . "/modules/" . $xoopsModule -> dirname().'/assets/images/topics');
     $uploadirectory= '/modules/' . $xoopsModule-> dirname() . '/assets/images/topics';
-    $start = isset($_GET['start']) ? (int)$_GET['start'] : 0;
+    $start = \Xmf\Request::getInt('start', 0, 'GET');
 
     require_once XOOPS_ROOT_PATH . '/class/tree.php';
     $xt = new Topic($xoopsDB -> prefix('ams_topics'));
@@ -270,7 +270,7 @@ function topicsmanager()
         echo $pagenav->renderNav().'</div><br>';
     }
 
-    $topic_id = isset($_GET['topic_id']) ? (int)$_GET['topic_id'] : 0;
+    $topic_id = \Xmf\Request::getInt('topic_id', 0, 'GET');
     if ($topic_id>0) {
         $xtmod = $topics_arr[$topic_id];
         $topic_title=$xtmod->topic_title('E');
@@ -453,7 +453,7 @@ function modTopicS()
 
     $xt->banner_inherit = isset($_POST['banner_inherit']) ? 1 : 0;
     $xt->banner = $_POST['banner'];
-    $xt->forum_id = isset($_POST['forum_id']) ? (int)$_POST['forum_id'] : 0;
+    $xt->forum_id = \Xmf\Request::getInt('forum_id', 0, 'POST');
 
     if (isset($_POST['xoops_upload_file'])) {
         $fldname = $_FILES[$_POST['xoops_upload_file'][0]];
@@ -567,7 +567,7 @@ function addTopic()
     /** @var Ams\Helper $helper */
     $helper = Ams\Helper::getInstance();
 
-    $topicpid = isset($_POST['topic_pid']) ? (int)$_POST['topic_pid'] : 0;
+    $topicpid = \Xmf\Request::getInt('topic_pid', 0, 'POST');
     $xt = new Topic($xoopsDB -> prefix('ams_topics'));
     if (!$xt -> topicExists($topicpid, $_POST['topic_title'])) {
         $xt -> setTopicPid($topicpid);
@@ -603,7 +603,7 @@ function addTopic()
 
         $xt->banner_inherit = isset($_POST['banner_inherit']) ? 1 : 0;
         $xt->banner = $_POST['banner'];
-        $xt->forum_id = isset($_POST['forum_id']) ? (int)$_POST['forum_id'] : 0;
+        $xt->forum_id = \Xmf\Request::getInt('forum_id', 0, 'POST');
         if ($xt -> store()) {
             //This will set default audience
             global $xoopsModule;
@@ -749,7 +749,7 @@ switch ($op) {
                 echo "<div class='confirmMsg'><h3>" . $audience->getVar('audience') . ' Saved</h3></div>';
             }
         }
-        $audid = isset($_GET['audid']) ? (int)$_GET['audid'] : 0;
+        $audid = \Xmf\Request::getInt('audid', 0, 'GET');
         audienceForm($audid);
         echo listAudience();
         break;

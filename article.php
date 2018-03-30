@@ -36,9 +36,8 @@ $helper->loadLanguage('main');
     ${$k} = $v;
 }
 */
-$storyid = isset($_GET['storyid']) ? $_GET['storyid'] : 0;
-$storyid = (int)$storyid;
-if (empty($storyid)) {
+$storyid = \Xmf\Request::getInt('storyid', 0, GET);
+if (0 === $storyid) {
     redirect_header(XOOPS_URL . '/modules/ams/index.php', 2, _AMS_NW_NOSTORY);
     exit();
 }
@@ -76,7 +75,7 @@ if (!$gpermHandler->checkRight('ams_approve', $article->topicid(), $groups, $xoo
     $admin = true;
 }
 
-$storypage = isset($_GET['page']) ? (int)$_GET['page'] : 0;
+$storypage = \Xmf\Request::getInt('page', 0, 'GET');
 // update counter only when viewing top page
 if (empty($_GET['com_id']) && 0 == $storypage) {
     $article->updateCounter();

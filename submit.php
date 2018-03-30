@@ -35,7 +35,7 @@ $module_id = $xoopsModule->getVar('mid');
 $groups    = $xoopsUser ? $xoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
 
 $gpermHandler = xoops_getHandler('groupperm');
-$perm_itemid  = isset($_POST['topic_id']) ? (int)$_POST['topic_id'] : 0;
+$perm_itemid  = \Xmf\Request::getInt('topic_id', 0, 'POST');
 
 //If no access
 if (!$gpermHandler->checkRight('ams_submit', $perm_itemid, $groups, $module_id)) {
@@ -169,9 +169,9 @@ switch ($op) {
             $story->setTopicalign($_POST['topicalign']);
             $story->audienceid = $_POST['audience'];
         } else {
-            $noname = isset($_POST['noname']) ? (int)$_POST['noname'] : 0;
+            $noname = \Xmf\Request::getInt('noname', 0, 'POST');
         }
-        $notifypub = isset($_POST['notifypub']) ? (int)$_POST['notifypub'] : 0;
+        $notifypub = \Xmf\Request::getInt('notifypub', 0, 'POST');
         $story->setNotifyPub($notifypub);
 
         if (isset($_POST['nosmiley']) && (0 == $_POST['nosmiley'] || 1 == $_POST['nosmiley'])) {
@@ -182,7 +182,7 @@ switch ($op) {
         if ($approveprivilege) {
             $change = isset($_POST['change']) ? $_POST['change'] : 0;
             $story->setChange($change);
-            $nohtml = isset($_POST['nohtml']) ? (int)$_POST['nohtml'] : 0;
+            $nohtml = \Xmf\Request::getInt('nohtml', 0, 'POST');
             $story->setNohtml($nohtml);
             if (!isset($_POST['approve'])) {
                 $story->setApproved(0);
@@ -272,8 +272,8 @@ switch ($op) {
         $story->setTopicId($_POST['topic_id']);
         $story->setHostname(xoops_getenv('REMOTE_ADDR'));
         $story->setNohtml($nohtml_db);
-        $nosmiley  = isset($_POST['nosmiley']) ? (int)$_POST['nosmiley'] : 0;
-        $notifypub = isset($_POST['notifypub']) ? (int)$_POST['notifypub'] : 0;
+        $nosmiley  = \Xmf\Request::getInt('nosmiley', 0, 'POST');
+        $notifypub = \Xmf\Request::getInt('notifypub', 0, 'POST');
         $story->setNosmiley($nosmiley);
         $story->setNotifyPub($notifypub);
         $story->setType($_POST['type']);

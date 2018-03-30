@@ -48,10 +48,10 @@ $xoopsTpl->assign([
                       'xoops_slogan'     => htmlspecialchars($xoopsConfig['slogan'], ENT_QUOTES)
                   ]);
 
-$storyid = isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0;
-$version = isset($_GET['version']) ? (int)$_GET['version'] : 0;
-$revision = isset($_GET['revision']) ? (int)$_GET['revision'] : 0;
-$revisionminor = isset($_GET['revisionminor']) ? (int)$_GET['revisionminor'] : 0;
+$storyid = \Xmf\Request::getInt('storyid', 0, 'GET');
+$version = \Xmf\Request::getInt('version', 0, 'GET');
+$revision = \Xmf\Request::getInt('revision', 0, 'GET');
+$revisionminor = \Xmf\Request::getInt('revisionminor', 0, 'GET');
 if (!$storyid || !$version) {
     redirect_header(XOOPS_URL . '/modules/ams/index.php', 2, _AMS_NW_NOSTORY);
     exit();

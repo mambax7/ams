@@ -21,8 +21,8 @@ use XoopsModules\Ams;
 
 include __DIR__ . '/../../mainfile.php';
 
-$storyid = isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0;
-if (empty($storyid)) {
+$storyid = \Xmf\Request::getInt('storyid', 0, 'GET');
+if (0 === $storyid) {
     redirect_header(XOOPS_URL . '/modules/ams/index.php');
 }
 //require_once XOOPS_ROOT_PATH.'/modules/'.$xoopsModule->dirname().'/class/Story.php';

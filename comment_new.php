@@ -28,7 +28,7 @@ use XoopsModules\Ams;
 
 include __DIR__ . '/../../mainfile.php';
 //require_once XOOPS_ROOT_PATH.'/modules/ams/class/Story.php';
-$com_itemid = isset($_GET['com_itemid']) ? (int)$_GET['com_itemid'] : 0;
+$com_itemid = \Xmf\Request::getInt('com_itemid', 0, 'GET');
 if ($com_itemid > 0) {
     $article = new Ams\Story($com_itemid);
     $article->uname();

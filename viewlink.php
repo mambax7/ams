@@ -28,7 +28,7 @@ use XoopsModules\Ams;
 
 include __DIR__ . '/../../mainfile.php';
 
-$lid = isset($_GET['lid']) ? (int)$_GET['lid'] : 0;
+$lid = \Xmf\Request::getInt('lid', 0, 'GET');
 $rev = isset($_GET['rev']) ? true : false;
 
 $linkHandler = Ams\Helper::getInstance()->getHandler('Link');

@@ -7,7 +7,7 @@ include __DIR__ . '/../../mainfile.php';
 //require_once __DIR__ . '/class/Story.php';
 
 $myts = \MyTextSanitizer::getInstance(); // MyTextSanitizer object
-$fileid = isset($_GET['fileid']) ? (int)$_GET['fileid'] : 0;
+$fileid = \Xmf\Request::getInt('fileid', 0, 'GET');
 if (empty($fileid)) {
     redirect_header(XOOPS_URL . '/modules/ams/index.php', 2, _ERRORS);
     exit();
