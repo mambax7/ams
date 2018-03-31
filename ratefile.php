@@ -7,7 +7,7 @@ include __DIR__ . '/../../mainfile.php';
 if (empty($_POST['submit'])) {
     $_POST['submit'] = '';
 }
-$storyid = isset($_POST['storyid']) ? (int)$_POST['storyid'] : (isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0);
+$storyid = \Xmf\Request::getInt('storyid', (isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0), 'POST');
 if ($storyid > 0) {
     $article = new Ams\Story($storyid);
 } else {

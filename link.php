@@ -35,7 +35,7 @@ if (!$xoopsUser) {
     redirect_header(XOOPS_URL.'/modules/ams/index.php', 3, _NOPERM);
 }
 require_once XOOPS_ROOT_PATH.'/modules/ams/class/Story.php';
-$storyid = isset($_POST['storyid']) ? (int)$_POST['storyid'] : (isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0);
+$storyid = \Xmf\Request::getInt('storyid', (isset($_GET['storyid']) ? (int)$_GET['storyid'] : 0), 'POST');
 if (!$storyid) {
     redirect_header(XOOPS_URL . '/modules/ams/index.php', 2, _AMS_NW_NOSTORY);
     exit();
