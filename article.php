@@ -36,7 +36,7 @@ $helper->loadLanguage('main');
     ${$k} = $v;
 }
 */
-$storyid = \Xmf\Request::getInt('storyid', 0, GET);
+$storyid = \Xmf\Request::getInt('storyid', 0, 'GET');
 if (0 === $storyid) {
     redirect_header(XOOPS_URL . '/modules/ams/index.php', 2, _AMS_NW_NOSTORY);
     exit();
